@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:motan="http://api.weibo.com/schema/motan"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+   http://api.weibo.com/schema/motan http://api.weibo.com/schema/motan.xsd">
+
+    <!-- service implemention bean -->
+    <!--<bean id="serviceImpl" class="quickstart.FooServiceImpl" />-->
+    <!--&lt;!&ndash; exporting service by Motan &ndash;&gt;-->
+    <!--<motan:service interface="quickstart.FooService" ref="serviceImpl" export="8002" />-->
+    <!--motan 通信协议-->
+    <motan:protocol id="my_protocol" name="motan" requestTimeout="20000" haStrategy="failfast"/>
+    <!--motan 注册中心-->
+    <motan:registry  name="my_zookeeper"  regProtocol="zookeeper" address="${motan.zookeeper}"/>
+    <!-- 通用配置，多个rpc服务使用相同的基础配置group和module定义具体的服务池
+     accessLog 设为true，将向logger 中输出访问日志 retries重试次数  -->
+    <motan:basicReferer id="basicRefererConfig"  group="motan-core-rpc"  module="motan-core-rpc" 
+                        registry="my_zookeeper" protocol="my_protocol"  retries="0" accessLog="true" check="false"  />
+    
+    
+    
+    <import resource="spring-motan-referer.xml" />
+</beans>
