@@ -24,9 +24,9 @@ public class UserController {
     
 
     @RequestMapping("/goDetail")
-    public ModelAndView goDetail(){
+    public ModelAndView goDetail(String id){
 
-        UserDto userDto=userAppService.selectByPrimaryKey("2672a7b2-7baf-4cfa-acac-dbb467e11e97");
+        UserDto userDto=userAppService.selectByPrimaryKey(id);
         Map<String,Object> userDtoMap=new HashMap<>();
         userDtoMap.put("user",userDto);
         

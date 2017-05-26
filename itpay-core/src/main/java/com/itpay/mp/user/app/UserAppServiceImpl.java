@@ -5,6 +5,7 @@ import com.itpay.mp.user.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by feng on 2017/5/24 0024.
@@ -28,6 +29,36 @@ public class UserAppServiceImpl  implements UserAppService{
     public UserDto selectByPrimaryKey(String id) {
         return userService.selectByPrimaryKey(id);
     }
-    
-    
+
+    /**
+     * 查询所有用户
+     *
+     * @return list
+     */
+    @Override
+    public List<UserDto> findAll() {
+        return null;
+    }
+
+    /**
+     * 增加用户
+     *
+     * @param userDto 用户
+     */
+    @Override
+    public void addUser(UserDto userDto) {
+        userService.insert(userDto);
+    }
+
+    /**
+     * 更新用户
+     *
+     * @param userDto 用户
+     */
+    @Override
+    public void update(UserDto userDto) {
+        userService.updateByPrimaryKey(userDto);
+    }
+
+
 }
