@@ -1,0 +1,24 @@
+.test-color {
+    color: white;
+}
+
+div.login-box-body {
+    background-color: rgba(0, 0, 0, 0.23);
+}
+
+div.login-box {
+    margin: auto ;
+    position: absolute;
+    right: 10%;
+    top: 20%;
+}
+
+body.login-page {
+    background: url("../imgs/background.jpg") no-repeat;
+    background-size: 100% 100%;
+}
+
+input.form-control {
+    color: white;
+    background-color: rgba(226, 110, 90, 0.05);
+}

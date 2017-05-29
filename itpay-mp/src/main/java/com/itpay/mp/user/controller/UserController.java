@@ -30,7 +30,7 @@ public class UserController {
         Map<String,Object> userDtoMap=new HashMap<>();
         userDtoMap.put("user",userDto);
         
-        return new ModelAndView("detail",userDtoMap);
+        return new ModelAndView("user/detail",userDtoMap);
     }
     
 }
