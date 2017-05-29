@@ -30,6 +30,8 @@
         <mysql.connector.version>5.1.42</mysql.connector.version>
         <druid.version>1.0.31</druid.version>
         <motan.version>0.3.0</motan.version>
+        <!--shiro-->
+        <shiro.version>1.4.0</shiro.version>
     </properties>
 
     <!-- maven 私服 jar库  -->
