@@ -22,3 +22,7 @@ input.form-control {
     color: white;
     background-color: rgba(226, 110, 90, 0.05);
 }
+
+img.form-control.captcha{
+    padding: 0 0;
+}

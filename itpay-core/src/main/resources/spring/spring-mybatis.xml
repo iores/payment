@@ -11,7 +11,7 @@
     </bean>
     <!-- Transaction -->
     <aop:config>
-        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* com.itpay..*.*Service.*(..))"/>
+        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* com.itpay..*.*Manager.*(..))"/>
     </aop:config>
 
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
@@ -21,6 +21,7 @@
             <tx:method name="load*" propagation="SUPPORTS" read-only="true"/>
             <tx:method name="is*" propagation="SUPPORTS" read-only="true"/>
             <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
 
             <tx:method name="*" timeout="-1"/>
             <tx:method name="writeSystemLog" propagation="REQUIRES_NEW" timeout="30"/>

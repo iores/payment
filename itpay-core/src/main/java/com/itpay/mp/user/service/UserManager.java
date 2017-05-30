@@ -6,7 +6,7 @@ import com.itpay.mp.user.dto.UserDto;
  * Created by feng on 2017/5/22 0022.
  * 用户
  */
-public interface UserService {
+public interface UserManager {
 
 
     int insert(UserDto record);

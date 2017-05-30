@@ -14,9 +14,9 @@
     <!--motan 注册中心-->
     <motan:registry  name="my_zookeeper"  regProtocol="zookeeper" address="${motan.zookeeper}"/>
     <!-- 通用配置，多个rpc服务使用相同的基础配置. export 为协议:端口号  group和module定义具体的服务池。export格式为“protocol id:提供服务的端口”
-     accessLog 设为true，将向logger 中输出访问日志  -->
+     accessLog 设为true，将向logger 中输出访问日志  shareChannel 设置为共享，多个服务可以公用一个端口 -->
     <motan:basicService id="baseService" export="my_protocol:18002" group="motan-core-rpc" 
-                        module="motan-core-rpc" registry="my_zookeeper" timeout="10000" accessLog="true"/>
+                        module="motan-core-rpc" registry="my_zookeeper" shareChannel="true" timeout="10000" accessLog="true" />
     
     
     

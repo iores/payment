@@ -7,6 +7,7 @@
 
     
     <motan:referer  id="userAppService"  basicReferer="basicRefererConfig" interface="com.itpay.mp.user.app.UserAppService" />
-    
+
+    <motan:referer  id="userLoginAppService"  basicReferer="basicRefererConfig" interface="com.itpay.mp.user.app.UserLoginAppService" />
     
 </beans>

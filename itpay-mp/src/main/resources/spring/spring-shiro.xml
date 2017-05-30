@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+
+
+
+    <!-- Shiro过滤器 核心-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- Shiro的核心安全接口,这个属性是必须的 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 身份认证失败，则跳转到登录页面的配置 -->
+        <property name="loginUrl" value="/login.html"/>
+        <!--登陆成功,跳转的页面-->
+        <property name="successUrl" value="/welcome.do"/>
+        <!-- 权限认证失败，则跳转到指定页面 -->
+        <property name="unauthorizedUrl" value="/403.html"/>
+        <!-- Shiro连接约束配置,即过滤链的定义 -->
+        <property name="filters">
+            <util:map>
+                <entry key="authc" value-ref="captchaFormAuthenticationFilter"/>
+            </util:map>
+        </property>
+        <property name="filterChainDefinitions">
+            <value>
+                /=anon
+                <!--静态资源取消权限-->
+                /css/** = anon
+                /plugs/** = anon
+                /imgs/** = anon
+                /image/captcha.html*=anon
+                
+                /login.html*=authc
+                /logout.do*=anon
+
+                # 权限配置示例
+                /security/account/view.do=authc,perms[SECURITY_ACCOUNT_VIEW]
+
+                /** = authc
+            </value>
+        </property>
+    </bean>
+
+    <!-- 安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myShiroRealm"/>
+    </bean>
+    <!-- 配置自定义Realm -->
+    <bean id="myShiroRealm" class="com.itpay.mp.base.shiro.MyShiroRealm">
+        <property name="userLoginAppService" ref="userLoginAppService"/>
+    </bean>
+
+    <bean id="lifecycleBeanPostProcessor"  class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <bean id="captchaFormAuthenticationFilter" class="com.itpay.mp.base.shiro.CaptchaFormAuthenticationFilter"/>
+    
+</beans>
+    

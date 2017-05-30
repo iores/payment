@@ -10,8 +10,8 @@ import javax.annotation.Resource;
  * Created by feng on 2017/5/22 0022.
  * 用户
  */
-@Service("userService")
-public class UserServiceImpl  implements UserService{
+@Service("userManager")
+public class UserManagerImpl implements UserManager {
     
     @Resource(name="userMapper")
     private UserMapper userMapper;

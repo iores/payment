@@ -33,5 +33,24 @@
 
     <!-- 自动开启一个默认的servlet处理器，所以有的地址都通过此处理器，主要为了处理静态资源 -->
     <mvc:default-servlet-handler />
-
+    <!--配置验证码信息-->
+    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+        <property name="config">
+            <bean class="com.google.code.kaptcha.util.Config">
+                <constructor-arg>
+                    <props>
+                        <prop key="kaptcha.border">no</prop>
+                        <prop key="kaptcha.border.color">105,179,90</prop>
+                        <prop key="kaptcha.textproducer.font.color">black</prop>
+                        <prop key="kaptcha.textproducer.char.space">3</prop>
+                        <prop key="kaptcha.image.width">200</prop>
+                        <prop key="kaptcha.image.height">60</prop>
+                        <prop key="kaptcha.textproducer.font.size">45</prop>
+                        <prop key="kaptcha.textproducer.char.length">5</prop>
+                        <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+                    </props>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
 </beans>

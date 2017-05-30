@@ -32,6 +32,6 @@
         <property name="queueCapacity" value="70"/>
     </bean>
     
-    <import resource="spring-mybatis.xml"/>
+    <import resource="classpath:/spring/spring-mybatis.xml"/>
     <import resource="classpath:/motan/spring-motan.xml" />
 </beans>

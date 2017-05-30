@@ -7,6 +7,8 @@
 
     
     <motan:service  interface="com.itpay.mp.user.app.UserAppService" ref="userAppService"  basicService="baseServiceConfig" />
+
+    <motan:service  interface="com.itpay.mp.user.app.UserLoginAppService" ref="userLoginAppService"  basicService="baseServiceConfig" />
     
     
 </beans>

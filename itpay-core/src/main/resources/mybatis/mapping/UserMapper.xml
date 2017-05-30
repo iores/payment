@@ -21,16 +21,16 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from T_USER_INFO
+        from t_user_info
         where id = #{id,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        DELETE FROM T_USER_INFO
+        DELETE FROM t_user_info
         WHERE id = #{id,jdbcType=VARCHAR}
     </delete>
     
     <insert id="insert" parameterType="com.itpay.mp.user.dto.UserDto">
-        INSERT INTO T_USER_INFO (id, email, status,
+        INSERT INTO t_user_info (id, email, status,
                                  name, sex, create_time, phone)
         VALUES (#{id,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
                 #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
@@ -38,7 +38,7 @@
     </insert>
     <insert id="insertSelective" parameterType="com.itpay.mp.user.dto.UserDto">
 
-        insert into T_USER_INFO
+        insert into t_user_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -88,7 +88,7 @@
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.itpay.mp.user.dto.UserDto">
 
-        update T_USER_INFO
+        update t_user_info
         <set>
             <if test="email != null">
                 email = #{email,jdbcType=VARCHAR},
@@ -114,7 +114,7 @@
 
     <update id="updateByPrimaryKey" parameterType="com.itpay.mp.user.dto.UserDto">
 
-        UPDATE T_USER_INFO
+        UPDATE t_user_info
         SET email       = #{email,jdbcType=VARCHAR},
             status      = #{status,jdbcType=VARCHAR},
             name        = #{name,jdbcType=VARCHAR},
