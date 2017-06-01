@@ -29,3 +29,7 @@ img.form-control.captcha{
 .error-message{
     color: #dd4b39;
 }
+
+.tab-content >ul{
+    background-color: #357ca5;
+}

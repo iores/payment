@@ -18,8 +18,10 @@
 <link rel="stylesheet"    href="<%= request.getContextPath() %>/plugs/bootstrap/css/bootstrap.min.css">
 <!-- Ionicons -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/plugs/other/ionicons-2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/plugs/other/font-awesome/4.2.0/css/font-awesome.min.css" />
 <!-- Theme style -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/plugs/AdminLTE/css/AdminLTE.min.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/plugs/AdminLTE/css/skins/_all-skins.min.css">
 <%--主题样式--%>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/plugs/AdminLTE/css/skins/skin-blue.min.css">
 <!-- iCheck -->
@@ -36,6 +38,7 @@
 <script src="<%= request.getContextPath() %>/plugs/bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="<%= request.getContextPath() %>/plugs/other/iCheck/icheck.min.js"></script>
+
 <%--bootstrapValidator--%>
 <script type="text/javascript" src="<%= request.getContextPath() %>/plugs/other/bootstrapValidator/js/bootstrapValidator.js"></script>
 <script type="text/javascript" src="<%= request.getContextPath() %>/plugs/other/bootstrapValidator/js/language/zh_CN.js"></script>

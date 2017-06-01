@@ -78,7 +78,6 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             Subject subject = getSubject(request, response);
             //shiro 执行登陆
             subject.login(token);
-
             return onLoginSuccess(token, subject, request, response);
         } catch (AuthenticationException e) {
             return onLoginFailure(token, e, request, response);

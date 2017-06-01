@@ -28,7 +28,7 @@
                                message: '用户名不能为空'
                            },
                            stringLength: {/*长度提示*/
-                               min: 6,
+                               min: 3,
                                max: 30,
                                message: '用户名长度必须在6到30之间'
                            }
