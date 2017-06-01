@@ -31,7 +31,7 @@
                                min: 6,
                                max: 30,
                                message: '用户名长度必须在6到30之间'
-                           }/*最后一个没有逗号*/
+                           }
                        }
                    },
                    password: {
@@ -82,7 +82,16 @@
                         <img src="image/captcha.html" id="captcha" onclick="changeCaptcha(this)" class="form-control captcha "  alt="验证码" />
                     </div>
                 </div>
-
+                <%--err-messages--%>
+                <div class="row">
+                    <div class="col-xs-12" >
+                        <span class="error-message" id="login-error">
+                            <%@ include file="login_error_msg.jsp" %>
+                            <%--<jsp:include page="login_error_msg.jsp"/>--%>
+                        </span>
+                    </div>
+                </div>
+                
                 <div class="row">
                     <div class="col-xs-8">
                         <a href="#">忘记密码?</a>

@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/plugs/other/ionicons-2.0.1/css/ionicons.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/plugs/AdminLTE/css/AdminLTE.min.css">
+<%--主题样式--%>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/plugs/AdminLTE/css/skins/skin-blue.min.css">
 <!-- iCheck -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/plugs/other/iCheck/square/blue.css">
 <%--自定义的css--%>

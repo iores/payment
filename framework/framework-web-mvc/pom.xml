@@ -43,6 +43,13 @@
             <artifactId>commons-fileupload</artifactId>
             <version>${fileupload.version}</version>
         </dependency>
+        <!--jstl 标签库-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+
     </dependencies>
    
 

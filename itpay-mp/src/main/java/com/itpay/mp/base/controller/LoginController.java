@@ -2,6 +2,7 @@ package com.itpay.mp.base.controller;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,19 +32,24 @@ public class LoginController {
      */
     @RequestMapping("/login")
     public String  goLogin(){
+        //如果已经登陆，那么直接跳转到成功页面
+        if(SecurityUtils.getSubject().isAuthenticated()){
+            return "redirect:/main.html";
+        }
         return "login";
     }
 
 
     /**
-     * 进入登录界面 
+     * 登陆成功
      */
-    @RequestMapping("/doLogin")
-    @ResponseBody
-    public String  doLogin(){
-        return "登陆成功";
+    @RequestMapping("/main")
+    public String  main(){
+        return "base/home";
     }
 
+    
+    
     /**
      * 生成验证码
      */

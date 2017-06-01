@@ -2,9 +2,12 @@ package com.itpay.mp.base.shiro;
 
 import com.itpay.mp.base.shiro.exception.IncorrectCaptchaException;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -15,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
  * 扩展验证码认证
  */
 public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
+    
+    private Logger log= LoggerFactory.getLogger(CaptchaFormAuthenticationFilter.class);
 
     public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
     private String captchaParam = DEFAULT_CAPTCHA_PARAM;
@@ -67,13 +72,23 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         try {
             doCaptchaValidate((HttpServletRequest) request, token);
 
+            
+            //执行业务校验
+            
             Subject subject = getSubject(request, response);
+            //shiro 执行登陆
             subject.login(token);
 
             return onLoginSuccess(token, subject, request, response);
         } catch (AuthenticationException e) {
             return onLoginFailure(token, e, request, response);
+        }catch (Exception e){
+            return onLoginFailure(token, new AuthenticationException(e.getMessage()), request, response);
         }
 
+    }
+
+    protected void setFailureAttribute(ServletRequest request, AuthenticationException ae) {
+        request.setAttribute(getFailureKeyAttribute(), ae);
     }
 }
