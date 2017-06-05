@@ -30,6 +30,22 @@ img.form-control.captcha{
     color: #dd4b39;
 }
 
-.tab-content >ul{
-    background-color: #357ca5;
+/*.tab-content >ul{*/
+    /*background-color: #357ca5;*/
+/*}*/
+
+.nav-tabs>li>a{
+    border: 1px solid #ddd;
+    margin-right: -1px;
+    color:black;
+}
+/*tab 明细里面增加关闭按钮*/
+.nav-tabs>li>a>span.fa.fa-times {
+    right: 1px;top:1px;
+    position:absolute;
+    color: #97a0b3
+}
+/*tab  关闭按钮鼠标移动上去的效果*/
+.nav-tabs>li>a>span.fa.fa-times:hover {
+    color: black;
 }
