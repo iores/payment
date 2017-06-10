@@ -14,7 +14,7 @@
 
     <properties>
         <!--maven 仓库地址-->
-        <maven.host>http://192.168.0.115:8001</maven.host>
+        <maven.host>http://192.168.123.115:8001</maven.host>
         <!--自己的组件版本-->
         <framework.version>1.0-SNAPSHOT</framework.version>
         <!--spring 版本-->
