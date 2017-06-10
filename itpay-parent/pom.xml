@@ -13,7 +13,7 @@
     <description>系统</description>
 
     <properties>
-        <!--maven 仓库地址-->
+        <!--maven 仓库地址1-->
         <maven.host>http://192.168.123.115:8001</maven.host>
         <!--自己的组件版本-->
         <framework.version>1.0-SNAPSHOT</framework.version>
