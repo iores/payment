@@ -152,24 +152,26 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div id="page_content" class="content-wrapper tab-content ">
+
+
+        <button class="button_backward" >
+            <i class="fa fa-backward"></i>
+        </button>
         <%--tab title--%>
-        <ul class="nav nav-tabs" id="nav-tabs_01" >
+        <ul class="nav nav-tabs" id="nav-tabs_01"  >
             <li class="active">
                 <a href="#main_pane" data-toggle="tab">
                     <i class="fa fa-dashboard"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <div style="position: absolute;padding-left: 6px;padding-right:2px;top: 4px">
-                <div >
-                    <span class="glyphicon glyphicon-menu-left"></span>
-                </div>
-                <div >
-                    <span class="glyphicon glyphicon-menu-right"></span>
-                </div>
-            </div>
+
+            <button class="button_forward">
+                <i class="fa fa-forward"></i>
+            </button>
         </ul>
-       
+
+   
             
             
         <div id="main_pane" class="tab-pane active">

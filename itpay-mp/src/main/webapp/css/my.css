@@ -49,3 +49,24 @@ img.form-control.captcha{
 .nav-tabs>li>a>span.fa.fa-times:hover {
     color: black;
 }
+button.button_backward{
+    float: left;
+    background: white; 
+    border: 0;
+    width: 30px;
+    height: 41px;
+    text-align: center;
+    color: #999;
+}
+button.button_forward{
+    float: right;
+    background: white;
+    border: 0;
+    width: 30px;
+    height: 41px;
+    text-align: center;
+    color: #999;
+}
+button.button_backward:hover,button.button_forward:hover{
+    color: black;
+}
