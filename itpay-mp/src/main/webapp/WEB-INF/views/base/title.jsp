@@ -14,6 +14,8 @@
 
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+<link rel="icon" href="<%= request.getContextPath() %>/imgs/tom.ico" type="image/x-icon" />
 <!-- Bootstrap 3.3.6 -->
 <link rel="stylesheet"    href="<%= request.getContextPath() %>/plugs/bootstrap/css/bootstrap.min.css">
 <!-- Ionicons -->
