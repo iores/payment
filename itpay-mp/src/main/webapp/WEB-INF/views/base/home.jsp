@@ -30,8 +30,9 @@
             if(tab_pane&&tab_pane.length>0){
                 return ;
             }
-            $("#page_content").append("<div id='"+tab_id+"' class='tab-pane active'>这个是新增的:"+tab_id+"</div>");
-            
+            var url=$(a).attr("ref");
+            $("#page_content").append("<div id='"+tab_id+"' class='tab-pane active'></div>");
+            $("#"+tab_id).load(url);
         }
 
         /**
@@ -141,7 +142,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#" onclick="loadUrl(this)" tab_id="Boxed_info1_TAB_ID" ref="/dwadawd/wadw/adw/a" ><i class="fa fa-circle-o"></i> Top Navigation</a></li>
+                        <li><a href="#" onclick="loadUrl(this)" tab_id="user_info1_TAB_ID" ref="user/goDetail.html" ><i class="fa fa-circle-o"></i> 用户信息</a></li>
                         <li><a href="#" onclick="loadUrl(this)" tab_id="Boxed_info2_TAB_ID" ><i class="fa fa-circle-o"></i> Boxed</a></li>
                     </ul>
                 </li>
