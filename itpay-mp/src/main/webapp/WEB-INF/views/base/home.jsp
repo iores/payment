@@ -104,6 +104,7 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
+<div id="system_main_home"  ></div>
 <div class="wrapper">
 
     <!-- Main Header -->

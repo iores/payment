@@ -87,6 +87,24 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
     }
 
+    /**
+     * 修改登陆成功后的跳转，登陆成功不跳转请求页面
+     * @param token
+     * @param subject
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    protected boolean onLoginSuccess(AuthenticationToken token, Subject subject,
+                                     ServletRequest request, ServletResponse response) throws Exception {
+        //清除url,使其不再跳转到原始请求的url
+        WebUtils.getAndClearSavedRequest(request);
+        issueSuccessRedirect(request, response);
+        //we handled the success redirect directly, prevent the chain from continuing:
+        return false;
+    }
+
     protected void setFailureAttribute(ServletRequest request, AuthenticationException ae) {
         request.setAttribute(getFailureKeyAttribute(), ae);
     }

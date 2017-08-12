@@ -14,11 +14,10 @@
     
     <script type="application/javascript">
         //如果有两个html 标签，说明窗口嵌套
-//        if($(".login-box").parent("dev")){
-//            alert("要跳转");
-//            //如果当前登录页面不在顶级窗口则，顶级窗口返回到登录页面
-//            top.location.href = "login.html";
-//        }
+        if($("#system_main_home").length>0){
+            //如果当前登录页面不在顶级窗口则，顶级窗口返回到登录页面
+            window.location.reload();
+        }
         //获取验证码
        function changeCaptcha(cap) {
            $(cap).attr("src","image/captcha.html?" + Math.floor(Math.random()*10000))
