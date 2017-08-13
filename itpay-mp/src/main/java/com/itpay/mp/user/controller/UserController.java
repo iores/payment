@@ -12,13 +12,13 @@ import java.util.Map;
 
 /**
  * Created by feng on 2017/5/25 0025.
- * 
+ *
  */
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
-    
+
     @Resource(name="userAppService")
     private UserAppService userAppService;
 
@@ -30,11 +30,10 @@ public class UserController {
      */
     @RequestMapping("/goDetail")
     public ModelAndView goDetail(String id){
-
         UserDto userDto=userAppService.selectByPrimaryKey(id);
         Map<String,Object> userDtoMap=new HashMap<>();
         userDtoMap.put("user",userDto);
-        
+
         return new ModelAndView("user/user_detail",userDtoMap);
     }
 
@@ -44,7 +43,9 @@ public class UserController {
      */
     @RequestMapping("/goList")
     public ModelAndView goList(){
+
+
         return new ModelAndView("user/list");
     }
-    
+
 }
