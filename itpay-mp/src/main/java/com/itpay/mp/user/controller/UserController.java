@@ -1,5 +1,6 @@
 package com.itpay.mp.user.controller;
 
+import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.app.UserAppService;
 import com.itpay.mp.user.dto.UserDto;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,7 @@ public class UserController {
      */
     @RequestMapping("/goList")
     public ModelAndView goList(){
-
+        ListPage<UserDto> listPage=new ListPage<>();
 
         return new ModelAndView("user/list");
     }

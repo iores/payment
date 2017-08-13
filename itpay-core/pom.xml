@@ -39,16 +39,22 @@
             <type>pom</type>
         </dependency>
         <dependency>
-        <groupId>com.payment</groupId>
-        <artifactId>framework-web-mvc</artifactId>
-        <version>${framework.version}</version>
-        <type>pom</type>
-    </dependency>
+            <groupId>com.payment</groupId>
+            <artifactId>framework-web-mvc</artifactId>
+            <version>${framework.version}</version>
+            <type>pom</type>
+        </dependency>
         <dependency>
             <groupId>com.payment</groupId>
             <artifactId>framework-rpc</artifactId>
             <version>${framework.version}</version>
             <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>com.payment</groupId>
+            <artifactId>framework-core</artifactId>
+            <version>${framework.version}</version>
+            <type>jar</type>
         </dependency>
 
         <dependency>
