@@ -45,6 +45,7 @@ public class UserController {
     @RequestMapping("/goList")
     public ModelAndView goList(){
         ListPage<UserDto> listPage=new ListPage<>();
+        
 
         return new ModelAndView("user/list");
     }

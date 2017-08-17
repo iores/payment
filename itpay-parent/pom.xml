@@ -28,6 +28,8 @@
         <mybatis.version>3.4.4</mybatis.version>
         <mybatis.spring.version>1.3.1</mybatis.spring.version>
         <mysql.connector.version>5.1.42</mysql.connector.version>
+        <!--mybatis分页插件-->
+        <pagehelper.version>5.0.4</pagehelper.version>
         <!--druid 数据库版本-->
         <druid.version>1.0.31</druid.version>
         <!--motan 版本-->
