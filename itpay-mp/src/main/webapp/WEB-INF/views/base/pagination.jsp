@@ -12,14 +12,24 @@
 
 <script type="text/javascript">
     $(function(){
+        var pages=${page.pages};
+        var pageNum=${page.pageNum};
+        if(pageNum>pages){
+            if(pages>0){
+                pageNum=pages;
+            }else{
+                pages=1;
+                pageNum=1;
+            }
+        }
         $('#pagination').twbsPagination({
-            totalPages: parseInt( ${page.pages<1?1:page.pages}),
+            totalPages: pages,
             visiblePages: 7,
             first:"首页",
             prev:"上一页",
             next:"下一页",
             last:"尾页",
-            startPage:parseInt( '${page.pageNum}'),
+            startPage:pageNum,
             initiateStartPageClick:false,
             onPageClick: function (event,page) {
                 var pageSize=$("#pageSize").val();
@@ -49,7 +59,7 @@
         <select name="size" id="pageSize"  >
             
             <option value="1"  <c:if test="${page.pageSize==1}">selected</c:if>  >1</option>
-            <option value="10" <c:if test="${page.pageSize==15}">selected</c:if>  >15</option>
+            <option value="10" <c:if test="${page.pageSize==10}">selected</c:if>  >10</option>
             <option value="20" <c:if test="${page.pageSize==20}">selected</c:if> >20</option>
             <option value="100" <c:if test="${page.pageSize==100}">selected</c:if> >100</option>
         </select>

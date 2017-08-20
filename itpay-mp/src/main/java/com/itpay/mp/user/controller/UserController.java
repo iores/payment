@@ -1,5 +1,7 @@
 package com.itpay.mp.user.controller;
 
+import com.itpay.base.enums.ESexType;
+import com.itpay.base.enums.EUserStatus;
 import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.app.UserAppService;
 import com.itpay.mp.user.dto.UserDto;
@@ -50,6 +52,8 @@ public class UserController {
         Map<String,Object> userDtoMap=new HashMap<>();
         userDtoMap.put("page",listPage);
         userDtoMap.put("queryParam",queryParam);
+        userDtoMap.put("sexTypes", ESexType.values());
+        userDtoMap.put("userStatus", EUserStatus.values());
         return new ModelAndView("user/user_list",userDtoMap);
     }
 

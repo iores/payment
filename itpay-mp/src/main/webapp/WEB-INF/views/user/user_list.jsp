@@ -41,6 +41,27 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>用户性别</td>
+                            <td>
+                                <select name="sex">
+                                    <option value="">所有</option>
+                                    <c:forEach items="${sexTypes}" var="sex" >
+                                        <option value="${sex}"  <c:if test="${queryParam.sex==sex}"> selected</c:if>    >${sex.displayName}</option>
+                                    </c:forEach>
+                                </select>
+                            </td>
+                            <td>用户状态</td>
+                            <td>
+                                <select name="status">
+                                    <option value="">所有</option>
+                                    <c:forEach items="${userStatus}" var="status" >
+                                        <option value="${status}"  <c:if test="${queryParam.status==status}"> selected</c:if>    >${status.displayName}</option>
+                                    </c:forEach>
+                                </select>
+                            </td>
+                         
+                        </tr>
+                        <tr>
                             <td colspan="8" style="text-align: right">
                                 <button type="button" class="btn btn-primary" onclick="searchFrom(this)">查询</button>
                             </td>

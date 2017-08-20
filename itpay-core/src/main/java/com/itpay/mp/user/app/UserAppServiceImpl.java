@@ -1,6 +1,5 @@
 package com.itpay.mp.user.app;
 
-import com.itpay.base.listener.MyContextRefreshedListener;
 import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.dto.UserDto;
 import com.itpay.mp.user.service.UserManager;

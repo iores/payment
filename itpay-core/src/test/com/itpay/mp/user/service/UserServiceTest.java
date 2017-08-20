@@ -1,6 +1,8 @@
 package com.itpay.mp.user.service;
 
 import com.itpay.BaseTest;
+import com.itpay.base.enums.ESexType;
+import com.itpay.base.enums.EUserStatus;
 import com.itpay.mp.user.dto.UserDto;
 import com.itpay.mp.user.dto.UserLoginDto;
 import org.junit.Test;
@@ -26,11 +28,11 @@ public class UserServiceTest  extends BaseTest{
         UserDto record=new UserDto();
         record.setId(UUID.randomUUID().toString());
         record.setCreateTime(new Date());
-        record.setEmail("ccm@23");
-        record.setName("ccm3");
+        record.setEmail("ccm@211113");
+        record.setName("ccm321");
         record.setPhone("1318987828");
-        record.setSex("1");
-        record.setStatus("2");
+        record.setSex(ESexType.WONMAN);
+        record.setStatus(EUserStatus.NORMAL);
         int a= userManager.insert(record);
         System.out.println(a);
     }
