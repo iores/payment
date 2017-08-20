@@ -1,5 +1,6 @@
 package com.itpay.mp.user.app;
 
+import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.dto.UserDto;
 
 import java.util.List;
@@ -34,5 +35,14 @@ public interface UserAppService {
      * @param userDto 用户
      */
     void update(UserDto userDto);
+
+    /**
+     * 分页查询 
+     * @param page 分页信息
+     * @param search 查询条件
+     * @return
+     */
+    ListPage<UserDto> listPage(ListPage<UserDto> page, UserDto search);
     
+
 }

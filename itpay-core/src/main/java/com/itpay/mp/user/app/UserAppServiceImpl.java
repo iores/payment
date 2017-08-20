@@ -1,7 +1,11 @@
 package com.itpay.mp.user.app;
 
+import com.itpay.base.listener.MyContextRefreshedListener;
+import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.dto.UserDto;
 import com.itpay.mp.user.service.UserManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,6 +17,8 @@ import java.util.List;
  */
 @Service("userAppService")
 public class UserAppServiceImpl  implements UserAppService{
+
+    private static final Logger logger = LoggerFactory.getLogger(UserAppServiceImpl.class);
     
     
     @Resource(name="userManager")
@@ -58,6 +64,18 @@ public class UserAppServiceImpl  implements UserAppService{
     @Override
     public void update(UserDto userDto) {
         userManager.updateByPrimaryKey(userDto);
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param page   分页信息
+     * @param search 查询条件
+     * @return
+     */
+    @Override
+    public ListPage<UserDto> listPage(ListPage<UserDto> page, UserDto search) {
+        return userManager.listPage(page,search);
     }
 
 

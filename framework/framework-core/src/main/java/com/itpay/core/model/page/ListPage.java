@@ -20,7 +20,7 @@ public class ListPage<T> implements Serializable {
     /**
      * 页大小
      */
-    private int size = 0;
+    private int size = 20;
 
     /**
      * 当前页号

@@ -2,7 +2,10 @@ package com.itpay.mp.user.dao;
 
 
 import com.itpay.mp.user.dto.UserDto;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository("userMapper")
 public interface UserMapper {
@@ -54,5 +57,13 @@ public interface UserMapper {
      *  
      */
     int updateByPrimaryKey(UserDto record);
+
+    /**
+     * 根据条件查询
+     * @param search 查询条件
+     * @return
+     */
+    List<UserDto> findBySearch(UserDto search);
+    
     
 }

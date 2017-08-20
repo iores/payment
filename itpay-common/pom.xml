@@ -11,5 +11,15 @@
 
     <artifactId>itpay-common</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.payment</groupId>
+            <artifactId>framework-core</artifactId>
+            <version>${framework.version}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
 
 </project>

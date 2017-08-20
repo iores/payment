@@ -100,6 +100,41 @@
             }
             
         }
+
+
+        
+        /**
+         * 点击查询按钮
+         * @param button
+         */
+        function searchFrom(button){
+            var frm=$(button).parents("form");
+            var url=$(frm).attr("action");
+            var pageSize=$("#pageSize").val();
+            url=url+"?page.size="+pageSize;
+            var pane=$(frm).parents("dev.tab-pane.active").attr("id");
+            sendAjax(url,frm,pane);
+        }
+
+
+        /**
+         * 发送查询的ajax请求
+         * @param url
+         * @param frm
+         * @param pane 当前pane 的id
+         */
+        function sendAjax(url,frm,pane){
+            $.ajax({
+                type: "POST",
+                url: url,
+                data:$(frm).serialize(),
+                success: function (date) {
+                    $("#"+pane).html(date);
+                }
+            });
+        }
+        
+        
     </script>
 </head>
 
@@ -144,7 +179,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#" onclick="loadUrl(this)" tab_id="user_info1_TAB_ID" ref="user/goDetail.html" ><i class="fa fa-circle-o"></i> 用户信息</a></li>
+                        <li><a href="#" onclick="loadUrl(this)" tab_id="user_info1_TAB_ID" ref="user/goList.html" ><i class="fa fa-circle-o"></i> 用户信息</a></li>
                         <li><a href="#" onclick="loadUrl(this)" tab_id="Boxed_info2_TAB_ID" ><i class="fa fa-circle-o"></i> Boxed</a></li>
                     </ul>
                 </li>

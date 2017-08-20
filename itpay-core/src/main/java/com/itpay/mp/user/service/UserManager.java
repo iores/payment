@@ -1,5 +1,6 @@
 package com.itpay.mp.user.service;
 
+import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.dto.UserDto;
 
 /**
@@ -21,4 +22,13 @@ public interface UserManager {
 
   
     int updateByPrimaryKey(UserDto record);
+
+    /**
+     * 分页查询
+     * @param page
+     * @param search
+     * @return
+     */
+    ListPage<UserDto> listPage(ListPage<UserDto> page, UserDto search);
+    
 }

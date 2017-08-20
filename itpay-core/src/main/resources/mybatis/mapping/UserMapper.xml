@@ -123,4 +123,28 @@
             create_time = #{createTime,jdbcType=TIMESTAMP}
         WHERE id = #{id,jdbcType=VARCHAR}
     </update>
+
+
+    <select id="findBySearch"  resultMap="BaseResultMap" parameterType="com.itpay.mp.user.dto.UserDto">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user_info
+        <where>
+            <if test="email != null and email!=''">
+                and  email = #{email,jdbcType=VARCHAR} 
+            </if>
+            <if test="status != null and status!=''">
+                and status = #{status,jdbcType=VARCHAR} 
+            </if>
+            <if test="name != null and name!='' ">
+                and name = #{name,jdbcType=VARCHAR} 
+            </if>
+            <if test="sex != null and sex!=''">
+                and sex = #{sex,jdbcType=VARCHAR} 
+            </if>
+            <if test="phone != null and phone!='' ">
+                and phone = #{phone,jdbcType=VARCHAR} 
+            </if>
+        </where>
+    </select>
 </mapper>
