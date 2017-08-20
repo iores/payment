@@ -82,6 +82,8 @@
                         <th>用户编号</th>
                         <th>用户手机号</th>
                         <th>用户邮箱</th>
+                        <th>性别</th>
+                        <th>状态</th>
                         <th>操作</th>
                     </tr>
                     <c:forEach items="${page.list}" var="user" varStatus="vs">
@@ -91,6 +93,8 @@
                             <td>${user.id}</td>
                             <td>${user.phone}</td>
                             <td>${user.email}</td>
+                            <td>${user.sex.displayName}</td>
+                            <td>${user.status.displayName}</td>
                             <td style="width: 10%">
                                 <div class="btn-group">
                                     <span class="glyphicon glyphicon-cog  dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></span>
