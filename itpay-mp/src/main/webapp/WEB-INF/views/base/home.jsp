@@ -111,8 +111,20 @@
             var frm=$(button).parents("form");
             var url=$(frm).attr("action");
             var pageSize=$("#pageSize").val();
-            url=url+"?page.size="+pageSize;
-            var pane=$(frm).parents("dev.tab-pane.active").attr("id");
+            url=url+"?pageSize="+pageSize;
+            var pane=$(frm).parents(".tab-pane.active");
+            sendAjax(url,frm,pane);
+        }
+        
+        /**
+         * 下一页
+         * 
+         * */
+        function page_from(page, pageSize ,button) {
+            var pane=$(button).parents(".tab-pane.active")
+            var frm=$(pane).find("form");
+            var url=$(frm).attr("action");
+            url=url+"?pageSize="+pageSize+"&pageNum="+page;
             sendAjax(url,frm,pane);
         }
 
@@ -129,7 +141,7 @@
                 url: url,
                 data:$(frm).serialize(),
                 success: function (date) {
-                    $("#"+pane).html(date);
+                    $(pane).html(date);
                 }
             });
         }
@@ -189,7 +201,7 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div id="page_content" class="content-wrapper tab-content ">
+    <div id="page_content" class="content-wrapper tab-content  "  >
 
 
         <button class="button_backward" >

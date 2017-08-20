@@ -1,5 +1,6 @@
 /**
  * Created by feng on 2017/6/2 0002.
+ * 
  */
 $(function(){
     //Add the change skin listener

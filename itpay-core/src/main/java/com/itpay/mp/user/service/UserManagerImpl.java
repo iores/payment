@@ -48,17 +48,18 @@ public class UserManagerImpl implements UserManager {
     /**
      * 分页查询
      *
-     * @param page
+     * @param listPage
      * @param search
      * @return
      */
     @Override
-    public ListPage<UserDto> listPage(ListPage<UserDto> page, UserDto search) {
-        PageHelper.startPage(page.getNumber(),page.getSize());
+    public ListPage<UserDto> listPage(ListPage<UserDto> listPage, UserDto search) {
+        PageHelper.startPage(listPage.getPageNum(),listPage.getPageSize());
         List<UserDto> list=userMapper.findBySearch(search);
-        Page<UserDto> pages = (Page<UserDto>) list;
-        page.setAllSize(pages.size());
-        page.setList(list);
-        return page;
+        Page<UserDto> page = (Page<UserDto>) list;
+        listPage.setTotal(page.getTotal());
+        listPage.setPages(page.getPages());
+        listPage.setList(list);
+        return listPage;
     }
 }

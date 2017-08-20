@@ -48,7 +48,7 @@ public class UserController {
     public ModelAndView goList(ListPage<UserDto> listPage, UserDto queryParam, HttpServletRequest request){
         listPage=userAppService.listPage(listPage,queryParam);
         Map<String,Object> userDtoMap=new HashMap<>();
-        userDtoMap.put("listPage",listPage);
+        userDtoMap.put("page",listPage);
         userDtoMap.put("queryParam",queryParam);
         return new ModelAndView("user/user_list",userDtoMap);
     }

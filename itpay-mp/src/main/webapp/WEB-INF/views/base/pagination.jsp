@@ -1,4 +1,4 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ include file="/WEB-INF/views/base/libs.jsp" %>
 <%--
   Created by IntelliJ IDEA.
   User: feng
@@ -7,49 +7,52 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script src="<%= request.getContextPath() %>/plug/pagination/jquery.twbsPagination.js"></script>
+<script src="<%= request.getContextPath() %>/plugs/other/pagination/jquery.twbsPagination.js"></script>
 
 
 <script type="text/javascript">
     $(function(){
         $('#pagination').twbsPagination({
-            totalPages: parseInt( '<s:property value="page.allPage" />'),
+            totalPages: parseInt( ${page.pages<1?1:page.pages}),
             visiblePages: 7,
             first:"首页",
             prev:"上一页",
             next:"下一页",
             last:"尾页",
-            startPage:parseInt( '<s:property value="page.number" />'),
+            startPage:parseInt( '${page.pageNum}'),
             initiateStartPageClick:false,
             onPageClick: function (event,page) {
                 var pageSize=$("#pageSize").val();
-                page_from(page,pageSize);
+                page_from(page,pageSize,this);
             }
         });
     });
 
 </script>
 
-
 <div class=" no-margin-top">
 
 
     <div class=" col-sm-2 bigger-110 bolder" style="text-align: center">
-        总共<s:property value="page.allSize"  />条,
-        共<s:property value="page.allPage" /> 页
+        总共${page.total}条,
+        共${page.pages} 页
     </div>
 
-    <div class=" col-sm-8  " style="text-align: right">
+    <div class=" col-sm-9  " style="text-align: right">
         <ul id="pagination" class="pagination no-margin  ">
 
         </ul>
     </div>
 
-    <div class="col-sm-2  pull-right" >
+    <div class="col-sm-1 " >
         每页
-        <s:select id="pageSize" onchange="onloadByPageSize(this)" list="{1,15,50,100}" name="page.size" value="page.size"   >
+        <select name="size" id="pageSize"  >
             
-        </s:select>
+            <option value="1"  <c:if test="${page.pageSize==1}">selected</c:if>  >1</option>
+            <option value="10" <c:if test="${page.pageSize==15}">selected</c:if>  >15</option>
+            <option value="20" <c:if test="${page.pageSize==20}">selected</c:if> >20</option>
+            <option value="100" <c:if test="${page.pageSize==100}">selected</c:if> >100</option>
+        </select>
         条
     </div>
 

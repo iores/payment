@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 
-<div class="content-header ">
+<div class="content-header " >
 
     <div style="width: 20px; ">
         &nbsp;
@@ -54,30 +54,38 @@
 
         <div class="box box-solid">
             <div class="box-body table-responsive no-padding">
-                <table class="table table-hover table-bordered">
+                <table class="table table-hover table-bordered  table-striped">
                     <tr>
-                        <th>用户编号</th>
+                        <th>序号</th>
                         <th>用户名称</th>
+                        <th>用户编号</th>
                         <th>用户手机号</th>
                         <th>用户邮箱</th>
                         <th>操作</th>
                     </tr>
-                    <c:forEach items="${listPage.list}" var="user">
+                    <c:forEach items="${page.list}" var="user" varStatus="vs">
                         <tr>
-                            <td>${user.id}</td>
+                            <td>${vs.count + (page.pageNum-1)*page.pageSize}</td>
                             <td>${user.name}</td>
+                            <td>${user.id}</td>
                             <td>${user.phone}</td>
                             <td>${user.email}</td>
-                            <td>
-                                点击
+                            <td style="width: 10%">
+                                <div class="btn-group">
+                                    <span class="glyphicon glyphicon-cog  dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></span>
+                                    <ul class="dropdown-menu" style="min-width: 1px;">
+                                        <li><a href="#">查看详情</a></li>
+                                        <li><a href="#">修改</a></li>
+                                    </ul>
+                                </div>
                             </td>
                         </tr>
                     </c:forEach>
 
                 </table>
             </div>
-
         </div>
+        <%@ include file="/WEB-INF/views/base/pagination.jsp" %>
     </div>
 </div>
 

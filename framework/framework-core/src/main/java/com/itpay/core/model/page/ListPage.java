@@ -13,19 +13,29 @@ public class ListPage<T> implements Serializable {
     private static final long serialVersionUID = -123011478945074383L;
 
     /**
-     * 总大小
+     * 页码，从1开始
      */
-    private int allSize = 0;
-
+    private int pageNum=1;
     /**
-     * 页大小
+     * 页面大小
      */
-    private int size = 20;
-
+    private int pageSize=10;
     /**
-     * 当前页号
+     * 起始行
      */
-    private int number = 1;
+    private int startRow;
+    /**
+     * 末行
+     */
+    private int endRow;
+    /**
+     * 总数
+     */
+    private long total;
+    /**
+     * 总页数
+     */
+    private int pages;
 
 
     /**
@@ -36,36 +46,63 @@ public class ListPage<T> implements Serializable {
     public ListPage() {
         
     }
-    public ListPage(int allSize, int size, int number, List<T> list) {
-        this.allSize = allSize;
-        this.size = size;
-        this.number = number;
+
+    public ListPage(int pageNum, int pageSize, int startRow, int endRow, long total, int pages, List<T> list) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+        this.startRow = startRow;
+        this.endRow = endRow;
+        this.total = total;
+        this.pages = pages;
         this.list = list;
     }
 
-
-    public int getAllSize() {
-        return allSize;
+    public int getPageNum() {
+        return pageNum;
     }
 
-    public void setAllSize(int allSize) {
-        this.allSize = allSize;
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
     }
 
-    public int getSize() {
-        return size;
+    public int getPageSize() {
+        return pageSize;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public int getNumber() {
-        return number;
+    public int getStartRow() {
+        return startRow;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setStartRow(int startRow) {
+        this.startRow = startRow;
+    }
+
+    public int getEndRow() {
+        return endRow;
+    }
+
+    public void setEndRow(int endRow) {
+        this.endRow = endRow;
+    }
+
+    public long getTotal() {
+        return total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
     }
 
     public List<T> getList() {
