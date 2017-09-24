@@ -2,6 +2,7 @@ package com.itpay.mp.user.dao;
 
 
 import com.itpay.mp.user.dto.MpRolePermissionRef;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository("mpRolePermissionRefMapper")
@@ -53,4 +54,11 @@ public interface MpRolePermissionRefMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(MpRolePermissionRef record);
+
+    /**
+     * 根据roleid 删除角色权限关联信息
+     * @param roleId
+     */
+    void deleteByRoleId(@Param("roleId") String roleId);
+
 }

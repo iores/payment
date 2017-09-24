@@ -111,4 +111,8 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <delete id="deleteByRoleId">
+    delete FROM tb_mp_role_permission_ref  where role_id= #{roleId,jdbcType=VARCHAR}
+  </delete>
 </mapper>

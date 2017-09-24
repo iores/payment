@@ -2,6 +2,7 @@ package com.itpay.mp.user.service;
 
 import com.itpay.mp.user.dto.MpPermission;
 import com.itpay.mp.user.dto.MpRole;
+import com.itpay.mp.user.dto.MpRolePermissionRef;
 
 import java.util.List;
 
@@ -49,13 +50,12 @@ public interface MpRoleManager {
 
 
     /**
-     * 修改角色关联的权限数据
-     * @param record
+     * 修改角色与权限关联信息
+     * @param role
      * @param permissions
      * @return
      */
-    MpRole updatePermissionByRole(MpRole record, List<MpPermission> permissions);
-
+    MpRole updatePermissionByRole(MpRole role,List<MpPermission> permissions);
 
 
 }
