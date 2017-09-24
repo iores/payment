@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itpay.mp.user.dao.MpRoleMapper">
+  <resultMap id="BaseResultMap" type="com.itpay.mp.dto.MpRole">
+    <id column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_status" jdbcType="VARCHAR" property="roleStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="up_level_role_id" jdbcType="VARCHAR" property="upLevelRoleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    role_id, role_name, role_status, create_time, up_level_role_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_mp_role
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_mp_role
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.itpay.mp.dto.MpRole">
+    insert into t_mp_role (role_id, role_name, role_status, 
+      create_time, up_level_role_id)
+    values (#{roleId,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{roleStatus,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{upLevelRoleId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.itpay.mp.dto.MpRole">
+    insert into t_mp_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="roleStatus != null">
+        role_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="upLevelRoleId != null">
+        up_level_role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleStatus != null">
+        #{roleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upLevelRoleId != null">
+        #{upLevelRoleId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.itpay.mp.dto.MpRole">
+    update t_mp_role
+    <set>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleStatus != null">
+        role_status = #{roleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upLevelRoleId != null">
+        up_level_role_id = #{upLevelRoleId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.itpay.mp.dto.MpRole">
+    update t_mp_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      role_status = #{roleStatus,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      up_level_role_id = #{upLevelRoleId,jdbcType=VARCHAR}
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

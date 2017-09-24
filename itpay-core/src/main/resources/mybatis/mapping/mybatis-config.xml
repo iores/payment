@@ -13,6 +13,9 @@
         
         <typeHandler handler="com.itpay.core.handler.BaseEnumHandler"
                      javaType="com.itpay.base.enums.EUserStatus"  jdbcType="VARCHAR" />
+
+        <typeHandler handler="com.itpay.core.handler.BaseEnumHandler"
+                     javaType="com.itpay.base.enums.EEffectiveStatus"  jdbcType="VARCHAR" />
         
     </typeHandlers>
     
