@@ -5,6 +5,8 @@ import com.itpay.mp.user.dto.MpRolePermissionRef;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("mpRolePermissionRefMapper")
 public interface MpRolePermissionRefMapper {
     /**
@@ -60,5 +62,11 @@ public interface MpRolePermissionRefMapper {
      * @param roleId
      */
     void deleteByRoleId(@Param("roleId") String roleId);
+
+    /**
+     * 批量保存
+     * @param rolePermissionRefs
+     */
+    void saveBatch(@Param("items")List<MpRolePermissionRef> rolePermissionRefs);
 
 }

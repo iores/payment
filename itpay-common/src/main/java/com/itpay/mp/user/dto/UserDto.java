@@ -2,11 +2,12 @@ package com.itpay.mp.user.dto;
 
 import com.itpay.base.enums.ESexType;
 import com.itpay.base.enums.EUserStatus;
+import com.itpay.core.base.dto.UuidBaseDto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class UserDto implements Serializable{
+public class UserDto extends UuidBaseDto {
     private static final long serialVersionUID = -2172611121783144604L;
     /**
      *

@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,11 +72,19 @@ public class MpRoleManagerImpl implements  MpRoleManager {
 
         //先删除角色权限关联表信息
         mpRolePermissionRefMapper.deleteByRoleId(role.getRoleId());
-
         List<MpRolePermissionRef> rolePermissionRefs=new ArrayList<>();
-        
+        for (MpPermission mpPermission : permissions) {
+            MpRolePermissionRef mpRolePermissionRef=new MpRolePermissionRef();
+            mpRolePermissionRef.setId(mpRolePermissionRef.getIdentity());
+            mpRolePermissionRef.setCreateTime(new Date());
+            mpRolePermissionRef.setRoleId(role.getRoleId());
+            mpRolePermissionRef.setPermissionId(mpPermission.getId());
+            rolePermissionRefs.add(mpRolePermissionRef);
+        }
 
+        //批量保存
+        mpRolePermissionRefMapper.saveBatch(rolePermissionRefs);
 
-        return null;
+        return role;
     }
 }

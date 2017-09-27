@@ -1,10 +1,12 @@
 package com.itpay.mp.user.dto;
 
 import com.itpay.base.enums.EEffectiveStatus;
+import com.itpay.core.base.dto.UuidBaseDto;
 
 import java.util.Date;
 
-public class MpRole {
+public class MpRole extends UuidBaseDto {
+    private static final long serialVersionUID = 6279555146705246738L;
     /**
      * 角色id
      */

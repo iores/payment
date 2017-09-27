@@ -3,12 +3,16 @@ package com.itpay.mp.user.service;
 import com.itpay.BaseTest;
 import com.itpay.base.enums.ESexType;
 import com.itpay.base.enums.EUserStatus;
+import com.itpay.mp.user.dto.MpPermission;
+import com.itpay.mp.user.dto.MpRole;
 import com.itpay.mp.user.dto.UserDto;
 import com.itpay.mp.user.dto.UserLoginDto;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -22,6 +26,8 @@ public class UserServiceTest  extends BaseTest{
 
     @Autowired
     private UserLoginManager userLoginManager;
+    @Autowired
+    private MpRoleManager mpRoleManager;
     
     @Test
     public void insert(){
@@ -49,8 +55,22 @@ public class UserServiceTest  extends BaseTest{
         u.setUserId("111111111");
         userLoginManager.insert(u);
     }
-    
-    
+
+    @Test
+    public void testInsterRole(){
+
+        MpRole role=new MpRole();
+        role.setRoleId("test111");
+        List<MpPermission> permissions=new ArrayList<>();
+        MpPermission mpPermission=new MpPermission();
+        mpPermission.setId("1111111111111");
+        permissions.add(mpPermission);
+
+        MpPermission mpPermission1=new MpPermission();
+        mpPermission1.setId("222222");
+        permissions.add(mpPermission1);
+        mpRoleManager.updatePermissionByRole(role,permissions);
+    }
     
     
 }

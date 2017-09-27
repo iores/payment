@@ -1,9 +1,11 @@
 package com.itpay.mp.user.dto;
 
+import com.itpay.core.base.dto.UuidBaseDto;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class UserLoginDto implements Serializable {
+public class UserLoginDto extends UuidBaseDto {
     
     private static final long serialVersionUID = 9125345430333640493L;
     

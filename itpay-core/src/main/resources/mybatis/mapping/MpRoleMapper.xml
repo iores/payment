@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itpay.mp.user.dao.MpRoleMapper">
-  <resultMap id="BaseResultMap" type="com.itpay.mp.dto.MpRole">
+  <resultMap id="BaseResultMap" type="com.itpay.mp.user.dto.MpRole">
     <id column="role_id" jdbcType="VARCHAR" property="roleId" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="role_status" jdbcType="VARCHAR" property="roleStatus" />
@@ -21,13 +21,13 @@
     delete from t_mp_role
     where role_id = #{roleId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.itpay.mp.dto.MpRole">
+  <insert id="insert" parameterType="com.itpay.mp.user.dto.MpRole">
     insert into t_mp_role (role_id, role_name, role_status, 
       create_time, up_level_role_id)
     values (#{roleId,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{roleStatus,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{upLevelRoleId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.itpay.mp.dto.MpRole">
+  <insert id="insertSelective" parameterType="com.itpay.mp.user.dto.MpRole">
     insert into t_mp_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="roleId != null">
@@ -64,7 +64,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.itpay.mp.dto.MpRole">
+  <update id="updateByPrimaryKeySelective" parameterType="com.itpay.mp.user.dto.MpRole">
     update t_mp_role
     <set>
       <if test="roleName != null">
@@ -82,7 +82,7 @@
     </set>
     where role_id = #{roleId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.itpay.mp.dto.MpRole">
+  <update id="updateByPrimaryKey" parameterType="com.itpay.mp.user.dto.MpRole">
     update t_mp_role
     set role_name = #{roleName,jdbcType=VARCHAR},
       role_status = #{roleStatus,jdbcType=VARCHAR},
