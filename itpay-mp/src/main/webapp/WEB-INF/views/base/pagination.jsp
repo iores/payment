@@ -11,61 +11,70 @@
 
 
 <script type="text/javascript">
-    $(function(){
-        var pages=${page.pages};
-        var pageNum=${page.pageNum};
-        if(pageNum>pages){
-            if(pages>0){
-                pageNum=pages;
-            }else{
-                pages=1;
-                pageNum=1;
+    $(function () {
+        var pages =${page.pages};
+        var pageNum =${page.pageNum};
+        if (pageNum > pages) {
+            if (pages > 0) {
+                pageNum = pages;
+            } else {
+                pages = 1;
+                pageNum = 1;
             }
         }
         $('#pagination').twbsPagination({
             totalPages: pages,
-            visiblePages: 7,
-            first:"首页",
-            prev:"上一页",
-            next:"下一页",
-            last:"尾页",
-            startPage:pageNum,
-            initiateStartPageClick:false,
-            onPageClick: function (event,page) {
-                var pageSize=$("#pageSize").val();
-                page_from(page,pageSize,this);
+            visiblePages: 4,
+            first: "首页",
+            prev: "上一页",
+            next: "下一页",
+            last: "尾页",
+            startPage: pageNum,
+            initiateStartPageClick: false,
+            onPageClick: function (event, page) {
+                var pageSize = $("#pageSize").val();
+                page_from(page, pageSize, this);
             }
         });
     });
 
 </script>
 
-<div class=" no-margin-top">
+<div class="box box-solid">
+    <div class="box-body table-responsive no-padding ">
 
 
-    <div class=" col-sm-2 bigger-110 bolder" style="text-align: center">
-        总共${page.total}条,
-        共${page.pages} 页
+
+
+        <div class=" col-sm-12  " >
+            <div class=" col-sm-5 pagination " >
+                总共${page.total}条记录,
+                共${page.pages} 页
+            </div>
+            <ul id="pagination" class="pagination col-sm-5" >
+
+            </ul>
+
+
+            <div class="col-sm-2 pagination " >
+                每页
+                <select name="size" id="pageSize">
+
+                    <option value="10"
+                            <c:if test="${page.pageSize==10}">selected</c:if>  >10
+                    </option>
+                    <option value="20"
+                            <c:if test="${page.pageSize==20}">selected</c:if> >20
+                    </option>
+                    <option value="100"
+                            <c:if test="${page.pageSize==100}">selected</c:if> >100
+                    </option>
+                </select>
+                条
+            </div>
+        </div>
+
+
     </div>
-
-    <div class=" col-sm-9  " style="text-align: right">
-        <ul id="pagination" class="pagination no-margin  ">
-
-        </ul>
-    </div>
-
-    <div class="col-sm-1 " >
-        每页
-        <select name="size" id="pageSize"  >
-            
-            <option value="1"  <c:if test="${page.pageSize==1}">selected</c:if>  >1</option>
-            <option value="10" <c:if test="${page.pageSize==10}">selected</c:if>  >10</option>
-            <option value="20" <c:if test="${page.pageSize==20}">selected</c:if> >20</option>
-            <option value="100" <c:if test="${page.pageSize==100}">selected</c:if> >100</option>
-        </select>
-        条
-    </div>
-
-
-   
 </div>
+

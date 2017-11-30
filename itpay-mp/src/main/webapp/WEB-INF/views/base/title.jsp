@@ -33,7 +33,6 @@
 <%--验证框架--%>
 <link type="text/css" rel="stylesheet" href="<%= request.getContextPath() %>/plugs/other/bootstrapValidator/css/bootstrapValidator.css" />
 
-
 <!-- jQuery 2.2.3 -->
 <script src="<%= request.getContextPath() %>/plugs/jquery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->

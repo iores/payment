@@ -192,7 +192,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="#" onclick="loadUrl(this)" tab_id="user_info1_TAB_ID" ref="user/goList.html" ><i class="fa fa-circle-o"></i> 用户信息</a></li>
-                        <li><a href="#" onclick="loadUrl(this)" tab_id="Boxed_info2_TAB_ID" ><i class="fa fa-circle-o"></i> Boxed</a></li>
+                        <li><a href="#" onclick="loadUrl(this)" tab_id="Boxed_info2_TAB_ID"   ref="user/goList1.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
                     </ul>
                 </li>
             </ul>

@@ -5,7 +5,6 @@ import com.itpay.base.enums.EUserStatus;
 import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.app.UserAppService;
 import com.itpay.mp.user.dto.UserDto;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,44 +16,62 @@ import java.util.Map;
 
 /**
  * Created by feng on 2017/5/25 0025.
- *
+ * 用户信息
  */
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
 
-    @Resource(name="userAppService")
+    @Resource(name = "userAppService")
     private UserAppService userAppService;
 
 
     /**
      * 返回详情
+     *
      * @param id
      * @return
      */
     @RequestMapping("/goDetail")
-    public ModelAndView goDetail(String id){
-        UserDto userDto=userAppService.selectByPrimaryKey(id);
-        Map<String,Object> userDtoMap=new HashMap<>();
-        userDtoMap.put("user",userDto);
+    public ModelAndView goDetail(String id) {
+        UserDto userDto = userAppService.selectByPrimaryKey(id);
+        Map<String, Object> userDtoMap = new HashMap<>();
+        userDtoMap.put("user", userDto);
 
-        return new ModelAndView("user/user_detail",userDtoMap);
+        return new ModelAndView("user/user_detail", userDtoMap);
     }
 
     /**
      * 查看列表
+     *
      * @return
      */
     @RequestMapping("/goList")
-    public ModelAndView goList(ListPage<UserDto> listPage, UserDto queryParam, HttpServletRequest request){
-        listPage=userAppService.listPage(listPage,queryParam);
-        Map<String,Object> userDtoMap=new HashMap<>();
-        userDtoMap.put("page",listPage);
-        userDtoMap.put("queryParam",queryParam);
+    public ModelAndView goList(ListPage<UserDto> listPage, UserDto queryParam, HttpServletRequest request) {
+        listPage = userAppService.listPage(listPage, queryParam);
+        Map<String, Object> userDtoMap = new HashMap<>();
+        userDtoMap.put("page", listPage);
+        userDtoMap.put("queryParam", queryParam);
         userDtoMap.put("sexTypes", ESexType.values());
         userDtoMap.put("userStatus", EUserStatus.values());
-        return new ModelAndView("user/user_list",userDtoMap);
+        return new ModelAndView("user/user_list", userDtoMap);
+    }
+
+    /**
+     * 查看列表
+     *
+     * @return
+     */
+    @RequestMapping("/goList1")
+    public ModelAndView goList1(ListPage<UserDto> listPage, UserDto queryParam, HttpServletRequest request) {
+        listPage = userAppService.listPage(listPage, queryParam);
+        Map<String, Object> userDtoMap = new HashMap<>();
+        userDtoMap.put("page", listPage);
+        userDtoMap.put("queryParam", queryParam);
+        userDtoMap.put("sexTypes", ESexType.values());
+        userDtoMap.put("userStatus", EUserStatus.values());
+        return new ModelAndView("user/user_list1", userDtoMap);
     }
 
 }
