@@ -46,17 +46,20 @@
 
 
 
-        <div class=" col-sm-12  " >
-            <div class=" col-sm-5 pagination " >
+        <div class=" col-sm-12  "  >
+            <div class=" col-sm-5  " style="margin-top: 25px;margin-bottom:  25px" >
                 总共${page.total}条记录,
                 共${page.pages} 页
             </div>
-            <ul id="pagination" class="pagination col-sm-5" >
+            <div class="col-sm-5" style="text-align: right" >
+                <ul id="pagination" class="pagination " >
 
-            </ul>
+                </ul>
+
+            </div>
 
 
-            <div class="col-sm-2 pagination " >
+            <div class="col-sm-2 " style="margin-top: 25px;margin-bottom:  25px" >
                 每页
                 <select name="size" id="pageSize">
 
