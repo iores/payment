@@ -57,5 +57,17 @@ public interface MpRoleManager {
      */
     MpRole updatePermissionByRole(MpRole role,List<MpPermission> permissions);
 
+    /**
+     * 新增角色
+     * @param role
+     * @param permissions
+     */
+    void addRole(MpRole role, List<MpPermission> permissions);
+
+    /**
+     * 查询所有觉得
+     * @return
+     */
+    List<MpRole> findAll();
 
 }

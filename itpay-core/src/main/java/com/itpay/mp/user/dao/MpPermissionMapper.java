@@ -4,6 +4,8 @@ package com.itpay.mp.user.dao;
 import com.itpay.mp.user.dto.MpPermission;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("mpPermissionMapper")
 public interface MpPermissionMapper {
     /**
@@ -53,4 +55,11 @@ public interface MpPermissionMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(MpPermission record);
+
+    /**
+     * 查询所有权限
+     * @return
+     */
+    List<MpPermission> findAll();
+
 }

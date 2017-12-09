@@ -87,4 +87,43 @@ public class MpRoleManagerImpl implements  MpRoleManager {
 
         return role;
     }
+
+    /**
+     * 新增角色
+     *
+     * @param role
+     * @param permissions
+     */
+    @Override
+    public void addRole(MpRole role, List<MpPermission> permissions) {
+        if(role==null){
+            log.error("新增角色失败！传入的角色为空！");
+            throw new RuntimeException("新增角色失败！传入的角色为空！");
+        }
+        role.setRoleId(role.getIdentity());
+        mpRoleMapper.insert(role);
+        //初始化角色权限关联信息
+        List<MpRolePermissionRef> rolePermissionRefs=new ArrayList<>();
+        for (MpPermission mpPermission : permissions) {
+            MpRolePermissionRef mpRolePermissionRef=new MpRolePermissionRef();
+            mpRolePermissionRef.setId(mpRolePermissionRef.getIdentity());
+            mpRolePermissionRef.setCreateTime(new Date());
+            mpRolePermissionRef.setRoleId(role.getRoleId());
+            mpRolePermissionRef.setPermissionId(mpPermission.getId());
+            rolePermissionRefs.add(mpRolePermissionRef);
+        }
+        //批量保存
+        mpRolePermissionRefMapper.saveBatch(rolePermissionRefs);
+
+    }
+
+    /**
+     * 查询所有觉得
+     *
+     * @return
+     */
+    @Override
+    public List<MpRole> findAll() {
+        return mpRoleMapper.findAll();
+    }
 }
