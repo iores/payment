@@ -115,6 +115,17 @@
             var pane=$(frm).parents(".tab-pane.active");
             sendAjax(url,frm,pane);
         }
+
+        /**
+         * 查询明细
+         *
+         * */
+        function queryDetail(a){
+            var url=$(a).attr("ref");
+            var pane=$(a).parents(".tab-pane.active");
+            sendAjax(url,null,pane);
+
+        }
         
         /**
          * 下一页

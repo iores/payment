@@ -70,4 +70,12 @@ public interface MpRoleManager {
      */
     List<MpRole> findAll();
 
+
+    /**
+     * 保存角色与权限的关联信息
+     * @param roleId
+     * @param permissions
+     */
+    void saveRolePermissionsRef(String roleId,List<MpPermission> permissions);
+
 }

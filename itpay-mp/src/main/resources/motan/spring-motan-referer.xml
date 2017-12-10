@@ -7,7 +7,11 @@
 
     
     <motan:referer  id="userAppService"  basicReferer="basicRefererConfig" interface="com.itpay.mp.user.app.UserAppService" />
-
+    <!--登陆用户信息-->
     <motan:referer  id="userLoginAppService"  basicReferer="basicRefererConfig" interface="com.itpay.mp.user.app.UserLoginAppService" />
-    
+    <!--角色接口-->
+    <motan:referer  id="mpRoleAppService"  basicReferer="basicRefererConfig" interface="com.itpay.mp.user.app.MpRoleAppService" />
+    <!--权限接口-->
+    <motan:referer  id="mpPermissionAppSerice"  basicReferer="basicRefererConfig" interface="com.itpay.mp.user.app.MpPermissionAppSerice" />
+
 </beans>

@@ -58,20 +58,6 @@ public class UserController {
         return new ModelAndView("user/user_list", userDtoMap);
     }
 
-    /**
-     * 查看列表
-     *
-     * @return
-     */
-    @RequestMapping("/goList1")
-    public ModelAndView goList1(ListPage<UserDto> listPage, UserDto queryParam, HttpServletRequest request) {
-        listPage = userAppService.listPage(listPage, queryParam);
-        Map<String, Object> userDtoMap = new HashMap<>();
-        userDtoMap.put("page", listPage);
-        userDtoMap.put("queryParam", queryParam);
-        userDtoMap.put("sexTypes", ESexType.values());
-        userDtoMap.put("userStatus", EUserStatus.values());
-        return new ModelAndView("user/user_list1", userDtoMap);
-    }
+
 
 }

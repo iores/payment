@@ -99,8 +99,8 @@
                             <div class="btn-group">
                                 <span class="glyphicon glyphicon-cog  dropdown-toggle" data-toggle="dropdown"
                                       aria-expanded="false"></span>
-                                <ul class="dropdown-menu" style="min-width: 1px;">
-                                    <li><a href="#">查看详情</a></li>
+                                <ul class="dropdown-menu" >
+                                    <li><a href="#" ref="${contextPath}/user/goDetail.html?id=${user.id}" onclick="queryDetail(this)">查看详情</a></li>
                                     <li><a href="#">修改</a></li>
                                 </ul>
                             </div>
