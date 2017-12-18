@@ -25,6 +25,23 @@
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
+    <!--springmvc 异常页面-->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <!-- 定义默认的异常处理页面，当该异常类型的注册时使用 -->
+        <property name="defaultErrorView" value="500"/>
+        <!-- 定义异常处理页面用来获取异常信息的变量名，默认名为exception -->
+        <property name="exceptionAttribute" value="ex"/>
+        <!-- 定义需要特殊处理的异常，用类名或完全路径名作为key，异常也页名作为值 -->
+        <!--<property name="exceptionMappings">-->
+            <!--<props>-->
+                <!--<prop key="cn.basttg.core.exception.BusinessException">error-business</prop>-->
+                <!--<prop key="cn.basttg.core.exception.ParameterException">error-parameter</prop>-->
+
+                <!--&lt;!&ndash; 这里还可以继续扩展对不同异常类型的处理 &ndash;&gt;-->
+            <!--</props>-->
+        <!--</property>-->
+    </bean>
+
     <!-- JPS路径映射解析器 -->
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/" />

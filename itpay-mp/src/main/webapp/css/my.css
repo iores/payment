@@ -68,3 +68,12 @@ button.button_forward{
 button.button_backward:hover,button.button_forward:hover{
     color: black;
 }
+
+/*table 里面的标题居中*/
+table.table>tbody>tr>th{
+    text-align: center;
+}
+/*table 里面的内容居中*/
+table.table>tbody>tr>td{
+    text-align: center;
+}

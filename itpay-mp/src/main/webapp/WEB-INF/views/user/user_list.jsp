@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/views/base/libs.jsp" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
 
 <%--<div class="content-header ">--%>
@@ -77,33 +77,37 @@
         <div class="box-body table-responsive no-padding">
             <table class="table table-hover table-bordered  table-striped table-condensed ">
                 <tr>
-                    <th>序号</th>
-                    <th>用户名称</th>
-                    <th>用户编号</th>
-                    <th>用户手机号</th>
-                    <th>用户邮箱</th>
-                    <th>性别</th>
-                    <th>状态</th>
-                    <th>操作</th>
+                    <th style="width: 5%">序号</th>
+                    <th style="width: 15%" >用户编号</th>
+                    <th style="width: 15%">用户名称</th>
+                    <th style="width: 5%">用户手机号</th>
+                    <th style="width: 10%">用户邮箱</th>
+                    <th style="width: 5%">性别</th>
+                    <th style="width: 10%">状态</th>
+                    <th style="width: 15%">操作</th>
                 </tr>
                 <c:forEach items="${page.list}" var="user" varStatus="vs">
                     <tr>
                         <td>${vs.count + (page.pageNum-1)*page.pageSize}</td>
+                        <td>
+                            <a href="#" ref="${contextPath}/user/goDetail.html?id=${user.id}" onclick="queryDetail(this)">${user.id}</a>
+                        </td>
                         <td>${user.name}</td>
-                        <td>${user.id}</td>
                         <td>${user.phone}</td>
                         <td>${user.email}</td>
                         <td>${user.sex.displayName}</td>
                         <td>${user.status.displayName}</td>
-                        <td style="width: 10%">
-                            <div class="btn-group">
-                                <span class="glyphicon glyphicon-cog  dropdown-toggle" data-toggle="dropdown"
-                                      aria-expanded="false"></span>
-                                <ul class="dropdown-menu" >
-                                    <li><a href="#" ref="${contextPath}/user/goDetail.html?id=${user.id}" onclick="queryDetail(this)">查看详情</a></li>
-                                    <li><a href="#">修改</a></li>
-                                </ul>
-                            </div>
+                        <td>
+                            <%--<div class="btn-group">--%>
+                                <%--<span class="glyphicon glyphicon-cog  dropdown-toggle" data-toggle="dropup"--%>
+                                      <%--aria-expanded="false"></span>--%>
+                                <%--<ul class="dropdown-menu" role="menu" >--%>
+                                    <%--<li><a href="#">修改</a></li>--%>
+                                <%--</ul>--%>
+                            <%--</div>--%>
+                            <span class="glyphicon glyphicon-edit">
+
+                            </span>
                         </td>
                     </tr>
                 </c:forEach>
