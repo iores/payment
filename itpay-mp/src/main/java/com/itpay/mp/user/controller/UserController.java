@@ -6,6 +6,9 @@ import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.app.UserAppService;
 import com.itpay.mp.user.app.UserLoginAppService;
 import com.itpay.mp.user.dto.UserDto;
+import com.itpay.mp.user.dto.UserLoginDto;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,8 +51,9 @@ public class UserController {
     public ModelAndView goDetail(String id) {
         Map<String, Object> userDtoMap = new HashMap<>();
         UserDto userDto = userAppService.selectByPrimaryKey(id);
-
+        List<UserLoginDto> userLoginDtos=userLoginAppService.findByUserId(id);
         userDtoMap.put("user", userDto);
+        userDtoMap.put("loginUsers",userLoginDtos);
 
         return new ModelAndView("user/user_detail", userDtoMap);
     }

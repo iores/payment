@@ -1,6 +1,7 @@
 package com.itpay.mp.base.shiro;
 
 import com.itpay.mp.base.shiro.exception.IncorrectCaptchaException;
+import com.itpay.mp.user.app.UserLoginAppService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
@@ -20,6 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     
     private Logger log= LoggerFactory.getLogger(CaptchaFormAuthenticationFilter.class);
+
+
+    private UserLoginAppService userLoginAppService;
 
     public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
     private String captchaParam = DEFAULT_CAPTCHA_PARAM;
@@ -78,6 +82,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             Subject subject = getSubject(request, response);
             //shiro 执行登陆
             subject.login(token);
+
             return onLoginSuccess(token, subject, request, response);
         } catch (AuthenticationException e) {
             return onLoginFailure(token, e, request, response);

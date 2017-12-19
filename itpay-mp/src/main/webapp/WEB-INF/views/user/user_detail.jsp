@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/views/base/libs.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
 <div class="main-content-inner">
 
@@ -12,43 +13,7 @@
             <li class="active">用户详情</li>
         </ol>
     </div>
-    <!-- Main content -->
-    <%--<div class="content-header">--%>
-        <%--<div class="col-md-12">--%>
-            <%--<div class="box box-solid">--%>
-                <%--<!-- /.box-header -->--%>
-                <%--<div class="box-body">--%>
-                    <%--<table class="table table-bordered">--%>
-                        <%--<tr>--%>
-                            <%--<td>用户名称</td>--%>
-                            <%--<td>--%>
-                                <%--${user.name}--%>
-                            <%--</td>--%>
-                            <%--<td>用户编号</td>--%>
-                            <%--<td>--%>
-                                <%--${user.id}--%>
-                            <%--</td>--%>
-                        <%--</tr>--%>
 
-                        <%--<tr>--%>
-                            <%--<td>用户手机号</td>--%>
-                            <%--<td>--%>
-                                <%--${user.phone}--%>
-                            <%--</td>--%>
-                            <%--<td>--%>
-                                <%--用户邮箱--%>
-                            <%--</td>--%>
-                            <%--<td>--%>
-                                <%--${user.email}--%>
-                            <%--</td>--%>
-                        <%--</tr>--%>
-
-                    <%--</table>--%>
-                <%--</div>--%>
-
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</div>--%>
 
     <section class="invoice">
         <!-- title row -->
@@ -105,7 +70,36 @@
                 </h2>
             </div>
         </div>
-
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>登陆名</th>
+                        <th>状态</th>
+                        <th>最后一次登陆时间</th>
+                        <th>最后一次登陆ip</th>
+                        <th>创建时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${loginUsers}" var="login" varStatus="vs">
+                        <tr>
+                            <td>${vs.count}</td>
+                            <td>${login.loginName}</td>
+                            <td>${login.status}</td>
+                            <td><fmt:formatDate value="${login.lastLoginTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                            <td>${login.lastLoginIp}</td>
+                            <td><fmt:formatDate value="${login.createTime}" pattern="yyyy-MM-dd HH:mm:ss" />   </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.col -->
+        </div>
 
         <!-- title row -->
         <div class="row">

@@ -5,6 +5,8 @@ import com.itpay.mp.user.dto.UserLoginDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository("userLoginDtoMapper")
 public interface UserLoginDtoMapper {
@@ -64,6 +66,14 @@ public interface UserLoginDtoMapper {
      */
     
     UserLoginDto findByUserLoginName(@Param("loginName") String loginName);
-    
-    
+
+
+    /**
+     * 根据用户id查询登陆用户信息
+     *
+     * @param userId 用户的id
+     * @return List<UserLoginDto>
+     */
+    List<UserLoginDto> findByUserId(@Param("userId")String userId);
+
 }

@@ -126,6 +126,9 @@
         <include refid="Base_Column_List"/>
         from t_user_info
         <where>
+            <if test="id != null and id!=''">
+                and id = #{id,jdbcType=VARCHAR}
+            </if>
             <if test="email != null and email!=''">
                 and email = #{email,jdbcType=VARCHAR}
             </if>

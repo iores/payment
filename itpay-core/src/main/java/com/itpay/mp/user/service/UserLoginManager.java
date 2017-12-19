@@ -2,6 +2,8 @@ package com.itpay.mp.user.service;
 
 import com.itpay.mp.user.dto.UserLoginDto;
 
+import java.util.List;
+
 /**
  * Created by feng on 2017/5/29 0029.
  * 用户登录
@@ -44,6 +46,15 @@ public interface UserLoginManager {
      * @return UserLoginDto
      */
     UserLoginDto findByUserLoginName(String loginName);
-    
-    
+
+
+    /**
+     * 根据用户id查询登陆用户信息
+     *
+     * @param userId 用户的id
+     * @return List<UserLoginDto>
+     */
+    List<UserLoginDto> findByUserId(String userId);
+
+
 }

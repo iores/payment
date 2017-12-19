@@ -5,6 +5,7 @@ import com.itpay.mp.user.service.UserLoginManager;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by feng on 2017/5/29 0029.
@@ -27,5 +28,16 @@ public class UserLoginAppServiceImpl implements UserLoginAppService {
     @Override
     public UserLoginDto findByUserLoginName(String loginName) {
         return userLoginManager.findByUserLoginName(loginName);
+    }
+
+    /**
+     * 根据用户id查询登陆用户信息
+     *
+     * @param userId 用户的id
+     * @return List<UserLoginDto>
+     */
+    @Override
+    public List<UserLoginDto> findByUserId(String userId) {
+        return userLoginManager.findByUserId(userId);
     }
 }

@@ -41,7 +41,6 @@ public class LoginController {
 
     /**
      * 退出
-     * @param request
      * @return
      */
     @RequestMapping("/logout")
