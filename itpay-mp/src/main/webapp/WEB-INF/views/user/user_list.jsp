@@ -16,20 +16,20 @@
     <div class="box box-solid">
         <!-- /.box-header -->
         <div class="box-body">
-            <form action="${contextPath}/user/goList.html" method="post">
+            <form action="${contextPath}/user/goList.html" class="form-horizontal" method="post">
                 <table class="table table-bordered table-condensed ">
                     <tr>
                         <td>用户名称</td>
                         <td>
-                            <input name="name" value="${queryParam.name}"/>
+                            <input class="form-control" name="name" value="${queryParam.name}"/>
                         </td>
                         <td>用户编号</td>
                         <td>
-                            <input name="id" value="${queryParam.id}"/>
+                            <input  class="form-control" name="id" value="${queryParam.id}"/>
                         </td>
                         <td>用户手机号</td>
                         <td>
-                            <input name="phone" value="${queryParam.phone}"/>
+                            <input class="form-control" name="phone" value="${queryParam.phone}"/>
                         </td>
                     </tr>
                     <tr>
@@ -37,11 +37,11 @@
                             用户邮箱
                         </td>
                         <td>
-                            <input name="email" value="${queryParam.email}"/>
+                            <input class="form-control" name="email" value="${queryParam.email}"/>
                         </td>
                         <td>用户性别</td>
                         <td>
-                            <select name="sex">
+                            <select name="sex" class="form-control">
                                 <option value="">所有</option>
                                 <c:forEach items="${sexTypes}" var="sex">
                                     <option value="${sex}"  <c:if
@@ -51,7 +51,7 @@
                         </td>
                         <td>用户状态</td>
                         <td>
-                            <select name="status">
+                            <select name="status" class="form-control">
                                 <option value="">所有</option>
                                 <c:forEach items="${userStatus}" var="status">
                                     <option value="${status}"  <c:if
@@ -75,16 +75,16 @@
 
     <div class="box box-solid">
         <div class="box-body table-responsive no-padding">
-            <table class="table table-hover table-bordered  table-striped table-condensed ">
+            <table class="table table-hover table-bordered  table-striped table-condensed text-center ">
                 <tr>
-                    <th style="width: 5%">序号</th>
+                    <th style="width: 5%" >序号</th>
                     <th style="width: 15%" >用户编号</th>
                     <th style="width: 15%">用户名称</th>
                     <th style="width: 5%">用户手机号</th>
                     <th style="width: 10%">用户邮箱</th>
                     <th style="width: 5%">性别</th>
                     <th style="width: 10%">状态</th>
-                    <th style="width: 15%">操作</th>
+                    <th style="width: 10%">操作</th>
                 </tr>
                 <c:forEach items="${page.list}" var="user" varStatus="vs">
                     <tr>
@@ -98,16 +98,16 @@
                         <td>${user.sex.displayName}</td>
                         <td>${user.status.displayName}</td>
                         <td>
-                            <%--<div class="btn-group">--%>
-                                <%--<span class="glyphicon glyphicon-cog  dropdown-toggle" data-toggle="dropup"--%>
-                                      <%--aria-expanded="false"></span>--%>
-                                <%--<ul class="dropdown-menu" role="menu" >--%>
-                                    <%--<li><a href="#">修改</a></li>--%>
-                                <%--</ul>--%>
-                            <%--</div>--%>
-                            <span class="glyphicon glyphicon-edit">
+                            <div class="btn-group">
+                                <span class="glyphicon glyphicon-cog  dropdown-toggle" data-toggle="dropdown"
+                                      aria-expanded="true"></span>
+                                <ul class="dropdown-menu "  style="position:absolute;min-width: 10px" >
+                                    <li><a href="#" >详情</a></li>
+                                    <li><a href="#" >修改</a></li>
+                                </ul>
+                            </div>
 
-                            </span>
+
                         </td>
                     </tr>
                 </c:forEach>

@@ -143,7 +143,7 @@
                                 <a href="#" class="btn btn-default btn-flat">个人信息</a>
                             </div>
                             <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat">退出登陆</a>
+                                <a href="#" onclick="logOut()" class="btn  btn-flat  btn-danger">退出登陆</a>
                             </div>
                         </li>
                     </ul>

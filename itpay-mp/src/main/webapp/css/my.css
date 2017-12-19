@@ -14,11 +14,11 @@ div.login-box {
 }
 
 body.login-page {
-    background: url("../imgs/background.jpg") no-repeat;
-    background-size: 100% 100%;
+    background: url("../imgs/background.jpg") no-repeat center ;
+    background-size: 100% ;
 }
 
-input.form-control {
+input.form-control.login {
     color: white;
     background-color: rgba(226, 110, 90, 0.05);
 }
@@ -29,8 +29,6 @@ img.form-control.captcha{
 .error-message{
     color: #dd4b39;
 }
-
-
 
 .nav-tabs>li>a{
     border: 1px solid #ddd;
@@ -69,11 +67,30 @@ button.button_backward:hover,button.button_forward:hover{
     color: black;
 }
 
-/*table 里面的标题居中*/
-table.table>tbody>tr>th{
-    text-align: center;
+/*!*table 里面的标题居中*!*/
+/*table.table>tbody>tr>th{*/
+    /*text-align: center;*/
+/*}*/
+/*!*table 里面的内容居中*!*/
+/*table.table>tbody>tr>td{*/
+    /*text-align: center;*/
+/*}*/
+
+/*提示placeholder设置*/
+/* 使用webkit内核的浏览器 */
+::-webkit-input-placeholder{
+    color: whitesmoke !important;
 }
-/*table 里面的内容居中*/
-table.table>tbody>tr>td{
-    text-align: center;
+/* Firefox版本4-18 */
+:-moz-placeholder{
+    color: whitesmoke !important;
 }
+/* Firefox版本19+ */
+::-moz-placeholder{
+    color: whitesmoke !important;
+}
+/* IE浏览器 */
+:-ms-input-placeholder{
+    color: whitesmoke !important;
+}
+

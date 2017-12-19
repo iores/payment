@@ -156,7 +156,12 @@
                 }
             });
         }
-        
+
+
+        //退出
+        function logOut() {
+            window.location.href="${contextPath }/logout.html";
+        }
         
     </script>
 </head>

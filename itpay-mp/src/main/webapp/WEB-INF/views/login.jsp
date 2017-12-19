@@ -72,16 +72,16 @@
 
             <form action="login.html" method="post" id="iform"  autocomplete="off" >
                 <div class="form-group has-feedback ">
-                    <input maxlength="60"  type="text" required="required" class="form-control" name="username" placeholder="用户名"/>
+                    <input maxlength="60"  type="text" required="required" class="form-control login" name="username" placeholder="用户名"/>
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback ">
-                    <input maxlength="60" type="password" class="form-control" name="password"   placeholder="密码"/>
+                    <input maxlength="60" type="password" class="form-control login" name="password"   placeholder="密码"/>
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
                     <div class="form-group  col-xs-5 ">
-                        <input type="text" class="form-control" maxlength="8" name="captcha" placeholder="验证码"/>
+                        <input type="text" class="form-control login" maxlength="8" name="captcha" placeholder="验证码"/>
                     </div>
                     <div class="form-group  col-xs-7">
                         <img src="image/captcha.html" id="captcha" onclick="changeCaptcha(this)" class="form-control captcha "  alt="验证码" />

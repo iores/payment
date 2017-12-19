@@ -39,6 +39,16 @@ public class LoginController {
         return "login";
     }
 
+    /**
+     * 退出
+     * @param request
+     * @return
+     */
+    @RequestMapping("/logout")
+    public String goLogout(){
+        SecurityUtils.getSubject().logout();
+        return "redirect:/login.html";
+    }
 
     /**
      * 登陆成功
