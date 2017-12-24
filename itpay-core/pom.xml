@@ -17,6 +17,12 @@
     <dependencies>
         <dependency>
             <groupId>com.payment</groupId>
+            <artifactId>framework-logger</artifactId>
+            <version>${framework.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>com.payment</groupId>
             <artifactId>itpay-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
@@ -32,12 +38,7 @@
             <version>${framework.version}</version>
             <type>pom</type>
         </dependency>
-        <dependency>
-            <groupId>com.payment</groupId>
-            <artifactId>framework-logger</artifactId>
-            <version>${framework.version}</version>
-            <type>pom</type>
-        </dependency>
+
         <dependency>
             <groupId>com.payment</groupId>
             <artifactId>framework-web-mvc</artifactId>
@@ -49,12 +50,42 @@
             <artifactId>framework-rpc</artifactId>
             <version>${framework.version}</version>
             <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>junit</artifactId>
+                    <groupId>junit</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.payment</groupId>
             <artifactId>framework-core</artifactId>
             <version>${framework.version}</version>
             <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.payment</groupId>
+            <artifactId>framework-redis</artifactId>
+            <version>${framework.version}</version>
+            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -83,17 +114,6 @@
                         <version>5.1.42</version>
                     </dependency>
                 </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>tomcat-maven-plugin</artifactId>
-                <version>1.1</version>
-                <configuration>
-                    <path>/core</path>
-                    <port>8080</port>
-                    <uriEncoding>UTF-8</uriEncoding>
-                    <server>tomcat8</server>
-                </configuration>
             </plugin>
         </plugins>
 

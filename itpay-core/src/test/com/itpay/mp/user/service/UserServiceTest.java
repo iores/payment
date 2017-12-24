@@ -3,6 +3,7 @@ package com.itpay.mp.user.service;
 import com.itpay.BaseTest;
 import com.itpay.base.enums.ESexType;
 import com.itpay.base.enums.EUserStatus;
+import com.itpay.mp.cache.UserCacheServer;
 import com.itpay.mp.user.dto.MpPermission;
 import com.itpay.mp.user.dto.MpRole;
 import com.itpay.mp.user.dto.UserDto;
@@ -28,6 +29,8 @@ public class UserServiceTest  extends BaseTest{
     private UserLoginManager userLoginManager;
     @Autowired
     private MpRoleManager mpRoleManager;
+    @Autowired
+    private UserCacheServer userCacheServer;
     
     @Test
     public void insert(){
@@ -70,6 +73,14 @@ public class UserServiceTest  extends BaseTest{
         mpPermission1.setId("222222");
         permissions.add(mpPermission1);
         mpRoleManager.updatePermissionByRole(role,permissions);
+    }
+
+
+    @Test
+    public void  testCache(){
+        UserDto userDto=userCacheServer.findById("2672a7b2-7baf-4cfa-acac-db");
+        System.out.println(userDto);
+
     }
     
     

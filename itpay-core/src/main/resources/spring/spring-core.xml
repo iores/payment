@@ -2,18 +2,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop" 
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:cache="http://www.springframework.org/schema/cache"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd 
         http://www.springframework.org/schema/aop 
-        http://www.springframework.org/schema/aop/spring-aop.xsd 
-        ">
+        http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
     <context:component-scan  base-package="com.itpay"/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
+    <!-- 启用缓存注解功能，这个是必须的，否则注解不会生效，另外，该注解一定要声明在spring主配置文件中才会生效 -->
+    <cache:annotation-driven cache-manager="cacheManager" />
 
 
     <!-- spring启动时扫描项目路径下的properties文件,后续用${key }方式取出对应值,这样可以代码解耦和，后续只需修改properties文件即可 -->
@@ -22,6 +23,7 @@
         <property name="locations">
             <list>
                 <value>classpath:config/itpay-core.properties</value>
+                <value>classpath:config/redis-config.properties</value>
             </list>
         </property>
     </bean>
@@ -37,4 +39,5 @@
     
     <import resource="classpath:/spring/spring-mybatis.xml"/>
     <import resource="classpath:/motan/spring-motan.xml" />
+    <import resource="classpath:/spring/spring-redis.xml"/>
 </beans>
