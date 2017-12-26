@@ -37,17 +37,12 @@
         <constructor-arg ref="jackson2JsonRedisSerializerPair"/>
     </bean>
 
+
     <!-- spring自己的缓存管理器，这里定义了缓存位置名称 ，即注解中的value -->
-    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
-        <property name="caches">
-            <set>
-                <bean class="org.springframework.data.redis.cache.RedisCache">
-                    <constructor-arg name="name" value="mypay"/>
-                    <constructor-arg name="cacheWriter" ref="redisCacheWriter"/>
-                    <constructor-arg name="cacheConfig" ref="jsonRedisCacheConfiguration"/>
-                </bean>
-            </set>
-        </property>
+    <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+        <constructor-arg name="cacheWriter" ref="redisCacheWriter"/>
+        <constructor-arg name="defaultCacheConfiguration" ref="defaultRedisCacheConfiguration"  />
+
     </bean>
 
 
