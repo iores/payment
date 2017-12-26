@@ -52,7 +52,7 @@
         <constructor-arg name="defaultCacheConfiguration" ref="defaultRedisCacheConfiguration"/>
         <constructor-arg name="initialCacheConfigurations">
             <map>
-                <entry key="mypay" value="jsonRedisCacheConfiguration"/>
+                <entry key="mypay" value-ref="jsonRedisCacheConfiguration"/>
             </map>
         </constructor-arg>
     </bean>
