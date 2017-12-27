@@ -101,6 +101,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
      * @return
      * @throws Exception
      */
+    @Override
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject,
                                      ServletRequest request, ServletResponse response) throws Exception {
         //清除url,使其不再跳转到原始请求的url
@@ -110,6 +111,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         return false;
     }
 
+    @Override
     protected void setFailureAttribute(ServletRequest request, AuthenticationException ae) {
         request.setAttribute(getFailureKeyAttribute(), ae);
     }

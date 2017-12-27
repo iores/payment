@@ -23,6 +23,7 @@ import java.util.Map;
 
 /**
  * Created by feng on 2017/5/25 0025.
+ * @author zlf
  * 用户信息
  */
 @Controller
@@ -49,7 +50,7 @@ public class UserController {
      */
     @RequestMapping("/goDetail")
     public ModelAndView goDetail(String id) {
-        Map<String, Object> userDtoMap = new HashMap<>();
+        Map<String, Object> userDtoMap = new HashMap<>(10);
         UserDto userDto = userAppService.selectByPrimaryKey(id);
         List<UserLoginDto> userLoginDtos=userLoginAppService.findByUserId(id);
         userDtoMap.put("user", userDto);
@@ -66,7 +67,7 @@ public class UserController {
     @RequestMapping("/goList")
     public ModelAndView goList(ListPage<UserDto> listPage, UserDto queryParam, HttpServletRequest request) {
         listPage = userAppService.listPage(listPage, queryParam);
-        Map<String, Object> userDtoMap = new HashMap<>();
+        Map<String, Object> userDtoMap = new HashMap<>(10);
         userDtoMap.put("page", listPage);
         userDtoMap.put("queryParam", queryParam);
         userDtoMap.put("sexTypes", ESexType.values());

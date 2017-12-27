@@ -12,7 +12,7 @@
     <!--motan 通信协议-->
     <motan:protocol id="my_protocol" name="motan" requestTimeout="20000" haStrategy="failfast" />
     <!--motan 注册中心-->
-    <motan:registry  name="my_zookeeper"  regProtocol="zookeeper" address="${motan.zookeeper}"/>
+    <motan:registry  name="my_zookeeper"  regProtocol="zookeeper" address="${motan.zookeeper}" connectTimeout="20000"/>
     <!-- 通用配置，多个rpc服务使用相同的基础配置. export 为协议:端口号  group和module定义具体的服务池。export格式为“protocol id:提供服务的端口”
      accessLog 设为true，将向logger 中输出访问日志  shareChannel 设置为共享，多个服务可以公用一个端口 -->
     <motan:basicService id="baseServiceConfig" export="my_protocol:18002" group="motan-core-rpc"

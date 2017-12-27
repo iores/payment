@@ -29,7 +29,13 @@ public class MyShiroRealm extends AuthorizingRealm {
         this.userLoginAppService = userLoginAppService;
     }
 
-    // 获取授权信息
+
+
+    /**
+     * // 获取授权信息
+     * @param principalCollection
+     * @return
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
@@ -39,7 +45,14 @@ public class MyShiroRealm extends AuthorizingRealm {
         return info;
     }
 
-    // 获取认证信息
+
+
+    /**
+     * // 获取认证信息
+     * @param authenticationToken
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
