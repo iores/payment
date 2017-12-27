@@ -65,7 +65,6 @@ public class LoginController {
     @RequestMapping("/image/captcha")
     public ModelAndView getKaptchaImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
-       // String code = (String)session.getAttribute("code");
 
         response.setDateHeader("Expires", 0);
         response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");

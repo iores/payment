@@ -9,8 +9,13 @@ import java.util.Map;
  * 有效无效状态
  */
 public enum EEffectiveStatus implements BaseEnum<EEffectiveStatus,String>{
-
+    /**
+     * 有效
+     */
     EFFECTIVE("01","有效"),
+    /**
+     * 无效
+     */
     INVALID("02","无效"),
 
     ;

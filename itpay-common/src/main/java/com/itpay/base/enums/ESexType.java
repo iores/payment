@@ -10,8 +10,13 @@ import java.util.Map;
  * 性别
  */
 public enum ESexType  implements BaseEnum<ESexType,String>{
-    
+    /**
+     * 男
+     */
     MAN("1","男"),
+    /**
+     * 女
+     */
     WONMAN("2","女"),
     
     ;

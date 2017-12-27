@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+/**
+ * @author zlf
+ * @date 2017-12-27
+ */
 @Service("userCacheServer")
 public class UserCacheServerImpl implements UserCacheServer {
 
@@ -20,7 +24,7 @@ public class UserCacheServerImpl implements UserCacheServer {
      * @return UserDto
      */
     @Override
-    @Cacheable(value = "mypay" ,key = "'mp-[#userId]'")
+    @Cacheable(value = "mypay" ,key = "'mp-['+#userId+']'",sync = true)
     public UserDto findById(String userId) {
         return userManager.selectByPrimaryKey(userId);
     }

@@ -10,9 +10,17 @@ import java.util.Map;
  * 用户状态
  */
 public enum EUserStatus implements BaseEnum<EUserStatus,String>{
-
+    /**
+     * 正常
+     */
     NORMAL("01","正常"),
+    /**
+     * 冻结
+     */
     FROZEN("02","冻结"),
+    /**
+     * 注销
+     */
     WRITTEN_OFF("03","注销"),
     
     ;
