@@ -78,6 +78,19 @@
             <type>jar</type>
         </dependency>
         <dependency>
+            <groupId>com.payment</groupId>
+            <artifactId>framework-redis</artifactId>
+            <version>${framework.version}</version>
+            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
             <version>${pagehelper.version}</version>

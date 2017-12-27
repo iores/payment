@@ -2,16 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop" 
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <context:component-scan  base-package="com.itpay"/>
+    <context:component-scan base-package="com.itpay"/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-
+    <!-- 启用缓存注解功能，这个是必须的，否则注解不会生效，另外，该注解一定要声明在spring主配置文件中才会生效 -->
+    <cache:annotation-driven cache-manager="redisCacheManager"/>
+    <!--定义redis的key-->
+    <util:map id="cacheConfigurations">
+        <entry key="mypay" value-ref="jsonRedisCacheConfiguration"/>
+        <entry key="default" value-ref="defaultRedisCacheConfiguration"/>
+        <entry key="shortMypay" value-ref="shortJsonRedisCacheConfiguration"/>
+        <entry key="session" value-ref="sessionJsonRedisCacheConfiguration"/>
+    </util:map>
 
     <!-- spring启动时扫描项目路径下的properties文件,后续用${key }方式取出对应值,这样可以代码解耦和，后续只需修改properties文件即可 -->
     <bean id="propertyPlaceholderConfigurer"
@@ -19,10 +28,10 @@
         <property name="locations">
             <list>
                 <value>classpath:config/itpay-mp.properties</value>
+                <value>classpath:config/redis-config.properties</value>
             </list>
         </property>
     </bean>
-
 
 
     <!-- thread pool -->
@@ -33,6 +42,6 @@
     </bean>
 
 
-    
-    <import resource="classpath:/motan/spring-motan.xml" />
+    <import resource="classpath:/motan/spring-motan.xml"/>
+    <import resource="classpath:/spring/spring-redis.xml"/>
 </beans>
