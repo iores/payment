@@ -54,26 +54,42 @@
         <constructor-arg name="valueSerializationPair" ref="jackson2JsonRedisSerializerPair"/>
     </bean>
 
-
-    <!--<bean id="redisCacheWriterUtil" class="org.springframework.data.redis.cache.DefaultRedisCacheWriter">-->
-        <!--<constructor-arg name="connectionFactory" ref="jedisConnectionFactory"/>-->
-        <!--<constructor-arg name="sleepTime" value="Expiration.from(ttl.toMillis(), TimeUnit.MILLISECONDS)"/>-->
-    <!--</bean>-->
-    <!--&lt;!&ndash;用于redisCacheUtils 使用&ndash;&gt;-->
-    <!--<bean id="redisCache" class="org.springframework.data.redis.cache.RedisCache">-->
-
-        <!--<constructor-arg name="name" value="redisUtil"/>-->
-        <!--<constructor-arg name="cacheWriter" ref="redisCacheWriterUtil"/>-->
-        <!--<constructor-arg name="cacheConfig" ref="defaultRedisCacheConfiguration"/>-->
-    <!--</bean>-->
-
-
-    <bean id="redisCacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
-
+    <!--session redis cache-->
+    <bean id="sessionRedisCache" class="org.springframework.data.redis.cache.RedisCache">
+        <constructor-arg name="name" value="session"/>
         <constructor-arg name="cacheWriter" ref="redisCacheWriter"/>
-        <constructor-arg name="defaultCacheConfiguration" ref="defaultRedisCacheConfiguration"/>
-        <constructor-arg name="initialCacheConfigurations" ref="cacheConfigurations"/>
+        <constructor-arg name="cacheConfig" ref="sessionJsonRedisCacheConfiguration"/>
     </bean>
+    <!--系统使用的redis cache-->
+    <bean id="mypayRedisCache" class="org.springframework.data.redis.cache.RedisCache">
+        <constructor-arg name="name" value="mypay"/>
+        <constructor-arg name="cacheWriter" ref="redisCacheWriter"/>
+        <constructor-arg name="cacheConfig" ref="jsonRedisCacheConfiguration"/>
+    </bean>
+    <!--默认的缓存-->
+    <bean id="defaultRedisCache" class="org.springframework.data.redis.cache.RedisCache">
+        <constructor-arg name="name" value="default"/>
+        <constructor-arg name="cacheWriter" ref="redisCacheWriter"/>
+        <constructor-arg name="cacheConfig" ref="defaultRedisCacheConfiguration"/>
+    </bean>
+
+    <!--短时间的缓存-->
+    <bean id="shortMypayRedisCache" class="org.springframework.data.redis.cache.RedisCache">
+        <constructor-arg name="name" value="shortMypay"/>
+        <constructor-arg name="cacheWriter" ref="redisCacheWriter"/>
+        <constructor-arg name="cacheConfig" ref="shortJsonRedisCacheConfiguration"/>
+    </bean>
+
+    <bean id="redisCacheManager" class="org.springframework.cache.support.SimpleCacheManager" >
+        <property name="caches" ref="redisCaches"  />
+    </bean>
+
+    <!--<bean id="redisCacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">-->
+
+        <!--<constructor-arg name="cacheWriter" ref="redisCacheWriter"/>-->
+        <!--<constructor-arg name="defaultCacheConfiguration" ref="defaultRedisCacheConfiguration"/>-->
+        <!--<constructor-arg name="initialCacheConfigurations" ref="cacheConfigurations"/>-->
+    <!--</bean>-->
 
 
 </beans>

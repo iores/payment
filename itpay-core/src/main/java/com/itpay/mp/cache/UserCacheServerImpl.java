@@ -24,7 +24,7 @@ public class UserCacheServerImpl implements UserCacheServer {
      * @return UserDto
      */
     @Override
-    @Cacheable(value = "mypay" ,key = "'mp-['+#userId+']'",sync = true)
+    @Cacheable(value = "mypay" ,key = "'mp-['+#userId+']'",sync = false)
     public UserDto findById(String userId) {
         return userManager.selectByPrimaryKey(userId);
     }
