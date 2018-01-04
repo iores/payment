@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Created by feng on 2017/5/29 0029.
  * MyShiroRealm
+ * @author zlf
  */
 public class MyShiroRealm extends AuthorizingRealm {
 

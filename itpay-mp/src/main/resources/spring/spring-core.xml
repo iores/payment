@@ -14,13 +14,13 @@
 
     <!-- 启用缓存注解功能，这个是必须的，否则注解不会生效，另外，该注解一定要声明在spring主配置文件中才会生效 -->
     <cache:annotation-driven cache-manager="redisCacheManager"/>
-    <!--定义redis的key-->
-    <util:map id="cacheConfigurations">
-        <entry key="mypay" value-ref="jsonRedisCacheConfiguration"/>
-        <entry key="default" value-ref="defaultRedisCacheConfiguration"/>
-        <entry key="shortMypay" value-ref="shortJsonRedisCacheConfiguration"/>
-        <entry key="session" value-ref="sessionJsonRedisCacheConfiguration"/>
-    </util:map>
+    <!--定义启动的redis cache-->
+    <util:set id="redisCaches">
+        <ref bean="sessionRedisCache" />
+        <ref bean="mypayRedisCache" />
+        <ref bean="defaultRedisCache" />
+        <ref bean="shortMypayRedisCache" />
+    </util:set>
 
     <!-- spring启动时扫描项目路径下的properties文件,后续用${key }方式取出对应值,这样可以代码解耦和，后续只需修改properties文件即可 -->
     <bean id="propertyPlaceholderConfigurer"
