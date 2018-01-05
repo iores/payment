@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  *权限接口
+ * @author lfeng1
  */
 public interface MpPermissionAppSerice {
 

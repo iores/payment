@@ -6,7 +6,9 @@ import com.itpay.mp.user.dto.UserDto;
 import java.util.List;
 
 /**
- * Created by feng on 2017/5/24 0024.
+ *
+ * @author feng
+ * @date 2017/5/24 0024
  * 用户接口
  */
 public interface UserAppService {

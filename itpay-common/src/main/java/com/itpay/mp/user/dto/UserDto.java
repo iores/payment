@@ -5,6 +5,9 @@ import com.itpay.base.enums.EUserStatus;
 import com.itpay.core.base.dto.UuidBaseDto;
 
 import java.util.Date;
+/**
+ * @author lfeng1
+ */
 public class UserDto extends UuidBaseDto {
     private static final long serialVersionUID = -2172611121783144604L;
     /**

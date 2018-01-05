@@ -10,7 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by feng on 2017/8/20 0020.
+ *
+ * @author feng
+ * @date 2017/8/20 0020
  * 枚举处理类
  */
 public class BaseEnumHandler<E extends BaseEnum> extends BaseTypeHandler<E> {

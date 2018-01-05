@@ -14,17 +14,20 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <!--数据源-->
         <dependency>
             <groupId>com.payment</groupId>
             <artifactId>framework-datasource</artifactId>
             <version>${framework.version}</version>
             <type>pom</type>
         </dependency>
+        <!--jackson-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+
 
     </dependencies>
    

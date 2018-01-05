@@ -4,6 +4,9 @@ import com.itpay.core.base.dto.UuidBaseDto;
 
 import java.util.Date;
 
+/**
+ * @author lfeng1
+ */
 public class MpPermission extends UuidBaseDto {
     private static final long serialVersionUID = -8360975320529395099L;
     /**

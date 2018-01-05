@@ -5,6 +5,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 /**
  * Created by feng on 2017/5/30 0030
  * 扩展用户验证码
+ * @author lfeng1
  */
 public class CaptchaUsernamePasswordToken extends UsernamePasswordToken {
     private static final long serialVersionUID = -8916747789555286929L;

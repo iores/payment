@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by feng on 2017/5/30 0030.
  * 扩展验证码认证
+ * @author zlf
  */
 public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     

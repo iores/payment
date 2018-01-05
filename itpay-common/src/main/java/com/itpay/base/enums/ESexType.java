@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by feng on 2017/8/20 0020.
+ *
+ * @author feng
+ * @date 2017/8/20 0020
  * 性别
  */
 public enum ESexType  implements BaseEnum<ESexType,String>{

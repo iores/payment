@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by feng on 2017/8/20 0020.
+ *
+ * @author feng
+ * @date 2017/8/20 0020
  * 用户状态
  */
 public enum EUserStatus implements BaseEnum<EUserStatus,String>{

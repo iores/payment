@@ -7,6 +7,7 @@ import java.util.UUID;
 
 /**
  * 主键为uuid
+ * @author lfeng1
  */
 public class UuidBaseDto extends  BaseDto {
 

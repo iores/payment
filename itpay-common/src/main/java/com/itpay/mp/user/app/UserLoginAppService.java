@@ -5,7 +5,9 @@ import com.itpay.mp.user.dto.UserLoginDto;
 import java.util.List;
 
 /**
- * Created by feng on 2017/5/29 0029.
+ *
+ * @author feng
+ * @date 2017/5/29 0029
  * 用户登陆验证
  */
 public interface UserLoginAppService {

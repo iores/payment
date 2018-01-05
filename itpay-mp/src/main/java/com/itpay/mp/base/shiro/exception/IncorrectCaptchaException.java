@@ -3,7 +3,9 @@ package com.itpay.mp.base.shiro.exception;
 import org.apache.shiro.authc.AuthenticationException;
 
 /**
- * Created by feng on 2017/5/30 0030.
+ *
+ * @author feng
+ * @date 2017/5/30 0030
  * 验证码验证失败的异常
  */
 public class IncorrectCaptchaException extends AuthenticationException {

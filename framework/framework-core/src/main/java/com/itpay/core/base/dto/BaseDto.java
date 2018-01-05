@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * 实体类基类
+ * @author lfeng1
  */
 public abstract   class BaseDto implements Serializable {
     private static final long serialVersionUID = 7162357875256310785L;
