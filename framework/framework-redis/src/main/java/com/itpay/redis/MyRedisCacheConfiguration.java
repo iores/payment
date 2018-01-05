@@ -79,6 +79,23 @@ public class MyRedisCacheConfiguration {
     /**
      * @param ttl       超时时间
      * @param keyPrefix key的前缀
+     * @return RedisCacheConfiguration
+     */
+    public static RedisCacheConfiguration createConfiguration(Long ttl, String keyPrefix) {
+        RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
+        if (ttl != null) {
+            configuration = configuration.entryTtl(Duration.ofSeconds(ttl));
+        }
+        if (StringUtils.hasText(keyPrefix)) {
+            configuration = configuration.prefixKeysWith(keyPrefix);
+        }
+        return configuration;
+
+    }
+
+    /**
+     * @param ttl       超时时间
+     * @param keyPrefix key的前缀
      * @param usePrefix 是否使用 前缀
      * @return RedisCacheConfiguration
      */

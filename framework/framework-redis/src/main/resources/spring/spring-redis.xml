@@ -48,17 +48,16 @@
         <constructor-arg name="valueSerializationPair" ref="jackson2JsonRedisSerializerPair"/>
     </bean>
 
-    <bean id="sessionJsonRedisCacheConfiguration" class="com.itpay.redis.MyRedisCacheConfiguration" factory-method="createConfiguration">
+    <bean id="sessionRedisCacheConfiguration" class="com.itpay.redis.MyRedisCacheConfiguration" factory-method="createConfiguration">
         <constructor-arg name="ttl" value="1800"/>
         <constructor-arg name="keyPrefix" value="session:"/>
-        <constructor-arg name="valueSerializationPair" ref="jackson2JsonRedisSerializerPair"/>
     </bean>
 
     <!--session redis cache-->
     <bean id="sessionRedisCache" class="org.springframework.data.redis.cache.RedisCache">
         <constructor-arg name="name" value="session"/>
         <constructor-arg name="cacheWriter" ref="redisCacheWriter"/>
-        <constructor-arg name="cacheConfig" ref="sessionJsonRedisCacheConfiguration"/>
+        <constructor-arg name="cacheConfig" ref="sessionRedisCacheConfiguration"/>
     </bean>
     <!--系统使用的redis cache-->
     <bean id="mypayRedisCache" class="org.springframework.data.redis.cache.RedisCache">
