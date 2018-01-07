@@ -27,12 +27,14 @@ public class BaseEnumHandler<E extends BaseEnum> extends BaseTypeHandler<E> {
      * @param type 配置文件中设置的转换类 
      */
     public BaseEnumHandler(Class<E> type) {
-        if (type == null)
+        if (type == null) {
             throw new IllegalArgumentException("Type argument cannot be null");
+        }
         this.type = type;
         this.enums = type.getEnumConstants();
-        if (this.enums == null)
+        if (this.enums == null) {
             throw new IllegalArgumentException(type.getSimpleName() + " does not represent an enum type.");
+        }
     }
 
     @Override

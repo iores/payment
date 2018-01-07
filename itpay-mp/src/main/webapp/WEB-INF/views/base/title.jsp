@@ -24,14 +24,15 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/plugs/AdminLTE/css/AdminLTE.min.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/plugs/AdminLTE/css/skins/_all-skins.min.css">
-<%--主题样式--%>
+<!--主题样式-->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/plugs/AdminLTE/css/skins/skin-blue.min.css">
 <!-- iCheck -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/plugs/other/iCheck/square/blue.css">
-<%--自定义的css--%>
+<!--自定义的css-->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/my.css">
-<%--验证框架--%>
+<!--验证框架-->
 <link type="text/css" rel="stylesheet" href="<%= request.getContextPath() %>/plugs/other/bootstrapValidator/css/bootstrapValidator.css" />
+
 
 <!-- jQuery 2.2.3 -->
 <script src="<%= request.getContextPath() %>/plugs/jquery/jquery-2.2.3.min.js"></script>
@@ -39,7 +40,8 @@
 <script src="<%= request.getContextPath() %>/plugs/bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="<%= request.getContextPath() %>/plugs/other/iCheck/icheck.min.js"></script>
-
+<%--密码加密框架--%>
+<script src="<%= request.getContextPath() %>/plugs/other/bcrypt/bcrypt.min.js"></script>
 <%--bootstrapValidator--%>
 <script type="text/javascript" src="<%= request.getContextPath() %>/plugs/other/bootstrapValidator/js/bootstrapValidator.js"></script>
 <script type="text/javascript" src="<%= request.getContextPath() %>/plugs/other/bootstrapValidator/js/language/zh_CN.js"></script>

@@ -63,7 +63,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             UserLoginDto userLoginDto=userLoginAppService.findByUserLoginName(username);
             if(userLoginDto!=null){
                 return new SimpleAuthenticationInfo(
-                        userLoginDto.getLoginName(),userLoginDto.getLoginPwd(),getName() ); 
+                        userLoginDto,userLoginDto.getLoginPwd(),getName() );
             }
         }
 

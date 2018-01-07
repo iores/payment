@@ -127,7 +127,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">欢迎登陆：<shiro:principal type="java.lang.String"/></span>
+                        <span class="hidden-xs">欢迎登陆：<shiro:principal type="com.itpay.mp.user.dto.UserLoginDto" property="loginName"/></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->

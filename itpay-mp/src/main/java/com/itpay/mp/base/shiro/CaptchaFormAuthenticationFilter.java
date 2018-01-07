@@ -2,6 +2,7 @@ package com.itpay.mp.base.shiro;
 
 import com.itpay.mp.base.shiro.exception.IncorrectCaptchaException;
 import com.itpay.mp.user.app.UserLoginAppService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
