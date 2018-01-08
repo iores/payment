@@ -39,15 +39,22 @@
                                 /*长度提示*/
                                 min: 3,
                                 max: 30,
-                                message: '用户名长度必须在6到30之间'
+                                message: '用户名长度必须在3到30之间'
                             }
                         }
                     },
-                    pass_word: {
+                    password: {
+                        selector:'#pass_word',
                         message: '密码无效',
                         validators: {
                             notEmpty: {
                                 message: '密码不能为空'
+                            },
+                            stringLength: {
+                                /*长度提示*/
+                                min: 3,
+                                max: 30,
+                                message: '密码长度必须在3到30之间'
                             }
                         }
                     },
@@ -60,19 +67,11 @@
                         }
                     }
                 },
+                onSuccess: function () {
+                    passwordHandler();
+                }
 
             })
-//                .on('success.form.fv', function(e) {
-//                // Prevent form submission
-//                e.preventDefault();
-//
-//                var $form = $(e.target),
-//                    fv    = $(e.target).data('formValidation');
-//
-//                passwordHandler();
-//                // Then submit the form as usual
-//                fv.defaultSubmit();
-//            });
         });
 
 
@@ -81,7 +80,7 @@
          */
         function passwordHandler() {
             //处理密码
-            var passWord = $("[name='pass_word']").val();
+            var passWord = $("#pass_word").val();
             var bcrypt = dcodeIO.bcrypt;
             //生成salt
             var salt = bcrypt.genSaltSync();
@@ -109,7 +108,7 @@
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback ">
-                <input maxlength="60" type="password" class="form-control login" name="pass_word" placeholder="密码"/>
+                <input maxlength="60" type="password" class="form-control login" id="pass_word" placeholder="密码"/>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
