@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author lfeng1
+ */
 @Service("mpPermissionAppSerice")
 public class MpPermissionAppSericeImpl implements MpPermissionAppSerice {
 

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author lfeng1
+ */
 @Service("mpRoleAppService")
 public class MpRoleAppServiceImpl implements MpRoleAppService {
 

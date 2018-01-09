@@ -80,11 +80,9 @@
          */
         function passwordHandler() {
             //处理密码
-            var passWord = $("#pass_word").val();
-            var bcrypt = dcodeIO.bcrypt;
-            //生成salt
-            var salt = bcrypt.genSaltSync();
-            var hashPd = bcrypt.hashSync(passWord,salt);
+            var passWord = $("#pass_word").val().trim();
+            var username = $("input[name='username']").val().trim();
+            var hashPd = MD5(MD5(passWord)+username);
             var form = $("#iform");
             form.append("<input type='hidden'  name='password' value='"+hashPd+"' />");
         }
@@ -135,7 +133,7 @@
                     <a href="#">忘记密码?</a>
                 </div>
                 <div class="col-xs-4">
-                    <button type="submit" onclick="submitHandler()"  class="btn btn-primary btn-block btn-flat">登陆</button>
+                    <button type="submit"   class="btn btn-primary btn-block btn-flat">登陆</button>
                 </div>
             </div>
         </form>

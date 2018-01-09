@@ -17,6 +17,7 @@ public class PassWordUtil {
 
     /**
      * 获取md5值
+     *
      * @param key 需要获取md5的内容
      * @return md5
      */
@@ -38,7 +39,8 @@ public class PassWordUtil {
 
     /**
      * 获取大写的md5值
-     * @param key  需要获取md5的内容
+     *
+     * @param key 需要获取md5的内容
      * @return 大写的md5
      */
     public static String createMd5ByUpperCase(String key) {
@@ -51,27 +53,53 @@ public class PassWordUtil {
 
     /**
      * 使用BCrypt 加密
+     *
      * @param key 需要加密的内容
      * @return 返回加密的hash
      */
-    public static String bcryptHashpw(String key){
-        return BCrypt.hashpw(key,BCrypt.gensalt());
+    public static String bcryptHashpw(String key) {
+        return BCrypt.hashpw(key, BCrypt.gensalt());
+    }
+
+    /**
+     * 使用BCrypt 加密
+     *
+     * @param key       需要加密的内容
+     * @param logRounds 加盐参数
+     * @return 返回加密的hash
+     */
+    public static String bcryptHashpw(String key, int logRounds) {
+        return BCrypt.hashpw(key, BCrypt.gensalt(logRounds));
+    }
+
+    /**
+     * 使用BCrypt 加密
+     *
+     * @param key  需要加密的内容
+     * @param salt 加盐的值
+     * @return 返回加密的hash
+     */
+    public static String bcryptHashpw(String key, String salt) {
+        return BCrypt.hashpw(key, salt);
     }
 
     /**
      * 验证bcrypt 加密的内容
+     *
      * @param plaintext 内容
-     * @param hash 加密后的内容
+     * @param hash      加密后的内容
      * @return 是否验证通过
      */
-    public static boolean bcryptCheckpw(String plaintext,String hash){
-        return BCrypt.checkpw(plaintext,hash);
+    public static boolean bcryptCheckpw(String plaintext, String hash) {
+        return BCrypt.checkpw(plaintext, hash);
     }
 
 
-    public static void main(String [] args){
-        String hash = BCrypt.hashpw("zlf",BCrypt.gensalt());
-        System.out.println(BCrypt.checkpw("zlf",hash));
+    public static void main(String[] args) {
+        String salt=BCrypt.gensalt(5);
+        String hash = BCrypt.hashpw("zlf",salt );
+        System.out.println(hash);
+        //System.out.println(BCrypt.checkpw(hash2, hash));
 
     }
 

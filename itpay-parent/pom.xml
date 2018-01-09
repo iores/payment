@@ -49,6 +49,10 @@
         <jedis.version>2.9.0</jedis.version>
         <!--json-->
         <jackson.version>2.9.3</jackson.version>
+        <!--jbcrypt -->
+        <jbcrypt.version>0.4</jbcrypt.version>
+        <!--commons-lang3.version-->
+        <commons-lang3.version>3.7</commons-lang3.version>
     </properties>
 
     <!-- maven 私服 jar库  -->

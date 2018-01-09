@@ -41,7 +41,7 @@
 <!-- iCheck -->
 <script src="<%= request.getContextPath() %>/plugs/other/iCheck/icheck.min.js"></script>
 <%--密码加密框架--%>
-<script src="<%= request.getContextPath() %>/plugs/other/bcrypt/bcrypt.min.js"></script>
+<script src="<%= request.getContextPath() %>/plugs/other/md5/md5.min.js"></script>
 <%--bootstrapValidator--%>
 <script type="text/javascript" src="<%= request.getContextPath() %>/plugs/other/bootstrapValidator/js/bootstrapValidator.js"></script>
 <script type="text/javascript" src="<%= request.getContextPath() %>/plugs/other/bootstrapValidator/js/language/zh_CN.js"></script>
