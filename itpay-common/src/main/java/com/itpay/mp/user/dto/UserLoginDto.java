@@ -1,5 +1,6 @@
 package com.itpay.mp.user.dto;
 
+import com.itpay.base.enums.EUserStatus;
 import com.itpay.core.base.dto.UuidBaseDto;
 
 import java.util.Date;
@@ -73,7 +74,7 @@ public class UserLoginDto extends UuidBaseDto {
      *
      *
      */
-    private String status;
+    private EUserStatus status;
 
     /**
      *
@@ -254,7 +255,7 @@ public class UserLoginDto extends UuidBaseDto {
      *
      *
      */
-    public String getStatus() {
+    public EUserStatus getStatus() {
         return status;
     }
 
@@ -266,8 +267,8 @@ public class UserLoginDto extends UuidBaseDto {
      *
      *
      */
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setStatus(EUserStatus status) {
+        this.status = status;
     }
 
     /**

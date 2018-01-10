@@ -1,5 +1,7 @@
 package com.itpay.mp.user.vo;
 
+import com.itpay.core.annotation.Validate;
+
 import java.io.Serializable;
 
 /**
@@ -13,14 +15,17 @@ public class UserLoginVo implements Serializable {
     /**
      * 用户id
      */
+    @Validate
     private String userId;
     /**
      * 登录名称
      */
+    @Validate(maxLength = 64)
     private String loginName;
     /**
      * 登录密码
      */
+    @Validate(maxLength = 128)
     private String passWord;
 
 

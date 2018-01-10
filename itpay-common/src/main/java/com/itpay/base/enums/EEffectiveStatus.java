@@ -9,7 +9,7 @@ import java.util.Map;
  * 有效无效状态
  * @author lfeng1
  */
-public enum EEffectiveStatus implements BaseEnum<EEffectiveStatus,String>{
+public enum EEffectiveStatus implements BaseEnum<String>{
     /**
      * 有效
      */

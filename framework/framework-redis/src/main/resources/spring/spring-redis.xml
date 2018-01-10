@@ -19,8 +19,7 @@
           p:pool-config-ref="poolConfig" p:usePool="true"/>
 
 
-
-    <!--序列化配置-->
+    <!--json序列化配置-->
     <bean id="jackson2JsonRedisSerializer"
           class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer">
     </bean>
@@ -29,26 +28,29 @@
           factory-method="from">
         <constructor-arg name="redisSerializer" ref="jackson2JsonRedisSerializer"/>
     </bean>
-
+    <!--初始化redis 操作类-->
     <bean id="redisCacheWriter" class="org.springframework.data.redis.cache.DefaultRedisCacheWriter">
         <constructor-arg name="connectionFactory" ref="jedisConnectionFactory"/>
     </bean>
-
+    <!--默认的cache配置-->
     <bean id="defaultRedisCacheConfiguration" class="org.springframework.data.redis.cache.RedisCacheConfiguration"
           factory-method="defaultCacheConfig"/>
 
-    <bean id="jsonRedisCacheConfiguration" class="com.itpay.redis.MyRedisCacheConfiguration" factory-method="createConfiguration">
+    <bean id="jsonRedisCacheConfiguration" class="com.itpay.redis.MyRedisCacheConfiguration"
+          factory-method="createConfiguration">
         <constructor-arg name="ttl" value="120000"/>
         <constructor-arg name="keyPrefix" value="mypay:"/>
         <constructor-arg name="valueSerializationPair" ref="jackson2JsonRedisSerializerPair"/>
     </bean>
-    <bean id="shortJsonRedisCacheConfiguration" class="com.itpay.redis.MyRedisCacheConfiguration" factory-method="createConfiguration">
+    <bean id="shortJsonRedisCacheConfiguration" class="com.itpay.redis.MyRedisCacheConfiguration"
+          factory-method="createConfiguration">
         <constructor-arg name="ttl" value="1800"/>
         <constructor-arg name="keyPrefix" value="mypay:"/>
         <constructor-arg name="valueSerializationPair" ref="jackson2JsonRedisSerializerPair"/>
     </bean>
 
-    <bean id="sessionRedisCacheConfiguration" class="com.itpay.redis.MyRedisCacheConfiguration" factory-method="createConfiguration">
+    <bean id="sessionRedisCacheConfiguration" class="com.itpay.redis.MyRedisCacheConfiguration"
+          factory-method="createConfiguration">
         <constructor-arg name="ttl" value="1800"/>
         <constructor-arg name="keyPrefix" value="session:"/>
     </bean>
@@ -79,15 +81,15 @@
         <constructor-arg name="cacheConfig" ref="shortJsonRedisCacheConfiguration"/>
     </bean>
 
-    <bean id="redisCacheManager" class="org.springframework.cache.support.SimpleCacheManager" >
-        <property name="caches" ref="redisCaches"  />
+    <bean id="redisCacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+        <property name="caches" ref="redisCaches"/>
     </bean>
 
     <!--<bean id="redisCacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">-->
 
-        <!--<constructor-arg name="cacheWriter" ref="redisCacheWriter"/>-->
-        <!--<constructor-arg name="defaultCacheConfiguration" ref="defaultRedisCacheConfiguration"/>-->
-        <!--<constructor-arg name="initialCacheConfigurations" ref="cacheConfigurations"/>-->
+    <!--<constructor-arg name="cacheWriter" ref="redisCacheWriter"/>-->
+    <!--<constructor-arg name="defaultCacheConfiguration" ref="defaultRedisCacheConfiguration"/>-->
+    <!--<constructor-arg name="initialCacheConfigurations" ref="cacheConfigurations"/>-->
     <!--</bean>-->
 
 

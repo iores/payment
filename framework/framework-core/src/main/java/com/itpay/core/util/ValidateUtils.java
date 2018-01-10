@@ -1,7 +1,7 @@
 package com.itpay.core.util;
 
 import com.itpay.core.annotation.Validate;
-import com.itpay.core.enums.RegexType;
+import com.itpay.core.enums.ERegexType;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.bind.ValidationException;
@@ -67,9 +67,9 @@ public class ValidateUtils {
         if (value == null) {
             return;
         }
-        if (value instanceof String) {
+        //处理基本类型
+        baseTypeHandler((String) value,dv,description);
 
-        }
 
     }
 
@@ -79,49 +79,49 @@ public class ValidateUtils {
      * @param dv 注解
      * @param description 字段描述
      */
-    private static void stringHandler(String value,Validate dv,String description) throws ValidationException {
+    private static void baseTypeHandler(String value,Validate dv,String description) throws ValidationException {
         if (value.length() > dv.maxLength() && dv.maxLength() != 0) {
             throw new ValidationException(description + "长度不能超过" + dv.maxLength());
         }
         if (value.length() < dv.minLength() && dv.minLength() != 0) {
             throw new ValidationException(description + "长度不能小于" + dv.minLength());
         }
-        if (dv.regexType() != RegexType.NONE) {
+        if (dv.regexType() != ERegexType.NONE) {
             switch (dv.regexType()) {
                 case NONE:
                     break;
-                case SPECIALCHAR:
-                    if (RegexUtils.hasSpecialChar(value.toString())) {
+                case NO_SPECIALCHAR:
+                    if (RegexUtils.hasSpecialChar(value)) {
                         throw new ValidationException(description + "不能含有特殊字符");
                     }
                     break;
-                case CHINESE:
-                    if (RegexUtils.isChinese2(value.toString())) {
+                case NO_CHINESE:
+                    if (RegexUtils.cheackChinese(value)) {
                         throw new ValidationException(description + "不能含有中文字符");
                     }
                     break;
                 case EMAIL:
-                    if (!RegexUtils.isEmail(value.toString())) {
+                    if (!RegexUtils.cheackEmail(value)) {
                         throw new ValidationException(description + "地址格式不正确");
                     }
                     break;
                 case IP:
-                    if (!RegexUtils.isIp(value.toString())) {
+                    if (!RegexUtils.cheackIp(value)) {
                         throw new ValidationException(description + "地址格式不正确");
                     }
                     break;
                 case NUMBER:
-                    if (!RegexUtils.isNumber(value.toString())) {
+                    if (!RegexUtils.cheackNumber(value)) {
                         throw new ValidationException(description + "不是数字");
                     }
                     break;
                 case PHONENUMBER:
-                    if (!RegexUtils.isPhoneNumber(value.toString())) {
-                        throw new ValidationException(description + "不是数字");
+                    if (!RegexUtils.cheackPhoneNumber(value)) {
+                        throw new ValidationException(description + "不是手机号");
                     }
                     break;
                 case NUMBERORLETTER:
-                    if (!RegexUtils.isNumberOrLetter(value.toString())) {
+                    if (!RegexUtils.cheackNumberOrLetter(value)) {
                         throw new ValidationException(description + "不是数字或字母");
                     }
                     break;
@@ -129,11 +129,14 @@ public class ValidateUtils {
                     break;
             }
         }
-        if (!"".equals(dv.regexExpression())) {
-            if (value.toString().matches(dv.regexExpression())) {
+
+        //判断是否传入了正则表达式
+        if(StringUtils.isNotBlank(dv.regexExpression())){
+            //如果没有匹配指定的正则，则报错
+            if (!value.matches(dv.regexExpression())) {
                 throw new ValidationException(description + "格式不正确");
             }
         }
-
     }
+
 }

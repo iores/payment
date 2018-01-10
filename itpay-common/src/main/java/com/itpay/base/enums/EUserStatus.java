@@ -11,7 +11,7 @@ import java.util.Map;
  * @date 2017/8/20 0020
  * 用户状态
  */
-public enum EUserStatus implements BaseEnum<EUserStatus,String>{
+public enum EUserStatus implements BaseEnum<String>{
     /**
      * 正常
      */

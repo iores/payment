@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
  * @date 2018/1/7
  */
 public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
-    private static final Logger log= LoggerFactory.getLogger(CaptchaFormAuthenticationFilter.class);
 
 
     /**
@@ -30,11 +29,9 @@ public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
         Object tokenCredentials = getCredentials(token);
         //获取保存的密码
         Object accountCredentials = getCredentials(info);
-        if(tokenCredentials!=null &&accountCredentials !=null){
-            return PassWordUtil.bcryptCheckpw((String)tokenCredentials,(String)accountCredentials);
-        }
+        return tokenCredentials != null && accountCredentials != null
+                && PassWordUtil.bcryptCheckpw(String.valueOf((char[])tokenCredentials), accountCredentials.toString());
 
-        return false;
     }
 
 

@@ -1,6 +1,7 @@
 package com.itpay.mp.user.service;
 
 import com.itpay.mp.user.dto.UserLoginDto;
+import com.itpay.mp.user.vo.UserLoginVo;
 
 import java.util.List;
 
@@ -56,5 +57,11 @@ public interface UserLoginManager {
      */
     List<UserLoginDto> findByUserId(String userId);
 
+    /**
+     * 增加登录用户
+     *
+     * @param loginVos 新增登录用户请求信息
+     */
+    void addLoginInfo(List<UserLoginVo> loginVos);
 
 }

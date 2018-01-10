@@ -1,19 +1,21 @@
 package com.itpay.core.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * 正则工具类
+ *
  * @author lfeng1
  * @date 2018/1/9 0009
  */
 public class RegexUtils {
-
     /**
-     * 用于判断是否含有中文，仅适合中国汉字，不包括标点
+     * 正常字符的正则表达式
      */
-    private final static Pattern PATTERN_ZH = Pattern.compile("[\u4e00-\u9fa5]");
+    private final static String CHAR = "[a-z]*[A-Z]*\\d*-*_*\\s*";
 
     /**
      * 判断是否是正确的IP地址
@@ -21,249 +23,126 @@ public class RegexUtils {
      * @param ip ip
      * @return boolean true,通过，false，没通过
      */
-    public static boolean isIp(String ip) {
-        if (null == ip || "".equals(ip)){
+    public static boolean cheackIp(String ip) {
+        if (StringUtils.isBlank(ip)) {
             return false;
         }
-        String regex = "^(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|[1-9])\\."
+        //ipv4
+        String regexIpv4 = "^(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|[1-9])\\."
                 + "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\."
                 + "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\."
                 + "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)$";
-        return ip.matches(regex);
+        //ipv6
+        String regexIpv6 = "^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:)|" +
+                "(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}(:[0-9A-Fa-f]{1,4}){1,2})|" +
+                "(([0-9A-Fa-f]{1,4}:){4}(:[0-9A-Fa-f]{1,4}){1,3})|(([0-9A-Fa-f]{1,4}:){3}(:[0-9A-Fa-f]{1,4}){1,4})|" +
+                "(([0-9A-Fa-f]{1,4}:){2}(:[0-9A-Fa-f]{1,4}){1,5})|([0-9A-Fa-f]{1,4}:(:[0-9A-Fa-f]{1,4}){1,6})|" +
+                "(:(:[0-9A-Fa-f]{1,4}){1,7})|(([0-9A-Fa-f]{1,4}:){6}(\\\\d|[1-9]\\\\d|1\\\\d{2}|2[0-4]\\\\d|25[0-5])" +
+                "(\\\\.(\\\\d|[1-9]\\\\d|1\\\\d{2}|2[0-4]\\\\d|25[0-5])){3})|(([0-9A-Fa-f]{1,4}:){5}:(\\\\d|[1-9]\\\\d|" +
+                "1\\\\d{2}|2[0-4]\\\\d|25[0-5])(\\\\.(\\\\d|[1-9]\\\\d|1\\\\d{2}|2[0-4]\\\\d|25[0-5])){3})|" +
+                "(([0-9A-Fa-f]{1,4}:){4}(:[0-9A-Fa-f]{1,4})?:(\\\\d|[1-9]\\\\d|1\\\\d{2}|2[0-4]\\\\d|25[0-5])" +
+                "(\\\\.(\\\\d|[1-9]\\\\d|1\\\\d{2}|2[0-4]\\\\d|25[0-5])){3})|(([0-9A-Fa-f]{1,4}:){3}(:[0-9A-Fa-f]{1,4})" +
+                "{0,2}:(\\\\d|[1-9]\\\\d|1\\\\d{2}|2[0-4]\\\\d|25[0-5])(\\\\.(\\\\d|[1-9]\\\\d|1\\\\d{2}|2[0-4]\\\\d|25[0-5])){3})|" +
+                "(([0-9A-Fa-f]{1,4}:){2}(:[0-9A-Fa-f]{1,4}){0,3}:(\\\\d|[1-9]\\\\d|1\\\\d{2}|2[0-4]\\\\d|25[0-5])(\\\\.(\\\\d|[1-9]\\\\d|" +
+                "1\\\\d{2}|2[0-4]\\\\d|25[0-5])){3})|([0-9A-Fa-f]{1,4}:(:[0-9A-Fa-f]{1,4}){0,4}:(\\\\d|[1-9]\\\\d|1\\\\d{2}|2[0-4]\\\\d|25[0-5])" +
+                "(\\\\.(\\\\d|[1-9]\\\\d|1\\\\d{2}|2[0-4]\\\\d|25[0-5])){3})|(:(:[0-9A-Fa-f]{1,4}){0,5}:(\\\\d|[1-9]\\\\d|1\\\\d{2}|2[0-4]\\\\d|25[0-5])" +
+                "(\\\\.(\\\\d|[1-9]\\\\d|1\\\\d{2}|2[0-4]\\\\d|25[0-5])){3}))$";
+        return ip.matches(regexIpv4) || ip.matches(regexIpv6);
     }
 
     /**
      * 判断是否是正确的邮箱地址
      *
-     * @param email
+     * @param email 邮箱
      * @return boolean true,通过，false，没通过
      */
-    public static boolean isEmail(String email) {
-        if (null == email || "".equals(email)){
-            return false;
-        }
-        String regex = "\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
-        return email.matches(regex);
+    public static boolean cheackEmail(String email) {
+        return StringUtils.isNotBlank(email)
+                && email.matches("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
     }
 
-    /**
-     * 判断是否含有中文，仅适合中国汉字，不包括标点
-     *
-     * @param text
-     * @return boolean true,通过，false，没通过
-     */
-    public static boolean isChinese(String text) {
-        if (null == text || "".equals(text)){
-            return false;
-        }
 
-        Matcher m = PATTERN_ZH.matcher(text);
-        return m.find();
-    }
-    /***
-     * 中文当作3个字符
-     * @description
-     * @param text
-     * @return
-     * @author lyg
-     * @date 2016-7-13
-     */
-    public static int strLen(String text) {
-        if (null == text || "".equals(text)){
-            return 0;
-        }
-        int len=0;
-        char[] ch = text.toCharArray();
-        for (int i = 0; i < ch.length; i++) {
-            char c = ch[i];
-            if (isChinese(c)) {
-                len++;
-            }
-        }
-        return len*2+text.length();
-    }
-    /***
-     * 字符串截取，1个中文当3个字符
-     * @description
-     * @param text
-     * @param len
-     * @return
-     * @author lyg
-     * @date 2016-7-13
-     */
-    public static String subStr(String text,int len)
-    {
-        if (null == text || "".equals(text)){
-            return "";
-        }
-        StringBuilder result=new StringBuilder();
-        int index=0;
-        char[] ch = text.toCharArray();
-        for (int i = 0; i < ch.length; i++) {
-            char c = ch[i];
-            if (isChinese(c)) {
-                index+=3;
-            }
-            else {
-                index++;
-            }
-            if(len<index){
-                break;
-            }
-            result.append(c);
-        }
-        return result.toString();
-    }
-    /***
-     * 字符串截取，1个中文当3个字符是否补省略号
-     * @description
-     * @param text
-     * @param len
-     * @param ellipsis
-     * @return
-     * @author lyg
-     * @date 2016-8-3
-     */
-    public static String subStr(String text,int len,boolean ellipsis)
-    {
-        if (null == text || "".equals(text)){
-            return "";
-        }
-        if(ellipsis)
-        {
-            len=len-3;
-        }
-        StringBuilder result=new StringBuilder();
-        int index=0;
-        char[] ch = text.toCharArray();
-        for (int i = 0; i < ch.length; i++) {
-            char c = ch[i];
-            if (isChinese(c)) {
-                index+=3;
-            }
-            else {
-                index++;
-            }
-            if(len<index){
-                break;
-            }
-            result.append(c);
-        }
-        if(ellipsis)
-        {
-            result.append("...");
-        }
-        return result.toString();
-    }
     /**
      * 判断是否正整数
      *
-     * @param number
-     *            数字
+     * @param number 数字
      * @return boolean true,通过，false，没通过
      */
-    public static boolean isNumber(String number) {
-        if (null == number || "".equals(number)){
-            return false;
-        }
-        String regex = "[0-9]*";
-        return number.matches(regex);
+    public static boolean cheackNumber(String number) {
+        return StringUtils.isNotBlank(number) && number.matches("[0-9]*");
     }
 
     /**
      * 判断几位小数(正数)
      *
-     * @param decimal
-     *            数字
-     * @param count
-     *            小数位数
+     * @param decimal 数字
+     * @param count   小数位数
      * @return boolean true,通过，false，没通过
      */
-    public static boolean isDecimal(String decimal, int count) {
-        if (null == decimal || "".equals(decimal)){
-            return false;
-        }
-        String regex = "^(-)?(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){" + count
-                + "})?$";
-        return decimal.matches(regex);
+    public static boolean cheackDecimal(String decimal, int count) {
+        return StringUtils.isNotBlank(decimal)
+                && decimal.matches("^(-)?(([1-9]\\d*)|([0]))(\\.(\\d){" + count + "})?$");
     }
 
     /**
      * 判断是否是手机号码
      *
-     * @param phoneNumber
-     *            手机号码
+     * @param phoneNumber 手机号码
      * @return boolean true,通过，false，没通过
      */
-    public static boolean isPhoneNumber(String phoneNumber) {
-        if (null == phoneNumber || "".equals(phoneNumber)){
-            return false;
-        }
-        String regex = "^1[3|4|7|5|8][0-9]\\d{8}$";
-        return phoneNumber.matches(regex);
+    public static boolean cheackPhoneNumber(String phoneNumber) {
+        return StringUtils.isNotBlank(phoneNumber)
+                && phoneNumber.matches("^(13[0-9]|14[579]|15[0-3,5-9]|17[0135678]|18[0-9])\\\\d{8}$");
     }
 
     /**
      * 判断是否含有特殊字符
      *
-     * @param text
+     * @param text 内容
      * @return boolean true,通过，false，没通过
      */
     public static boolean hasSpecialChar(String text) {
-        if (null == text || "".equals(text)){
-            return false;
-        }
-        if (text.replaceAll("[a-z]*[A-Z]*\\d*-*_*\\s*", "").length() == 0) {
-            // 如果不包含特殊字符
-            return true;
-        }
-        return false;
+        //为空则说明不含特殊字符
+        return StringUtils.isBlank(text) || text.replaceAll(CHAR, "").length() == 0;
     }
-    public static void main(String[] args) {
-        System.out.println(strLen("我是中文123,"));
-        System.out.println(subStr("我1是中文123,",5));
-    }
+
+
 
     /**
      * 适应CJK（中日韩）字符集，部分中日韩的字是一样的
      */
-    public static boolean isChinese2(String strName) {
+    public static boolean cheackChinese(String strName) {
         char[] ch = strName.toCharArray();
-        for (int i = 0; i < ch.length; i++) {
-            char c = ch[i];
-            if (isChinese(c)) {
-                return true;
-            }
+        for (char c : ch) {
+            return isChinese(c);
         }
         return false;
     }
 
     private static boolean isChinese(char c) {
         Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
-        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+        return ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
                 || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
                 || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
                 || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
                 || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
                 || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
-                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION) {
-            return true;
-        }
-        return false;
+                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION;
     }
 
     /**
      * 判断是否为数字或字母
      *
-     * @param number
-     *            数字或字母
+     * @param number 数字或字母
      * @return boolean true,通过，false，没通过
      */
-    public static boolean isNumberOrLetter(String number) {
-        if (null == number || "".equals(number)){
+    public static boolean cheackNumberOrLetter(String number) {
+        if (StringUtils.isBlank(number)) {
             return false;
         }
         String regex = "[a-zA-Z0-9]*";
         return number.matches(regex);
     }
+
+
 }

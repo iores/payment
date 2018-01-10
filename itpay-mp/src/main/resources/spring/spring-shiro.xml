@@ -51,8 +51,10 @@
     <!-- 配置自定义Realm -->
     <bean id="myShiroRealm" class="com.itpay.mp.base.shiro.MyShiroRealm">
         <property name="userLoginAppService" ref="userLoginAppService"/>
+        <property name="credentialsMatcher" ref="customCredentialsMatcher"/>
     </bean>
 
+    <bean id="customCredentialsMatcher" class="com.itpay.mp.base.shiro.CustomCredentialsMatcher"/>
     <bean id="lifecycleBeanPostProcessor"  class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
     <bean id="captchaFormAuthenticationFilter" class="com.itpay.mp.base.shiro.CaptchaFormAuthenticationFilter"/>

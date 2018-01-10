@@ -8,12 +8,11 @@ import org.apache.shiro.SecurityUtils;
 /**
  * shiro  帮助类
  *
- * @auther erika
+ * @author erika
  * @date 2018/1/7
  */
 public class ShiroUtil {
 
-    //private static final String PASSWORD_
 
     /**
      * 获取当前登陆的用户

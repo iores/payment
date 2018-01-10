@@ -2,6 +2,7 @@ package com.itpay.mp.user.app;
 
 import com.itpay.mp.user.dto.UserLoginDto;
 import com.itpay.mp.user.service.UserLoginManager;
+import com.itpay.mp.user.vo.UserLoginVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -41,5 +42,15 @@ public class UserLoginAppServiceImpl implements UserLoginAppService {
     @Override
     public List<UserLoginDto> findByUserId(String userId) {
         return userLoginManager.findByUserId(userId);
+    }
+
+    /**
+     * 增加登录用户
+     *
+     * @param loginVos 新增登录用户请求信息
+     */
+    @Override
+    public void addLoginInfo(List<UserLoginVo> loginVos) {
+         userLoginManager.addLoginInfo(loginVos);
     }
 }

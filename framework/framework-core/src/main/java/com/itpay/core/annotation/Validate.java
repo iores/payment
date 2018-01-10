@@ -1,6 +1,6 @@
 package com.itpay.core.annotation;
 
-import com.itpay.core.enums.RegexType;
+import com.itpay.core.enums.ERegexType;
 
 import java.lang.annotation.*;
 
@@ -35,7 +35,7 @@ public @interface Validate {
      * 常用的正则类型
      * @return NONE
      */
-    RegexType regexType() default RegexType.NONE;
+    ERegexType regexType() default ERegexType.NONE;
 
     /**
      * 自定义正则表达式

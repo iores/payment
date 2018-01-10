@@ -11,7 +11,7 @@ import java.util.Map;
  * @date 2017/8/20 0020
  * 性别
  */
-public enum ESexType  implements BaseEnum<ESexType,String>{
+public enum ESexType  implements BaseEnum<String>{
     /**
      * 男
      */

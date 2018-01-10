@@ -21,15 +21,15 @@
                     <tr>
                         <td>用户名称</td>
                         <td>
-                            <input class="form-control" name="name" value="${queryParam.name}"/>
+                            <input class="form-control" name="name" value="${queryParam.name}" title="用户名称"/>
                         </td>
                         <td>用户编号</td>
                         <td>
-                            <input  class="form-control" name="id" value="${queryParam.id}"/>
+                            <input  class="form-control" name="id" value="${queryParam.id}" title="用户编号"/>
                         </td>
                         <td>用户手机号</td>
                         <td>
-                            <input class="form-control" name="phone" value="${queryParam.phone}"/>
+                            <input class="form-control" name="phone" value="${queryParam.phone}" title="用户手机号"/>
                         </td>
                     </tr>
                     <tr>
@@ -37,11 +37,11 @@
                             用户邮箱
                         </td>
                         <td>
-                            <input class="form-control" name="email" value="${queryParam.email}"/>
+                            <input class="form-control" name="email" value="${queryParam.email}" title="用户邮箱"/>
                         </td>
                         <td>用户性别</td>
                         <td>
-                            <select name="sex" class="form-control">
+                            <select name="sex" class="form-control" title="用户性别">
                                 <option value="">所有</option>
                                 <c:forEach items="${sexTypes}" var="sex">
                                     <option value="${sex}"  <c:if
@@ -51,7 +51,7 @@
                         </td>
                         <td>用户状态</td>
                         <td>
-                            <select name="status" class="form-control">
+                            <select name="status" class="form-control" title="用户状态">
                                 <option value="">所有</option>
                                 <c:forEach items="${userStatus}" var="status">
                                     <option value="${status}"  <c:if
@@ -102,8 +102,9 @@
                                 <span class="glyphicon glyphicon-cog  dropdown-toggle" data-toggle="dropdown"
                                       aria-expanded="true"></span>
                                 <ul class="dropdown-menu "  style="position:absolute;min-width: 10px" >
-                                    <li><a href="#" >详情</a></li>
+                                    <li><a href="#" ref="${contextPath}/user/goDetail.html?id=${user.id}" onclick="queryDetail(this)">详情</a></li>
                                     <li><a href="#" >修改</a></li>
+                                    <li><a href="#" >新增登录账户</a></li>
                                 </ul>
                             </div>
 

@@ -3,11 +3,13 @@ package com.itpay.mp.user.service;
 import com.itpay.BaseTest;
 import com.itpay.base.enums.ESexType;
 import com.itpay.base.enums.EUserStatus;
+import com.itpay.core.util.PassWordUtil;
 import com.itpay.mp.cache.UserCacheServer;
 import com.itpay.mp.user.dto.MpPermission;
 import com.itpay.mp.user.dto.MpRole;
 import com.itpay.mp.user.dto.UserDto;
 import com.itpay.mp.user.dto.UserLoginDto;
+import com.itpay.mp.user.vo.UserLoginVo;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -45,12 +47,25 @@ public class UserServiceTest  extends BaseTest{
         int a= userManager.insert(record);
         System.out.println(a);
     }
+
+    @Test
+    public void addlogin(){
+        String password = PassWordUtil.createMd5("zlf123");
+
+        List<UserLoginVo> loginVos =new ArrayList<>(2);
+        UserLoginVo vo =  new UserLoginVo();
+        vo.setLoginName("zlf");
+        vo.setUserId("665e7451-afda-4af2-949d-dafbfabdc");
+        vo.setPassWord(PassWordUtil.createMd5(password+vo.getLoginName()));
+        loginVos.add(vo);
+        userLoginManager.addLoginInfo(loginVos);
+    }
     
     @Test
     public void insert2(){
         UserLoginDto u=new UserLoginDto();
         u.setId(UUID.randomUUID().toString());
-        u.setStatus("11");
+        //u.setStatus("11");
         u.setCreateTime(new Date());
         u.setLoginName("zlf");
         u.setLoginPwd("zlf");

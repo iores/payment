@@ -5,19 +5,15 @@ package com.itpay.core.enums;
  * @author lfeng1
  * @date 2018/1/9 0009
  */
-public enum RegexType {
+public enum ERegexType {
     /**
      * 无
      */
     NONE,
     /**
-     *特殊字符
-     */
-    SPECIALCHAR,
-    /**
      * 中文
      */
-    CHINESE,
+    NO_CHINESE,
     /**
      * 邮箱
      */
