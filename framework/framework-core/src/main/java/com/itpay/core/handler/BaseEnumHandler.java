@@ -17,8 +17,7 @@ import java.sql.SQLException;
  */
 public class BaseEnumHandler<E extends BaseEnum> extends BaseTypeHandler<E> {
 
-    
-    private Class<E> type;
+
 
     private final E[] enums;
 
@@ -30,7 +29,6 @@ public class BaseEnumHandler<E extends BaseEnum> extends BaseTypeHandler<E> {
         if (type == null) {
             throw new IllegalArgumentException("Type argument cannot be null");
         }
-        this.type = type;
         this.enums = type.getEnumConstants();
         if (this.enums == null) {
             throw new IllegalArgumentException(type.getSimpleName() + " does not represent an enum type.");

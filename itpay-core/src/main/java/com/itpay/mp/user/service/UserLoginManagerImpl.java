@@ -1,7 +1,7 @@
 package com.itpay.mp.user.service;
 
+import com.itpay.base.enums.ECoreExceptionCodeType;
 import com.itpay.base.enums.EUserStatus;
-import com.itpay.core.enums.ECoreExceptionCodeType;
 import com.itpay.core.exception.CoreBusiRunTimeException;
 import com.itpay.core.util.PassWordUtil;
 import com.itpay.core.util.ValidateUtils;
@@ -11,10 +11,8 @@ import com.itpay.mp.user.vo.UserLoginVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

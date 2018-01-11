@@ -76,4 +76,21 @@ public class UserController {
     }
 
 
+    /**
+     * 修改用户信息
+     * @param id 用户id
+     * @return ModelAndView
+     */
+    @RequestMapping("/goEdit")
+    public ModelAndView goEdit(String id) {
+        Map<String, Object> userDtoMap = new HashMap<>(10);
+        UserDto userDto = userAppService.selectByPrimaryKey(id);
+        List<UserLoginDto> userLoginDtos=userLoginAppService.findByUserId(id);
+        userDtoMap.put("user", userDto);
+        userDtoMap.put("loginUsers",userLoginDtos);
+
+        return new ModelAndView("user/user_edit", userDtoMap);
+    }
+
+
 }

@@ -102,7 +102,7 @@
                                 <span class="glyphicon glyphicon-cog  dropdown-toggle" data-toggle="dropdown"
                                       aria-expanded="true"></span>
                                 <ul class="dropdown-menu "  style="position:absolute;min-width: 10px" >
-                                    <li><a href="#" ref="${contextPath}/user/goDetail.html?id=${user.id}" onclick="queryDetail(this)">详情</a></li>
+                                    <li><a href="#" ref="${contextPath}/user/goDetail.html?id=${user.id}" onclick="loadA(this)">详情</a></li>
                                     <li><a href="#" >修改</a></li>
                                     <li><a href="#" >新增登录账户</a></li>
                                 </ul>

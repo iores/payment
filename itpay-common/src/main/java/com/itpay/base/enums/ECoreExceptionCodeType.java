@@ -1,4 +1,4 @@
-package com.itpay.core.enums;
+package com.itpay.base.enums;
 
 import com.itpay.core.base.BaseEnum;
 

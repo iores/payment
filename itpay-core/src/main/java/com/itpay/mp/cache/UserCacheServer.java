@@ -4,6 +4,7 @@ import com.itpay.mp.user.dto.UserDto;
 
 /**
  * 用户缓存接口
+ * @author lfeng1
  */
 public interface UserCacheServer {
 

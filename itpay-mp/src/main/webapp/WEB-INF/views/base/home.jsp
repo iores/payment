@@ -117,10 +117,10 @@
         }
 
         /**
-         * 查询明细
+         * 加载a标签
          *
          * */
-        function queryDetail(a){
+        function loadA(a){
             var url=$(a).attr("ref");
             var pane=$(a).parents(".tab-pane.active");
             sendAjax(url,null,pane);
