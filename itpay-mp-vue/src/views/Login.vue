@@ -28,8 +28,8 @@
             return {
                 logining: false,
                 ruleForm2: {
-                    account: 'admin',
-                    checkPass: '123456'
+                    account: '',
+                    checkPass: ''
                 },
                 rules2: {
                     account: [
@@ -87,35 +87,32 @@
         border-radius: 5px;
         -moz-border-radius: 5px;
         background-clip: padding-box;
-        margin: 180px auto;
-        width: 350px;
+        margin: 160px auto;
+        width: 20%;
         padding: 35px 35px 15px 35px;
         background: rgba(0, 0, 0, 0.23);
         border: 1px solid #eaeaea;
         box-shadow: 0 0 25px #cac6c6;
         position: absolute;
         right: 10%;
-        top: 12%;
         .title {
             margin: 0px auto 40px auto;
             text-align: center;
-            color: #505458;
+            color: #fff;
         }
         .remember {
             margin: 0px 0px 35px 0px;
+            color: #fff;
         }
     }
 
     .login-div {
         background: url("../assets/background.jpg") no-repeat center;
         background-size: 100%;
-        position: fixed;
+        position:absolute;
+        /*margin-top:60px;*/
         width: 100%;
         height: 100%;
     }
 
-     .el-input__inner  {
-        color: white;
-        background-color: rgba(226, 110, 90, 0.05);
-    }
 </style>
