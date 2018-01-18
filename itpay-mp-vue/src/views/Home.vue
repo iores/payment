@@ -235,10 +235,20 @@
 				flex:0 0 60px;
 				width: 60px;
 			}
-			.menu-expanded{
-				flex:0 0 230px;
-				width: 230px;
-			}
+			/*.menu-expanded{*/
+				/*flex:0 0 230px;*/
+				/*width: 230px;*/
+			/*}*/
+            .menu-expanded {
+                flex: 0 0 230px;
+                width: 230px;
+                .el-menu {
+                    width: 100% !important;
+                }
+                .el-submenu .el-menu-item {
+                    min-width: 0px !important;
+                }
+            }
 			.content-container {
 				// background: #f1f2f7;
 				flex:1;
