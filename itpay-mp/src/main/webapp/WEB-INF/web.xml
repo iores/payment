@@ -89,6 +89,11 @@
         <servlet-name>dispatcherServlet</servlet-name>
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
+    <!--用于拦截json的请求-->
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <url-pattern>/service/*</url-pattern>
+    </servlet-mapping>
 
     <!-- memory clean 解决内存泄漏问题-->
     <listener>

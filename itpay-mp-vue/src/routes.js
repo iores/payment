@@ -9,6 +9,7 @@ import Page4 from './views/nav2/Page4.vue'
 import Page5 from './views/nav2/Page5.vue'
 import Page6 from './views/nav3/Page6.vue'
 import echarts from './views/charts/echarts.vue'
+import UserList from './views/user/UserList.vue'
 
 let routes = [
     {
@@ -46,6 +47,16 @@ let routes = [
             { path: '/page6', component: Page5, name: '我的消息' },
             { path: '/page7', component: Page5, name: '代办事项' },
             { path: '/page8', component: Page5, name: '我的流程' },
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '用户管理',
+        iconCls: 'fa fa-id-card-o',
+        children: [
+            { path: '/userList', component: UserList, name: '用户列表' },
+            { path: '/user2', component: Page5, name: '角色列表' },
         ]
     },
     {

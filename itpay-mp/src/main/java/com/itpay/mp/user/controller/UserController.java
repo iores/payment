@@ -7,12 +7,15 @@ import com.itpay.mp.user.app.UserAppService;
 import com.itpay.mp.user.app.UserLoginAppService;
 import com.itpay.mp.user.dto.UserDto;
 import com.itpay.mp.user.dto.UserLoginDto;
+import com.itpay.restfull.ResultCode;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -93,4 +96,20 @@ public class UserController {
     }
 
 
+    /**
+     * 查看列表
+     *
+     * @return
+     */
+    @RequestMapping(value = "/goListByRest",method = RequestMethod.GET)
+    @ResponseBody
+    public ResultCode goListByRest(ListPage<UserDto> listPage, UserDto queryParam, HttpServletRequest request) {
+        listPage = userAppService.listPage(listPage, queryParam);
+        Map<String, Object> userDtoMap = new HashMap<>(10);
+        userDtoMap.put("page", listPage);
+        userDtoMap.put("queryParam", queryParam);
+        userDtoMap.put("sexTypes", ESexType.values());
+        userDtoMap.put("userStatus", EUserStatus.values());
+        return new ResultCode(true,ResultCode.OK,userDtoMap);
+    }
 }
