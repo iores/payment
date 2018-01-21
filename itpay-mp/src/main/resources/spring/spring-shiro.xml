@@ -31,6 +31,7 @@
                 /plugs/** = anon
                 /imgs/** = anon
                 /image/captcha.html*=anon
+                /service/** = anon
                 
                 /login.html*=authc
                 /logout.do*=anon

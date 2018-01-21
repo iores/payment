@@ -172,11 +172,14 @@
 				this.listLoading = true;
 				//NProgress.start();
                 postUserListPage(para).then((res) => {
-					this.total = res.data.total;
-					this.users = res.data.users;
+//					this.total = res.data.total;
+//					this.users = res.data.users;
+					console.log(res);
 					this.listLoading = false;
 					//NProgress.done();
-				});
+				}).catch((err) =>{
+                    console.log(err);
+                });
 			},
 			//删除
 			handleDel: function (index, row) {

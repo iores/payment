@@ -87,8 +87,8 @@
         border-radius: 5px;
         -moz-border-radius: 5px;
         background-clip: padding-box;
-        margin: 160px auto;
-        width: 20%;
+        margin: 15% auto;
+        width: 320px;
         padding: 35px 35px 15px 35px;
         background: rgba(0, 0, 0, 0.23);
         border: 1px solid #eaeaea;

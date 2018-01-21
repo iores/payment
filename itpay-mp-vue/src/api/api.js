@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let base = '/mp/service';
+let base = '';
 
 export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
 
@@ -17,5 +17,5 @@ export const editUser = params => { return axios.get(`${base}/user/edit`, { para
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
 
 export const postUserListPage = params => {
-    return axios.get('/user/goListByRest', {params: params});
+    return axios.get(`/api/user/goListByRest`, {params: params});
 };
