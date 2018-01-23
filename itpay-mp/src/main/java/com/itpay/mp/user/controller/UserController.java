@@ -110,6 +110,6 @@ public class UserController {
         userDtoMap.put("queryParam", queryParam);
         userDtoMap.put("sexTypes", ESexType.values());
         userDtoMap.put("userStatus", EUserStatus.values());
-        return new ResultCode(true,ResultCode.OK,userDtoMap);
+        return new ResultCode(ResultCode.OK,ResultCode.OK,userDtoMap);
     }
 }

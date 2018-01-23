@@ -11,9 +11,9 @@ public class Meta implements Serializable {
     private static final long serialVersionUID = 6253795632159961570L;
 
     /**
-     * 是否请求成功
+     * http 请求码
      */
-    private boolean success;
+    private String  code;
 
     /**
      * 描述
@@ -28,17 +28,17 @@ public class Meta implements Serializable {
      * @param success 是否成功
      * @param message 描述
      */
-    public Meta(boolean success, String message) {
-        this.success = success;
+    public Meta(String  code, String message) {
+        this.code = code;
         this.message = message;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public String getCode() {
+        return code;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getMessage() {

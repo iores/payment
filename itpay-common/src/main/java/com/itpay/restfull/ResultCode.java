@@ -11,8 +11,9 @@ public class ResultCode implements Serializable {
 
     private static final long serialVersionUID = -3287718901570990354L;
 
-    public  static final String OK = "成功";
-    public  static final String ERROR = "失败";
+    public  static final String OK = "200";
+    public  static final String NO_AUTHORITY = "401";
+    public  static final String ERROR = "500";
 
 
     /**
@@ -37,12 +38,12 @@ public class ResultCode implements Serializable {
         this.data = data;
     }
 
-    public ResultCode(boolean success, String message) {
-        this.meta = new Meta(success,message);
+    public ResultCode(String  code, String message) {
+        this.meta = new Meta(code,message);
     }
 
-    public ResultCode(boolean success, String message,Object data) {
-        this.meta = new Meta(success,message);
+    public ResultCode(String  code, String message,Object data) {
+        this.meta = new Meta(code,message);
         this.data = data;
     }
 

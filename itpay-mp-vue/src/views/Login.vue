@@ -22,6 +22,7 @@
 
 <script>
     import {requestLogin} from '../api/api';
+    import md5 from '../common/js/md5';
     //import NProgress from 'nprogress'
     export default {
         data() {
@@ -55,18 +56,20 @@
                         //_this.$router.replace('/table');
                         this.logining = true;
                         //NProgress.start();
-                        var loginParams = {username: this.ruleForm2.account, password: this.ruleForm2.checkPass};
-                        requestLogin(loginParams).then(data => {
+                        let passWord = md5.getMd5(this.ruleForm2.checkPass);
+                        passWord = md5.getMd5(passWord+this.ruleForm2.account);
+                        let loginParams = {userName: this.ruleForm2.account, passWord: passWord};
+                        requestLogin(loginParams).then(resp => {
                             this.logining = false;
                             //NProgress.done();
-                            let {msg, code, user} = data;
-                            if (code !== 200) {
+                            let {meta,data} = resp;
+                            if (meta.code != 200) {
                                 this.$message({
-                                    message: msg,
+                                    message: meta.message,
                                     type: 'error'
                                 });
                             } else {
-                                sessionStorage.setItem('user', JSON.stringify(user));
+                                sessionStorage.setItem('user', data);
                                 this.$router.push({path: '/table'});
                             }
                         });
