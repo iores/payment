@@ -82,9 +82,9 @@ public class RestCaptchaFormAuthenticationFilter extends FormAuthenticationFilte
         CaptchaUsernamePasswordToken token = createToken(request, response);
 
         try {
+
             doCaptchaValidate((HttpServletRequest) request, token);
 
-            
             //执行业务校验
             
             Subject subject = getSubject(request, response);
@@ -101,7 +101,7 @@ public class RestCaptchaFormAuthenticationFilter extends FormAuthenticationFilte
     }
 
     /**
-     * 修改登陆成功后的跳转，登陆成功不跳转请求页面
+     * 修改登陆成功后的不做任何处理，继续请求
      * @param token
      * @param subject
      * @param request
@@ -112,10 +112,6 @@ public class RestCaptchaFormAuthenticationFilter extends FormAuthenticationFilte
     @Override
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject,
                                      ServletRequest request, ServletResponse response) throws Exception {
-        //清除url,使其不再跳转到原始请求的url
-//        WebUtils.getAndClearSavedRequest(request);
-//        issueSuccessRedirect(request, response);
-        //we handled the success redirect directly, prevent the chain from continuing:
         return true;
     }
 
@@ -126,7 +122,7 @@ public class RestCaptchaFormAuthenticationFilter extends FormAuthenticationFilte
 
     /**
      * 获取登录用户
-     * @param request http 请求
+     * @param restUserLoginVo http 请求
      * @return
      */
     protected String getUsername(RestUserLoginVo restUserLoginVo) {
@@ -135,7 +131,7 @@ public class RestCaptchaFormAuthenticationFilter extends FormAuthenticationFilte
 
     /**
      * 获取登录密码
-     * @param request http 请求
+     * @param restUserLoginVo http 请求
      * @return
      */
     protected String getPassword(RestUserLoginVo restUserLoginVo) {
@@ -144,7 +140,7 @@ public class RestCaptchaFormAuthenticationFilter extends FormAuthenticationFilte
 
     /**
      * 是否为记住我
-     * @param request
+     * @param restUserLoginVo
      * @return
      */
     protected boolean isRememberMe(RestUserLoginVo restUserLoginVo) {
@@ -158,7 +154,11 @@ public class RestCaptchaFormAuthenticationFilter extends FormAuthenticationFilte
                         "on".equalsIgnoreCase(value);
     }
 
-
+    /**
+     * 获取登陆请求信息
+     * @param request
+     * @return
+     */
     private RestUserLoginVo getUserLoginInfo(ServletRequest request){
         try{
             BufferedReader in=new BufferedReader(new InputStreamReader(request.getInputStream()));

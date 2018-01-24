@@ -5,6 +5,7 @@ import com.google.code.kaptcha.Producer;
 import com.itpay.mp.base.shiro.exception.IncorrectCaptchaException;
 import com.itpay.mp.user.dto.UserLoginDto;
 import com.itpay.restfull.ResultCode;
+import com.itpay.restfull.vo.RestResultUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
@@ -20,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -44,10 +47,11 @@ public class LoginController {
         if(SecurityUtils.getSubject().isAuthenticated()){
             //获取出当前登录用户
             UserLoginDto userLoginDto = (UserLoginDto) SecurityUtils.getSubject().getPrincipal();
-
-            //已经登录成功
-            return new ResultCode(ResultCode.OK,"已经登录",SecurityUtils.getSubject().getSession().getId());
-           // return "redirect:/main.html";
+            RestResultUser user = new RestResultUser();
+            user.setSessionId(SecurityUtils.getSubject().getSession().getId());
+            user.setUserName(userLoginDto.getLoginName());
+            //登录成功
+            return new ResultCode(ResultCode.OK,"已经登录",user);
         }
         String code = ResultCode.NO_AUTHORITY;
         String expMsg = "未登录";
@@ -70,15 +74,6 @@ public class LoginController {
         return new ResultCode(code,expMsg);
     }
 
-    /**
-     * 登陆成功
-     */
-    @RequestMapping("/gomain")
-    @ResponseBody
-    public ResultCode  gomain(){
-        //登录成功
-        return new ResultCode(ResultCode.OK,"已经登录",SecurityUtils.getSubject().getSession().getId());
-    }
 
 
     /**

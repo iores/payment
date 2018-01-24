@@ -69,7 +69,7 @@
                                     type: 'error'
                                 });
                             } else {
-                                sessionStorage.setItem('user', data);
+                                sessionStorage.setItem('user', JSON.stringify(data));
                                 this.$router.push({path: '/table'});
                             }
                         });
