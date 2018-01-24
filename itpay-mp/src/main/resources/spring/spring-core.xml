@@ -22,6 +22,14 @@
         <ref bean="shortMypayRedisCache" />
     </util:set>
 
+    <!--配置ehcache-->
+    <bean id="ehcacheManagerFactory"  class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:/cache/ehcache.xml"/>
+    </bean>
+
+
+
+
     <!-- spring启动时扫描项目路径下的properties文件,后续用${key }方式取出对应值,这样可以代码解耦和，后续只需修改properties文件即可 -->
     <bean id="propertyPlaceholderConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

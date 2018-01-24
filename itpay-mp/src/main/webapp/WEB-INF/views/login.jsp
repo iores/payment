@@ -99,7 +99,7 @@
     <div class="login-box-body">
         <p class="login-box-msg test-color">欢迎登陆</p>
 
-        <form action="login.html" method="post" id="iform" autocomplete="off">
+        <form action="mplogin.html" method="post" id="iform" autocomplete="off">
             <div class="form-group has-feedback ">
                 <input maxlength="60" type="text" required="required" class="form-control login" name="username"
                        placeholder="用户名"/>

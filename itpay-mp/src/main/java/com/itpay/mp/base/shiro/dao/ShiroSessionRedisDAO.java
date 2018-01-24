@@ -1,6 +1,7 @@
 package com.itpay.mp.base.shiro.dao;
 
 import org.apache.shiro.session.Session;
+import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.eis.CachingSessionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,4 +98,6 @@ public class ShiroSessionRedisDAO extends CachingSessionDAO {
         redisCache.put(session.getId(),session);
 
     }
+
+
 }

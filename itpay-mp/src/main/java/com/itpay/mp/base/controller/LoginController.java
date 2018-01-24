@@ -71,6 +71,28 @@ public class LoginController {
     }
 
     /**
+     * 登陆成功
+     */
+    @RequestMapping("/gomain")
+    @ResponseBody
+    public ResultCode  gomain(){
+        //登录成功
+        return new ResultCode(ResultCode.OK,"已经登录",SecurityUtils.getSubject().getSession().getId());
+    }
+
+
+    /**
+     * 进入登录界面
+     */
+    @RequestMapping("/mplogin")
+    public String  login(HttpServletRequest request){
+        if(SecurityUtils.getSubject().isAuthenticated()){
+             return "redirect:/main.html";
+        }
+       return "login";
+    }
+
+    /**
      * 退出
      * @return
      */
@@ -84,10 +106,9 @@ public class LoginController {
      * 登陆成功
      */
     @RequestMapping("/main")
-    @ResponseBody
-    public ResultCode  main(){
+    public String   main(){
         //登录成功
-        return new ResultCode(ResultCode.OK,"已经登录",SecurityUtils.getSubject().getSession().getId());
+        return "base/home";
     }
 
     

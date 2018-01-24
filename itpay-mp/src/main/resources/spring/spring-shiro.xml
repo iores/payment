@@ -14,7 +14,7 @@
         <!-- 身份认证失败，则跳转到登录页面的配置 -->
         <property name="loginUrl" value="/service/login"/>
         <!--登陆成功,跳转的页面-->
-        <property name="successUrl" value="/service/main"/>
+        <property name="successUrl" value="/service/gomain"/>
         <!-- 权限认证失败，则跳转到指定页面 -->
         <property name="unauthorizedUrl" value="/403.html"/>
         <!-- Shiro连接约束配置,即过滤链的定义 -->
@@ -34,7 +34,7 @@
                 /image/captcha.html*=anon
                 /service/** = restAuthc
                 
-                /login.html*=authc
+                /mplogin.html*=authc
                 /logout.do*=anon
 
                 # 权限配置示例
@@ -84,9 +84,15 @@
 
     <bean id="shiroSessionRedisDAO" class="com.itpay.mp.base.shiro.dao.ShiroSessionRedisDAO">
         <property name="redisCache" ref="sessionRedisCache" />
+        <property name="cacheManager" ref="shiroCacheManager"/>
+        <!--配置ehcache的名字-->
+        <property name="activeSessionsCacheName" value="sessionCache" />
     </bean>
 
-
+    <!-- ehcahe缓存 -->
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="ehcacheManagerFactory" />
+    </bean>
 
 </beans>
     
