@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.itpay.mp.base.shiro.exception.IncorrectCaptchaException;
 import com.itpay.mp.user.app.UserLoginAppService;
+import com.itpay.restfull.ResultCode;
 import com.itpay.restfull.vo.RestUserLoginVo;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -18,6 +19,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
@@ -119,6 +121,25 @@ public class RestCaptchaFormAuthenticationFilter extends FormAuthenticationFilte
     protected void setFailureAttribute(ServletRequest request, AuthenticationException ae) {
         request.setAttribute(getFailureKeyAttribute(), ae);
     }
+
+    /**
+     * 请求失败时处理
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @Override
+    protected void saveRequestAndRedirectToLogin(ServletRequest request, ServletResponse response) throws IOException {
+        String code = ResultCode.NO_AUTHORITY;
+        String expMsg = "未登录";
+        ResultCode resultCode = new ResultCode(code,expMsg);
+        ObjectMapper mapper = new ObjectMapper();
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(mapper.writeValueAsString(resultCode));
+        response.getWriter().flush();
+    }
+
+
 
     /**
      * 获取登录用户
