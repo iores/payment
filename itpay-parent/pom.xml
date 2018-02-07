@@ -54,6 +54,7 @@
         <!--commons-lang3.version-->
         <commons-lang3.version>3.7</commons-lang3.version>
         <ehcache.version>2.10.4</ehcache.version>
+        <jwt.version>3.3.0</jwt.version>
     </properties>
 
     <!-- maven 私服 jar库  -->
