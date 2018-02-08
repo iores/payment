@@ -1,88 +1,59 @@
 package com.itpay.mp.base.shiro.stateless;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itpay.mp.base.shiro.exception.IncorrectCaptchaException;
+import com.itpay.mp.base.util.JwtUtil;
 import com.itpay.restfull.ResultCode;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.io.InputStreamReader;
 
 /**
  * 无状态认证
  * 根据当前请求上下文 每次请求都会调用登录
+ *
  * @author lfeng1
  * @date 2018/1/26 0026
  */
 public class StatelessAuthcFilter extends AccessControlFilter {
 
 
-    public static final String DEFAULT_USERNAME_PARAM = "username";
-    public static final String DEFAULT_CLIENTDIGEST_PARAM = "clientDigest";
-    public static final String DEFAULT_SEQUENCE_PARAM = "sequence";
-    public static final String DEFAULT_MAP_PARAM = "mapKye";
+    public static final String HTTP_HEADER_NAME = "x-access-token";
 
     private static final Logger log = LoggerFactory.getLogger(FormAuthenticationFilter.class);
 
+
     /**
-     * 用户名称
+     * http 请求头部信息 token 存放的位置
      */
-    private String usernameParam = DEFAULT_USERNAME_PARAM;
-    /**
-     * 摘要信息
-     */
-    private String clientDigestParam = DEFAULT_CLIENTDIGEST_PARAM;
-    /**
-     * 请求时间戳
-     */
-    private String sequenceParam = DEFAULT_SEQUENCE_PARAM;
-    /**
-     * 请求参数信息
-     */
-    private String mapKey = DEFAULT_MAP_PARAM;
+    private String httpHeaderName = HTTP_HEADER_NAME;
 
 
-    public String getUsernameParam() {
-        return usernameParam;
+
+    public String getHttpHeaderName() {
+        return httpHeaderName;
     }
 
-    public void setUsernameParam(String usernameParam) {
-        this.usernameParam = usernameParam;
-    }
-
-    public String getClientDigestParam() {
-        return clientDigestParam;
-    }
-
-    public void setClientDigestParam(String clientDigestParam) {
-        this.clientDigestParam = clientDigestParam;
-    }
-
-    public String getSequenceParam() {
-        return sequenceParam;
-    }
-
-    public void setSequenceParam(String sequenceParam) {
-        this.sequenceParam = sequenceParam;
-    }
-
-    public String getMapKey() {
-        return mapKey;
-    }
-
-    public void setMapKey(String mapKey) {
-        this.mapKey = mapKey;
+    public void setHttpHeaderName(String httpHeaderName) {
+        this.httpHeaderName = httpHeaderName;
     }
 
     /**
      * 返回true  则允许请求通过，返回fasle 则每次请求都会调用onAccessDenied
+     *
      * @param request
      * @param response
      * @param mappedValue
@@ -107,43 +78,100 @@ public class StatelessAuthcFilter extends AccessControlFilter {
      */
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-        //1、客户端生成的消息摘要
-        String clientDigest = request.getParameter(getClientDigestParam());
-        //2、客户端传入的用户身份
-        String username = request.getParameter(getUsernameParam());
-        long sequence =0L;
-        try{
-            sequence = Long.parseLong(request.getParameter(getSequenceParam()));
-        }catch (Exception e){
-            log.warn("传入的时间戳无法解析！",e);
-        }
-        //3、客户端请求的参数列表
-        TreeMap<String, String[]> params = new TreeMap<>(request.getParameterMap());
-        //4、生成无状态Token
-        StatelessToken token = new StatelessToken(username, params, clientDigest,sequence);
-        try{
-            getSubject(request,response).login(token);
-            return true;
-        }catch (Exception e){
-            log.warn("登录失败！",e);
-            onLoginFail(response);
+
+        if (!(request instanceof HttpServletRequest)) {
+            log.warn("当前请求不是http 请求,请求信息:[{}]", request);
             return false;
+        }
+        //获取表单内容
+        StatelessToken token = getUserLoginInfo(request);
+        //获取请求头部的token
+        String clientDigest = ((HttpServletRequest) request).getHeader(getHttpHeaderName());
+        if (StringUtils.isNotBlank(clientDigest)) {
+            token.setClientDigest(clientDigest);
+        }
+        token.setHost(request.getRemoteHost());
+        try {
+            Subject subject = getSubject(request, response);
+            subject.login(token);
+            return onLoginSuccess((HttpServletResponse) response,subject);
+        } catch (Exception e) {
+            log.warn("登录失败！", e);
+            return onLoginFail(response,e);
         }
 
     }
 
     /**
-     * 登录失败返回
+     * 登录成功
      * @param response
-     * @throws IOException
+     * @return
+     * @throws Exception
      */
-    private void onLoginFail(ServletResponse response) throws IOException {
-        String code = ResultCode.NO_AUTHORITY;
-        String expMsg = "未登录";
-        ResultCode resultCode = new ResultCode(code,expMsg);
+    protected boolean onLoginSuccess(HttpServletResponse response, Subject subject ) throws Exception {
+        //创建token
+        String token = JwtUtil.createTokenByHMAC256((String) subject.getPrincipal());
+        response.setHeader(HTTP_HEADER_NAME,token);
+        String code = ResultCode.OK;
+        ResultCode resultCode = new ResultCode(code, "登录成功");
         ObjectMapper mapper = new ObjectMapper();
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(mapper.writeValueAsString(resultCode));
         response.getWriter().flush();
+        return true;
     }
+
+    /**
+     * 登录失败返回
+     *
+     * @param response
+     * @throws IOException
+     */
+    private boolean onLoginFail(ServletResponse response,Exception e) throws IOException {
+        String expMsg;
+        AuthenticationException authExp = (AuthenticationException)e;
+        if(authExp instanceof UnknownAccountException || authExp instanceof IncorrectCredentialsException){
+            expMsg="认证失败！";
+        } else if( e instanceof LockedAccountException){
+            expMsg= "用户账号已禁用！";
+        } else if( e instanceof ExpiredCredentialsException){
+            expMsg= "用户账号已过期！";
+        } else if( e instanceof IncorrectCaptchaException){
+            expMsg= "验证码错误！";
+        } else{
+            expMsg="系统异常";
+        }
+        String code = ResultCode.NO_AUTHORITY;
+        ResultCode resultCode = new ResultCode(code, expMsg);
+        ObjectMapper mapper = new ObjectMapper();
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(mapper.writeValueAsString(resultCode));
+        response.getWriter().flush();
+        return true;
+    }
+
+    /**
+     * 获取登陆请求信息
+     * @param request
+     * @return
+     */
+    private StatelessToken getUserLoginInfo(ServletRequest request){
+        try{
+            BufferedReader in=new BufferedReader(new InputStreamReader(request.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line ;
+            while ((line = in.readLine()) != null) {
+                sb.append(line);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            return  mapper.readValue(sb.toString(),StatelessToken.class);
+        }catch (Exception e){
+            log.info("获取登录信息失败！",e);
+        }
+        return new StatelessToken();
+
+    }
+
+
+
 }

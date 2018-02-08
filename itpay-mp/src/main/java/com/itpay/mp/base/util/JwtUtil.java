@@ -105,6 +105,15 @@ public class JwtUtil {
         Algorithm algorithm = createAlgorithmByHMAC256();
         return algorithm!=null && verify(algorithm,token,subject);
     }
+    /**
+     * 验证一个HMAC256加密的token
+     * @param token 需要验证的信息
+     * @return true  验证通过  false验证失败
+     */
+    public static boolean verifyByHMAC256(String token){
+        Algorithm algorithm = createAlgorithmByHMAC256();
+        return algorithm!=null && verify(algorithm,token);
+    }
 
     /**
      * 验证RSA256的token
@@ -119,6 +128,16 @@ public class JwtUtil {
     }
 
 
+    /**
+     * 验证RSA256的token
+     * @param publicKey 公钥信息
+     * @param token 需要验证的信息
+     * @return
+     */
+    public static boolean verifyByRSA256(RSAPublicKey publicKey,String token){
+        Algorithm algorithm = createAlgorithmByRSA256(publicKey,null);
+        return algorithm!=null && verify(algorithm,token);
+    }
 
 
     /**
@@ -143,6 +162,25 @@ public class JwtUtil {
         }
     }
 
+    /**
+     * 验证token
+     * @param algorithm 证书信息
+     * @param token token
+     * @return true  验证通过  false验证失败
+     */
+    public static boolean verify(Algorithm algorithm,String token){
+        try {
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer(ISSUER)
+                    .acceptExpiresAt(1L)
+                    .build();
+            verifier.verify(token);
+            return true;
+        } catch (JWTVerificationException exception){
+            logger.warn("验证失败！Invalid signature/claims.",exception);
+            return false;
+        }
+    }
 
 
     /**

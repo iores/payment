@@ -17,32 +17,33 @@ public class StatelessToken implements AuthenticationToken {
     public StatelessToken() {
     }
 
-    public StatelessToken(String username, Map<String, ?> params, String clientDigest, long sequence) {
+    public StatelessToken(String username, char[] password, String clientDigest,String host) {
         this.username = username;
-        this.params = params;
+        this.password = password;
         this.clientDigest = clientDigest;
-        this.sequence = sequence;
+        this.host = host;
     }
 
     /**
-     * 请求用户名
+     * 用户名
      */
     private String username;
 
     /**
-     * 请求参数
+     * 密码
      */
-    private Map<String, ?> params;
+    private char[] password;
+
 
     /**
      * 请求的消息摘要
      */
     private String clientDigest;
-    /**
-     * 请求时间戳
-     */
-    private long sequence;
 
+    /**
+     * 请求地址
+     */
+    private String host;
 
     public String getUsername() {
         return username;
@@ -52,12 +53,12 @@ public class StatelessToken implements AuthenticationToken {
         this.username = username;
     }
 
-    public Map<String, ?> getParams() {
-        return params;
+    public char[] getPassword() {
+        return password;
     }
 
-    public void setParams(Map<String, ?> params) {
-        this.params = params;
+    public void setPassword(char[] password) {
+        this.password = password;
     }
 
     public String getClientDigest() {
@@ -68,14 +69,13 @@ public class StatelessToken implements AuthenticationToken {
         this.clientDigest = clientDigest;
     }
 
-    public long getSequence() {
-        return sequence;
+    public String getHost() {
+        return host;
     }
 
-    public void setSequence(long sequence) {
-        this.sequence = sequence;
+    public void setHost(String host) {
+        this.host = host;
     }
-
 
     @Override
     public Object getPrincipal() {
@@ -85,6 +85,6 @@ public class StatelessToken implements AuthenticationToken {
 
     @Override
     public Object getCredentials() {
-        return clientDigest;
+        return password;
     }
 }

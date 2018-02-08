@@ -12,7 +12,7 @@
         <!-- Shiro的核心安全接口,这个属性是必须的 -->
         <property name="securityManager" ref="securityManager"/>
         <!-- 身份认证失败，则跳转到登录页面的配置 -->
-        <property name="loginUrl" value="/service/login"/>
+        <property name="loginUrl" value="/login.html"/>
         <!--登陆成功,跳转的页面-->
         <property name="successUrl" value="/main.html"/>
         <!-- 权限认证失败，则跳转到指定页面 -->
@@ -21,7 +21,6 @@
         <property name="filters">
             <util:map>
                 <entry key="authc" value-ref="captchaFormAuthenticationFilter"/>
-                <entry key="restAuthc" value-ref="restCaptchaFormAuthenticationFilter"/>
             </util:map>
         </property>
         <property name="filterChainDefinitions">
@@ -32,9 +31,9 @@
                 /plugs/** = anon
                 /imgs/** = anon
                 /image/captcha.html*=anon
-                /service/** = restAuthc
+                /service/** = anon
                 
-                /mplogin.html*=authc
+                /login.html*=authc
                 /logout.do*=anon
 
                 # 权限配置示例
@@ -57,10 +56,10 @@
     </bean>
 
     <bean id="customCredentialsMatcher" class="com.itpay.mp.base.shiro.CustomCredentialsMatcher"/>
+    <!-- Shiro生命周期处理器-->
     <bean id="lifecycleBeanPostProcessor"  class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
     <bean id="captchaFormAuthenticationFilter" class="com.itpay.mp.base.shiro.CaptchaFormAuthenticationFilter"/>
-    <bean id="restCaptchaFormAuthenticationFilter" class="com.itpay.mp.base.shiro.RestCaptchaFormAuthenticationFilter"/>
     <!--session 管理器-->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <!-- session存储的实现 -->

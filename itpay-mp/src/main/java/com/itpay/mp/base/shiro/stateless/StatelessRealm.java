@@ -21,6 +21,11 @@ public class StatelessRealm extends AuthorizingRealm {
 
     private UserLoginAppService userLoginAppService;
 
+
+    public void setUserLoginAppService(UserLoginAppService userLoginAppService) {
+        this.userLoginAppService = userLoginAppService;
+    }
+
     @Override
     public boolean supports(AuthenticationToken token) {
         //仅支持StatelessToken类型的Token
@@ -56,7 +61,7 @@ public class StatelessRealm extends AuthorizingRealm {
         if(StringUtils.isNotBlank(username)){
             UserLoginDto userLoginDto=userLoginAppService.findByUserLoginName(username);
             if(userLoginDto!=null){
-                return new SimpleAuthenticationInfo(userLoginDto,userLoginDto.getLoginPwd(),getName());
+                return new SimpleAuthenticationInfo(userLoginDto.getLoginName(),userLoginDto.getLoginPwd(),getName());
             }
         }
         return null;

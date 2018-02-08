@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+
+
+    <!--无状态shiro控制器-->
+    <!-- Shiro过滤器 核心-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- Shiro的核心安全接口,这个属性是必须的 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- Shiro连接约束配置,即过滤链的定义 -->
+        <property name="filters">
+            <util:map>
+                <entry key="authc" value-ref="statelessAuthcFilter"/>
+            </util:map>
+        </property>
+        <property name="filterChainDefinitions">
+            <value>
+                /service/** = authc
+                # 权限配置示例
+                /security/account/view.do=authc,perms[SECURITY_ACCOUNT_VIEW]
+                /** = authc
+            </value>
+        </property>
+    </bean>
+
+    <!-- 安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="statelessRealm"/>
+        <property name="sessionManager" ref="sessionManager" />
+        <property name="subjectFactory" ref="subjectFactory"/>
+    </bean>
+
+    <!-- 配置自定义Realm -->
+    <bean id="statelessRealm" class="com.itpay.mp.base.shiro.stateless.StatelessRealm">
+        <property name="userLoginAppService" ref="userLoginAppService"/>
+        <property name="credentialsMatcher" ref="statelessCredentialsMatcher"/>
+        <property name="cachingEnabled" value="false"/>
+    </bean>
+    <!--密码比对-->
+    <bean id="statelessCredentialsMatcher" class="com.itpay.mp.base.shiro.stateless.StatelessCredentialsMatcher"/>
+
+    <!-- Subject工厂 -->
+    <bean id="subjectFactory" class="com.itpay.mp.base.shiro.stateless.StatelessDefaultSubjectFactory"/>
+    <!-- Shiro生命周期处理器-->
+    <bean id="lifecycleBeanPostProcessor"  class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    <!--过滤器-->
+    <bean id="statelessAuthcFilter" class="com.itpay.mp.base.shiro.stateless.StatelessAuthcFilter"/>
+
+    <!-- 会话管理器 -->
+    <bean id="sessionManager" class="org.apache.shiro.session.mgt.DefaultSessionManager">
+        <!--因为我们禁用掉了会话，所以没必要再定期过期会话了-->
+        <property name="sessionValidationSchedulerEnabled" value="false"/>
+    </bean>
+</beans>
+    

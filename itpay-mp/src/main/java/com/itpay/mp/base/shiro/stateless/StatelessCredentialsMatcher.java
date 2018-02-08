@@ -1,6 +1,8 @@
 package com.itpay.mp.base.shiro.stateless;
 
 import com.itpay.core.util.PassWordUtil;
+import com.itpay.mp.base.util.JwtUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
@@ -20,6 +22,12 @@ public class StatelessCredentialsMatcher extends SimpleCredentialsMatcher {
      */
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
+        //获取clientDigest 如果存在clientDigest 则验证clientDigest
+        String clientDigest = ((StatelessToken)token).getClientDigest();
+        if(StringUtils.isNotBlank(clientDigest)){
+            return JwtUtil.verifyByHMAC256(clientDigest);
+        }
+        //如果不存在clientDigest 则 验证密码
         //传入的密码
         Object tokenCredentials = getCredentials(token);
         //获取保存的密码
