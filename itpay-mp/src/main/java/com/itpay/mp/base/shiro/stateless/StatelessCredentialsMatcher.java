@@ -10,6 +10,7 @@ import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 
 /**
  * 无状态密码验证器
+ * @author lfeng1
  */
 public class StatelessCredentialsMatcher extends SimpleCredentialsMatcher {
 
