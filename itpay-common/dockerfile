@@ -2,6 +2,8 @@ FROM centos:7
 MAINTAINER zhanglinfeng@cufs.com.cn
 #设置jenkins 的配置目录
 ENV JENKINS_HOME "/home/jenkins"
+ENV JAVA_HOME "/usr/java/jdk1.8.0_162"
+ENV PATH "/usr/java/jdk1.8.0_162/bin"
 #copy 文件进入容器中
 COPY ./myjenkins /home/myjenkins
 #切换工作目录
@@ -10,4 +12,4 @@ WORKDIR /home/myjenkins/tomcat
 RUN rpm -ivh /home/myjenkins/jdk-8u162-linux-x64.rpm \
     && chmod 755 -R bin
 #容器启动命令
-ENTRYPOINT ["./bin/startup.sh"]
+ENTRYPOINT ["catalina.sh", "run"]
