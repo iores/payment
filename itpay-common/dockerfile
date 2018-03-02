@@ -9,7 +9,5 @@ WORKDIR /home/myjenkins/tomcat
 #安装jdk
 RUN rpm -ivh /home/myjenkins/jdk-8u162-linux-x64.rpm \
     && chmod 755 -R bin
-ENV JAVA_HOME "/usr/java/jdk1.8.0_162"
-ENV PATH "/usr/java/jdk1.8.0_162/bin"
 #容器启动命令
-ENTRYPOINT ["catalina.sh", "run"]
+ENTRYPOINT ["bin/catalina.sh", "run"]
