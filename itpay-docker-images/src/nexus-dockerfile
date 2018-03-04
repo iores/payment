@@ -15,4 +15,4 @@ RUN rpm -ivh jdk-8u162-linux-x64.rpm \
 #声明暴露的端口
 EXPOSE 8081
 #容器启动命令
-ENTRYPOINT ["nexus-3.9.0-01/bin/nexus", "start"]
+ENTRYPOINT ["nexus-3.9.0-01/bin/nexus", "run"]
