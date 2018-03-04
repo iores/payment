@@ -1,0 +1,18 @@
+FROM centos:7
+MAINTAINER zhanglinfeng@cufs.com.cn
+#copy 文件进入容器中
+COPY ./mynexus /home/mynexus
+#切换工作目录
+WORKDIR /home/mynexus
+#安装jdk
+RUN rpm -ivh jdk-8u162-linux-x64.rpm \
+    #解压nexus
+    && tar zxvf nexus-3.9.0-01-unix.tar.gz \
+    #删除安装文件
+    && rm -rf jdk-8u162-linux-x64.rpm \
+    && rm -rf nexus-3.9.0-01-unix.tar.gz\
+    && chmod 755 -R nexus-3.9.0-01/bin
+#声明暴露的端口
+EXPOSE 8081
+#容器启动命令
+ENTRYPOINT ["nexus-3.9.0-01/bin/nexus", "start"]
