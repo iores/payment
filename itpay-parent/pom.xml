@@ -15,7 +15,7 @@
 
     <properties>
         <!--maven 仓库地址1-->
-        <maven.host>http://192.168.4.115:8001</maven.host>
+        <maven.host>http://192.168.4.115:8002</maven.host>
         <!--自己的组件版本-->
         <framework.version>1.0-SNAPSHOT</framework.version>
         <!--spring 版本-->
@@ -61,14 +61,14 @@
     <repositories>
         <repository>
             <id>server</id>
-            <url>${maven.host}/nexus/content/repositories/public</url>
+            <url>${maven.host}/repository/maven-public</url>
         </repository>
     </repositories>
     <!-- maven 私服 插件库 -->
     <pluginRepositories>
         <pluginRepository>
             <id>server</id>
-            <url>${maven.host}/nexus/content/repositories/public</url>
+            <url>${maven.host}/repository/maven-public</url>
         </pluginRepository>
     </pluginRepositories>
     <!-- maven 私服 构建库 -->
@@ -76,12 +76,12 @@
         <repository>
             <id>releases</id>
             <name>releases</name>
-            <url>${maven.host}/nexus/content/repositories/releases</url>
+            <url>${maven.host}/repository/maven-releases</url>
         </repository>
         <snapshotRepository>
             <id>snapshot</id>
             <name>snapshots</name>
-            <url>${maven.host}/nexus/content/repositories/snapshots</url>
+            <url>${maven.host}/repository/maven-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
