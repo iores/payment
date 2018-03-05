@@ -32,6 +32,7 @@
         <property name="realm" ref="statelessRealm"/>
         <property name="sessionManager" ref="sessionManager" />
         <property name="subjectFactory" ref="subjectFactory"/>
+        <property name="subjectDAO.sessionStorageEvaluator.sessionStorageEnabled" value="false"/>
     </bean>
 
     <!-- 配置自定义Realm -->

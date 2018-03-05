@@ -1,5 +1,7 @@
 package com.itpay.restfull;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,7 @@ import java.io.Serializable;
  * @date 2018/1/19 0019
  * restfluu 接口返回元数据
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResultCode implements Serializable {
 
     private static final long serialVersionUID = -3287718901570990354L;

@@ -11,3 +11,4 @@ RUN rpm -ivh /home/myjenkins/jdk-8u162-linux-x64.rpm \
     && chmod 755 -R bin
 #容器启动命令
 ENTRYPOINT ["bin/catalina.sh", "run"]
+#docker run -i  -t -d -p 8001:8080 -v /opt/jenkinsdata/:/home/jenkins/ --restart always  --name jenkins  jenkins:v1

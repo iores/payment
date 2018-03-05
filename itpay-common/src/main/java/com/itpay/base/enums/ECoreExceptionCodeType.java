@@ -1,5 +1,6 @@
 package com.itpay.base.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.itpay.core.base.BaseEnum;
 
 /**
@@ -31,6 +32,7 @@ public enum ECoreExceptionCodeType implements BaseEnum<String> {
      * @return value
      */
     @Override
+    @JsonValue
     public String getValue() {
         return value;
     }

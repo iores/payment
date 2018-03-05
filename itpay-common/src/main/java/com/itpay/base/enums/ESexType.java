@@ -1,5 +1,6 @@
 package com.itpay.base.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.itpay.core.base.BaseEnum;
 
 import java.util.HashMap;
@@ -34,6 +35,7 @@ public enum ESexType  implements BaseEnum<String>{
     }
 
     @Override
+    @JsonValue
     public String getValue() {
         return value;
     }

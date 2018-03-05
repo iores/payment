@@ -57,13 +57,13 @@ public class StatelessRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         StatelessToken token = (StatelessToken) authenticationToken;
         // 通过表单接收的用户名
-        String username = token.getUsername();
+        String username = token.getUserName();
         if(StringUtils.isNotBlank(username)){
             UserLoginDto userLoginDto=userLoginAppService.findByUserLoginName(username);
             if(userLoginDto!=null){
-                return new SimpleAuthenticationInfo(userLoginDto.getLoginName(),userLoginDto.getLoginPwd(),getName());
+                return new SimpleAuthenticationInfo(token.getHost(),userLoginDto.getLoginPwd(),getName());
             }
         }
-        return null;
+        return new SimpleAuthenticationInfo(token.getHost(),token.getClientDigest(),getName());
     }
 }

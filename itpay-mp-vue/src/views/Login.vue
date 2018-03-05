@@ -69,8 +69,8 @@
                                     type: 'error'
                                 });
                             } else {
-                                sessionStorage.setItem('user', JSON.stringify(data));
-                                this.$router.push({path: '/table'});
+                                sessionStorage.setItem('user', this.ruleForm2.account);
+                                this.$router.push({path: '/userList'});
                             }
                         });
                     } else {

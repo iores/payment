@@ -19,19 +19,19 @@
 		<el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
 			<el-table-column type="index" label="序号" width="70">
 			</el-table-column>
-			<el-table-column prop="id" label="用户编号" width="120" sortable>
+			<el-table-column prop="id" label="用户编号" min-width="120" >
 			</el-table-column>
-			<el-table-column prop="name" label="用户名称" width="100"  sortable>
+			<el-table-column prop="name" label="用户名称" min-width="100"  sortable>
 			</el-table-column>
-			<el-table-column prop="phone" label="手机号" width="100" sortable>
+			<el-table-column prop="phone" label="手机号" min-width="100" >
 			</el-table-column>
-			<el-table-column prop="email" label="邮箱" width="120" sortable>
+			<el-table-column prop="email" label="邮箱" min-width="120" >
 			</el-table-column>
-			<el-table-column prop="sex" label="性别" min-width="120" :formatter="formatSex" sortable>
+			<el-table-column prop="sex" label="性别" min-width="60" :formatter="formatSex" >
 			</el-table-column>
-			<el-table-column prop="status" label="状态" min-width="120" sortable>
+			<el-table-column prop="status" label="状态" min-width="60" :formatter="formatStatus" >
 			</el-table-column>
-			<el-table-column label="操作" width="150">
+			<el-table-column label="操作" min-width="150">
 				<template scope="scope">
 					<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
 					<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
@@ -159,8 +159,11 @@
 		methods: {
 			//性别显示转换
 			formatSex: function (row, column) {
-				return row.sex == 1 ? '男' : row.sex == 0 ? '女' : '未知';
+				return row.sex == '1' ? '男' : row.sex == '2' ? '女' : '未知';
 			},
+            formatStatus: function (row, column) {
+                return row.status == '01' ? '正常' : row.status == '02' ? '冻结' : row.status == '03' ? '注销' :'';
+            },
 			handleCurrentChange(val) {
 				this.page = val;
 				this.getUsers();
@@ -174,9 +177,16 @@
 				this.listLoading = true;
 				//NProgress.start();
                 postUserListPage(para).then((res) => {
-//					this.total = res.data.total;
-//					this.users = res.data.users;
-					console.log(res);
+                    let {meta,data} = res;
+                    if (meta.code != 200) {
+                        this.$message({
+                            message: meta.message,
+                            type: 'error'
+                        });
+                    } else {
+                        this.total = data.page.total;
+                        this.users = data.page.list;
+                    }
 					this.listLoading = false;
 					//NProgress.done();
 				}).catch((err) =>{

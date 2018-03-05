@@ -1,12 +1,9 @@
 import axios from 'axios';
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
-    //自定义请求头
-    config.headers['x-user-flag'] = 'your-flag';
-    let user = sessionStorage.getItem('user');
-    if (user) {
-        user = JSON.parse(user);
-        config.headers['user-token'] = user.sessionId;
+    let token = sessionStorage.getItem('token');
+    if (token) {
+        config.headers['x-access-token'] = token;
     }
     // 在发送请求之前做些什么
     return config;
@@ -14,6 +11,20 @@ axios.interceptors.request.use(function (config) {
     // 对请求错误做些什么
     return Promise.reject(error);
 });
+
+// http响应拦截器
+axios.interceptors.response.use(resp => {
+    let token = resp.headers['x-access-token'];
+    if(token){
+        //存在token
+        sessionStorage.setItem("token",token);
+    }
+    return resp
+}, error => {
+    return Promise.reject(error)
+});
+
+
 let base = '';
 
 export const requestLogin = params => {
@@ -45,5 +56,5 @@ export const addUser = params => {
 };
 
 export const postUserListPage = params => {
-    return axios.get(`/api/rest/user/list`, {params: params});
+    return axios.get(`/api/rest/user/list`, {params: params}).then(res => res.data);
 };

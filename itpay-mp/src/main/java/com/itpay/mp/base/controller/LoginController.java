@@ -45,32 +45,11 @@ public class LoginController {
     public ResultCode goLogin(HttpServletRequest request){
         //如果已经登陆，那么直接跳转到成功页面
         if(SecurityUtils.getSubject().isAuthenticated()){
-            //获取出当前登录用户
-            UserLoginDto userLoginDto = (UserLoginDto) SecurityUtils.getSubject().getPrincipal();
-            RestResultUser user = new RestResultUser();
-            user.setSessionId(SecurityUtils.getSubject().getSession().getId());
-            user.setUserName(userLoginDto.getLoginName());
             //登录成功
-            return new ResultCode(ResultCode.OK,"已经登录",user);
+            return new ResultCode(ResultCode.OK,"登录成功",SecurityUtils.getSubject().getPrincipal());
         }
         String code = ResultCode.NO_AUTHORITY;
         String expMsg = "未登录";
-        Object obj = request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
-        if(obj !=null){
-            AuthenticationException authExp = (AuthenticationException)obj;
-            if(authExp instanceof UnknownAccountException || authExp instanceof IncorrectCredentialsException){
-                expMsg="账号或密码错误！";
-            } else if( obj instanceof LockedAccountException){
-                expMsg= "用户账号已禁用！";
-            } else if( obj instanceof ExpiredCredentialsException){
-                expMsg= "用户账号已过期！";
-            } else if( obj instanceof IncorrectCaptchaException){
-                expMsg= "验证码错误！";
-            } else{
-                code = ResultCode.ERROR;
-                expMsg="系统异常";
-            }
-        }
         return new ResultCode(code,expMsg);
     }
 

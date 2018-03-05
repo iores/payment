@@ -96,7 +96,7 @@ public class StatelessAuthcFilter extends AccessControlFilter {
             subject.login(token);
             return onLoginSuccess((HttpServletResponse) response,subject);
         } catch (Exception e) {
-            log.warn("登录失败！", e);
+            log.debug("登录失败！", e);
             return onLoginFail(response,e);
         }
 
@@ -112,12 +112,6 @@ public class StatelessAuthcFilter extends AccessControlFilter {
         //创建token
         String token = JwtUtil.createTokenByHMAC256((String) subject.getPrincipal());
         response.setHeader(HTTP_HEADER_NAME,token);
-        String code = ResultCode.OK;
-        ResultCode resultCode = new ResultCode(code, "登录成功");
-        ObjectMapper mapper = new ObjectMapper();
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(mapper.writeValueAsString(resultCode));
-        response.getWriter().flush();
         return true;
     }
 
@@ -129,8 +123,7 @@ public class StatelessAuthcFilter extends AccessControlFilter {
      */
     private boolean onLoginFail(ServletResponse response,Exception e) throws IOException {
         String expMsg;
-        AuthenticationException authExp = (AuthenticationException)e;
-        if(authExp instanceof UnknownAccountException || authExp instanceof IncorrectCredentialsException){
+        if(e instanceof UnknownAccountException || e instanceof IncorrectCredentialsException){
             expMsg="认证失败！";
         } else if( e instanceof LockedAccountException){
             expMsg= "用户账号已禁用！";
@@ -144,7 +137,7 @@ public class StatelessAuthcFilter extends AccessControlFilter {
         String code = ResultCode.NO_AUTHORITY;
         ResultCode resultCode = new ResultCode(code, expMsg);
         ObjectMapper mapper = new ObjectMapper();
-        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         response.getWriter().write(mapper.writeValueAsString(resultCode));
         response.getWriter().flush();
         return true;
@@ -163,8 +156,10 @@ public class StatelessAuthcFilter extends AccessControlFilter {
             while ((line = in.readLine()) != null) {
                 sb.append(line);
             }
-            ObjectMapper mapper = new ObjectMapper();
-            return  mapper.readValue(sb.toString(),StatelessToken.class);
+            if(StringUtils.isNotBlank(sb.toString())){
+                ObjectMapper mapper = new ObjectMapper();
+                return  mapper.readValue(sb.toString(),StatelessToken.class);
+            }
         }catch (Exception e){
             log.info("获取登录信息失败！",e);
         }

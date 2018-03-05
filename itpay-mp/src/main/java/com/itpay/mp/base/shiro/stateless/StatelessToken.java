@@ -17,9 +17,9 @@ public class StatelessToken implements AuthenticationToken {
     public StatelessToken() {
     }
 
-    public StatelessToken(String username, char[] password, String clientDigest,String host) {
-        this.username = username;
-        this.password = password;
+    public StatelessToken(String userName, char[] passWord, String clientDigest,String host) {
+        this.userName = userName;
+        this.passWord = passWord;
         this.clientDigest = clientDigest;
         this.host = host;
     }
@@ -27,12 +27,12 @@ public class StatelessToken implements AuthenticationToken {
     /**
      * 用户名
      */
-    private String username;
+    private String userName;
 
     /**
      * 密码
      */
-    private char[] password;
+    private char[] passWord;
 
 
     /**
@@ -45,20 +45,20 @@ public class StatelessToken implements AuthenticationToken {
      */
     private String host;
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public char[] getPassword() {
-        return password;
+    public char[] getPassWord() {
+        return passWord;
     }
 
-    public void setPassword(char[] password) {
-        this.password = password;
+    public void setPassWord(char[] passWord) {
+        this.passWord = passWord;
     }
 
     public String getClientDigest() {
@@ -79,12 +79,12 @@ public class StatelessToken implements AuthenticationToken {
 
     @Override
     public Object getPrincipal() {
-        return username;
+        return userName;
     }
 
 
     @Override
     public Object getCredentials() {
-        return password;
+        return passWord;
     }
 }

@@ -140,12 +140,8 @@
             }
         },
         mounted() {
-            let user = sessionStorage.getItem('user');
-            if (user) {
-                user = JSON.parse(user);
-                this.sysUserName = user.userName || '';
-                this.sysUserAvatar = '';
-            }
+            this.sysUserName = sessionStorage.getItem('user') || '';
+            this.sysUserAvatar = '';
 
         }
     }

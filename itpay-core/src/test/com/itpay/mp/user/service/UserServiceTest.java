@@ -42,7 +42,7 @@ public class UserServiceTest  extends BaseTest{
         record.setEmail("ccm@211113");
         record.setName("ccm321");
         record.setPhone("1318987828");
-        record.setSex(ESexType.WONMAN);
+        record.setSex(ESexType.MAN);
         record.setStatus(EUserStatus.NORMAL);
         int a= userManager.insert(record);
         System.out.println(a);
@@ -55,7 +55,7 @@ public class UserServiceTest  extends BaseTest{
         List<UserLoginVo> loginVos =new ArrayList<>(2);
         UserLoginVo vo =  new UserLoginVo();
         vo.setLoginName("zlf");
-        vo.setUserId("665e7451-afda-4af2-949d-dafbfabdc");
+        vo.setUserId("b7dfe0c5-5163-4292-a16d-1de3c280a455");
         vo.setPassWord(PassWordUtil.createMd5(password+vo.getLoginName()));
         loginVos.add(vo);
         userLoginManager.addLoginInfo(loginVos);
