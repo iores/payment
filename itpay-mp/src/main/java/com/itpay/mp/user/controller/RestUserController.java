@@ -4,13 +4,14 @@ import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.app.UserAppService;
 import com.itpay.mp.user.app.UserLoginAppService;
 import com.itpay.mp.user.dto.UserDto;
+import com.itpay.mp.user.query.UserQueryParam;
 import com.itpay.restfull.ResultCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +24,8 @@ import java.util.Map;
  * @author zlf
  * 用户信息  rest  接口
  */
-@Controller
+@RestController
 @RequestMapping("/rest/user")
-@ResponseBody
 public class RestUserController {
 
     private static final Logger logger = LoggerFactory.getLogger(RestUserController.class);
@@ -45,12 +45,12 @@ public class RestUserController {
      *
      * @return
      */
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResultCode list(ListPage<UserDto> listPage, UserDto queryParam, HttpServletRequest request) {
-        listPage = userAppService.listPage(listPage, queryParam);
+    @RequestMapping(value = "/list", method = RequestMethod.POST , produces = { "application/json;charset=UTF-8" })
+    public ResultCode list(@RequestBody UserQueryParam queryParam) {
+        ListPage<UserDto> listPage = userAppService.listPage(queryParam.getListPage(), queryParam.getQueryParam());
         Map<String, Object> userDtoMap = new HashMap<>(10);
         userDtoMap.put("page", listPage);
-        userDtoMap.put("queryParam", queryParam);
+        userDtoMap.put("queryParam", queryParam.getQueryParam());
         return new ResultCode(ResultCode.OK, ResultCode.OK, userDtoMap);
     }
 

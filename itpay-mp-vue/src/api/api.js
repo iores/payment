@@ -56,5 +56,5 @@ export const addUser = params => {
 };
 
 export const postUserListPage = params => {
-    return axios.get(`/api/rest/user/list`, {params: params}).then(res => res.data);
+    return axios.post(`/api/rest/user/list`, params).then(res => res.data);
 };

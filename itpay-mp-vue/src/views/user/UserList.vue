@@ -2,9 +2,9 @@
 	<section>
 		<!--工具条-->
 		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" :model="filters">
+			<el-form :inline="true" :model="queryParam">
 				<el-form-item>
-					<el-input v-model="filters.name" placeholder="姓名"></el-input>
+					<el-input v-model="queryParam.name" placeholder="姓名"></el-input>
 				</el-form-item>
 				<el-form-item>
 					<el-button type="primary" v-on:click="getUsers">查询</el-button>
@@ -16,20 +16,20 @@
 		</el-col>
 
 		<!--列表-->
-		<el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+		<el-table :data="users" highlight-current-row   v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
 			<el-table-column type="index" label="序号" width="70">
-			</el-table-column>
-			<el-table-column prop="id" label="用户编号" min-width="120" >
 			</el-table-column>
 			<el-table-column prop="name" label="用户名称" min-width="100"  sortable>
 			</el-table-column>
 			<el-table-column prop="phone" label="手机号" min-width="100" >
 			</el-table-column>
-			<el-table-column prop="email" label="邮箱" min-width="120" >
+			<el-table-column prop="email" label="邮箱" min-width="100" >
 			</el-table-column>
 			<el-table-column prop="sex" label="性别" min-width="60" :formatter="formatSex" >
 			</el-table-column>
 			<el-table-column prop="status" label="状态" min-width="60" :formatter="formatStatus" >
+			</el-table-column>
+			<el-table-column prop="createTime" label="创建时间" min-width="120" :formatter="formatDate" >
 			</el-table-column>
 			<el-table-column label="操作" min-width="150">
 				<template scope="scope">
@@ -41,65 +41,13 @@
 
 		<!--工具条-->
 		<el-col :span="24" class="toolbar">
-			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;">
+			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+					:page-sizes="[10, 50, 100]"
+					:page-size="listPage.pageSize"
+					layout="total, sizes, prev, pager, next, jumper"
+					:total="listPage.total" style="float:right;">
 			</el-pagination>
 		</el-col>
-
-		<!--编辑界面-->
-		<el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
-			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-				<el-form-item label="姓名" prop="name">
-					<el-input v-model="editForm.name" auto-complete="off"></el-input>
-				</el-form-item>
-				<el-form-item label="性别">
-					<el-radio-group v-model="editForm.sex">
-						<el-radio class="radio" :label="1">男</el-radio>
-						<el-radio class="radio" :label="0">女</el-radio>
-					</el-radio-group>
-				</el-form-item>
-				<el-form-item label="年龄">
-					<el-input-number v-model="editForm.age" :min="0" :max="200"></el-input-number>
-				</el-form-item>
-				<el-form-item label="生日">
-					<el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>
-				</el-form-item>
-				<el-form-item label="地址">
-					<el-input type="textarea" v-model="editForm.addr"></el-input>
-				</el-form-item>
-			</el-form>
-			<div slot="footer" class="dialog-footer">
-				<el-button @click.native="editFormVisible = false">取消</el-button>
-				<el-button type="primary" @click.native="editSubmit" :loading="editLoading">提交</el-button>
-			</div>
-		</el-dialog>
-
-		<!--新增界面-->
-		<el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
-			<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-				<el-form-item label="姓名" prop="name">
-					<el-input v-model="addForm.name" auto-complete="off"></el-input>
-				</el-form-item>
-				<el-form-item label="性别">
-					<el-radio-group v-model="addForm.sex">
-						<el-radio class="radio" :label="1">男</el-radio>
-						<el-radio class="radio" :label="0">女</el-radio>
-					</el-radio-group>
-				</el-form-item>
-				<el-form-item label="年龄">
-					<el-input-number v-model="addForm.age" :min="0" :max="200"></el-input-number>
-				</el-form-item>
-				<el-form-item label="生日">
-					<el-date-picker type="date" placeholder="选择日期" v-model="addForm.birth"></el-date-picker>
-				</el-form-item>
-				<el-form-item label="地址">
-					<el-input type="textarea" v-model="addForm.addr"></el-input>
-				</el-form-item>
-			</el-form>
-			<div slot="footer" class="dialog-footer">
-				<el-button @click.native="addFormVisible = false">取消</el-button>
-				<el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
-			</div>
-		</el-dialog>
 	</section>
 </template>
 
@@ -112,48 +60,17 @@
     export default {
 		data() {
 			return {
-				filters: {
+                queryParam: {
 					name: ''
 				},
 				users: [],
-				total: 0,
-				page: 1,
+                listPage: {
+                    pageNum :1,
+                    pageSize: 10,
+                    total: 0,
+				},
 				listLoading: false,
 				sels: [],//列表选中列
-
-				editFormVisible: false,//编辑界面是否显示
-				editLoading: false,
-				editFormRules: {
-					name: [
-						{ required: true, message: '请输入姓名', trigger: 'blur' }
-					]
-				},
-				//编辑界面数据
-				editForm: {
-					id: 0,
-					name: '',
-					sex: -1,
-					age: 0,
-					birth: '',
-					addr: ''
-				},
-
-				addFormVisible: false,//新增界面是否显示
-				addLoading: false,
-				addFormRules: {
-					name: [
-						{ required: true, message: '请输入姓名', trigger: 'blur' }
-					]
-				},
-				//新增界面数据
-				addForm: {
-					name: '',
-					sex: -1,
-					age: 0,
-					birth: '',
-					addr: ''
-				}
-
 			}
 		},
 		methods: {
@@ -164,18 +81,23 @@
             formatStatus: function (row, column) {
                 return row.status == '01' ? '正常' : row.status == '02' ? '冻结' : row.status == '03' ? '注销' :'';
             },
+            formatDate: function (row, column) {
+				return util.formatDate.format(new Date(row.createTime),'yyyy-MM-dd hh:mm:ss');
+            },
+            handleSizeChange(val){
+				console.info(val);
+			},
 			handleCurrentChange(val) {
-				this.page = val;
+				this.listPage.pageNum = val;
 				this.getUsers();
 			},
 			//获取用户列表
 			getUsers() {
 				let para = {
-					page: this.page,
-					name: this.filters.name
+                    listPage: this.listPage,
+                    queryParam: this.queryParam
 				};
 				this.listLoading = true;
-				//NProgress.start();
                 postUserListPage(para).then((res) => {
                     let {meta,data} = res;
                     if (meta.code != 200) {
@@ -184,11 +106,11 @@
                             type: 'error'
                         });
                     } else {
-                        this.total = data.page.total;
+                        this.listPage.total = data.page.total;
+                        this.listPage.pageSize = data.page.pageSize;
                         this.users = data.page.list;
                     }
 					this.listLoading = false;
-					//NProgress.done();
 				}).catch((err) =>{
                     console.log(err);
                 });

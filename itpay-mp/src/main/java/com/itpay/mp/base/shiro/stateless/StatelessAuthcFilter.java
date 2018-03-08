@@ -84,11 +84,19 @@ public class StatelessAuthcFilter extends AccessControlFilter {
             return false;
         }
         //获取表单内容
-        StatelessToken token = getUserLoginInfo(request);
+        StatelessToken token = new StatelessToken();
         //获取请求头部的token
         String clientDigest = ((HttpServletRequest) request).getHeader(getHttpHeaderName());
         if (StringUtils.isNotBlank(clientDigest)) {
             token.setClientDigest(clientDigest);
+        }
+        //判断是否是登录请求
+        String loginUrl = getLoginUrl();
+        String url = ((HttpServletRequest) request).getRequestURI();
+        //包含登录url,那么就是登录
+        if(url.contains(loginUrl)){
+            token.setClientDigest(null);
+            token = getUserLoginInfo(request);
         }
         token.setHost(request.getRemoteHost());
         try {
@@ -96,7 +104,6 @@ public class StatelessAuthcFilter extends AccessControlFilter {
             subject.login(token);
             return onLoginSuccess((HttpServletResponse) response,subject);
         } catch (Exception e) {
-            log.debug("登录失败！", e);
             return onLoginFail(response,e);
         }
 
@@ -140,7 +147,7 @@ public class StatelessAuthcFilter extends AccessControlFilter {
         response.setContentType("text/html;charset=UTF-8");
         response.getWriter().write(mapper.writeValueAsString(resultCode));
         response.getWriter().flush();
-        return true;
+        return false;
     }
 
     /**

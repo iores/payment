@@ -11,6 +11,7 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <!-- Shiro的核心安全接口,这个属性是必须的 -->
         <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="login"/>
         <!-- Shiro连接约束配置,即过滤链的定义 -->
         <property name="filters">
             <util:map>

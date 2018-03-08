@@ -177,7 +177,7 @@ public class JwtUtil {
             verifier.verify(token);
             return true;
         } catch (JWTVerificationException exception){
-            logger.warn("验证失败！Invalid signature/claims.",exception);
+            logger.debug("验证失败！Invalid signature/claims.",exception);
             return false;
         }
     }
