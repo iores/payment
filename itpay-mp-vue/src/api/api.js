@@ -19,6 +19,12 @@ axios.interceptors.response.use(resp => {
         //存在token
         sessionStorage.setItem("token",token);
     }
+    //判断响应是否为200
+    let {meta} = resp.data;
+    if(meta.code == 401){
+        sessionStorage.removeItem('user');
+        this.$router.push({path: '/login'});
+    }
     return resp
 }, error => {
     return Promise.reject(error)

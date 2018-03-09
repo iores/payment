@@ -1,15 +1,15 @@
-import Login from './views/Login.vue'
-import NotFound from './views/404.vue'
-import Home from './views/Home.vue'
-import Main from './views/Main.vue'
-import Table from './views/nav1/Table.vue'
-import Form from './views/nav1/Form.vue'
-import user from './views/nav1/user.vue'
-import Page4 from './views/nav2/Page4.vue'
-import Page5 from './views/nav2/Page5.vue'
-import Page6 from './views/nav3/Page6.vue'
-import echarts from './views/charts/echarts.vue'
-import UserList from './views/user/UserList.vue'
+const Login = resolve => require(['./views/Login.vue'], resolve);
+const NotFound = resolve => require(['./views/404.vue'], resolve);
+const Home = resolve => require(['./views/Home.vue'], resolve);
+const Main = resolve => require(['./views/Main.vue'], resolve);
+const Table = resolve => require(['./views/nav1/Table.vue'], resolve);
+const Form = resolve => require(['./views/nav1/Form.vue'], resolve);
+const user = resolve => require(['./views/nav1/user.vue'], resolve);
+const Page4 = resolve => require(['./views/nav2/Page4.vue'], resolve);
+const Page5 = resolve => require(['./views/nav2/Page5.vue'], resolve);
+const Page6 = resolve => require(['./views/nav3/Page6.vue'], resolve);
+const echarts = resolve => require(['./views/charts/echarts.vue'], resolve);
+const UserList = resolve => require(['./views/user/UserList.vue'], resolve);
 
 let routes = [
     {
