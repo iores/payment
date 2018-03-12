@@ -6,11 +6,20 @@
 				<el-form-item>
 					<el-input v-model="queryParam.name" placeholder="姓名"></el-input>
 				</el-form-item>
+                <el-form-item>
+                    <el-input v-model="queryParam.phone" placeholder="手机号"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-input v-model="queryParam.email" placeholder="邮箱"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-input v-model="queryParam.sex" placeholder="性别"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-input v-model="queryParam.status" placeholder="状态"></el-input>
+                </el-form-item>
 				<el-form-item>
 					<el-button type="primary" v-on:click="getUsers">查询</el-button>
-				</el-form-item>
-				<el-form-item>
-					<el-button type="primary" @click="handleAdd">新增</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
@@ -61,7 +70,11 @@
 		data() {
 			return {
                 queryParam: {
-					name: ''
+					name: '',
+					phone: '',
+                    email: '',
+                    sex:'',
+                    status: '',
 				},
 				users: [],
                 listPage: {

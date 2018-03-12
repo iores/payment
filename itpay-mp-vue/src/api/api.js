@@ -1,4 +1,6 @@
 import axios from 'axios';
+import router from '../router'
+
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
     let token = sessionStorage.getItem('token');
@@ -22,8 +24,8 @@ axios.interceptors.response.use(resp => {
     //判断响应是否为200
     let {meta} = resp.data;
     if(meta.code == 401){
-        sessionStorage.removeItem('user');
-        this.$router.push({path: '/login'});
+        router.push({path: '/login'});
+        return Promise.reject(meta.message)
     }
     return resp
 }, error => {

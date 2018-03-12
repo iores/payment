@@ -3,22 +3,32 @@ import Vuex from 'vuex'
 import * as actions from './actions'
 import * as getters from './getters'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 // 应用初始状态
 const state = {
-    count: 10
-}
+    count: 10,
+    login: false
+
+};
 
 // 定义所需的 mutations
 const mutations = {
     INCREMENT(state) {
-        state.count++
+        state.count++;
     },
     DECREMENT(state) {
-        state.count--
+        state.count--;
+    },
+    //退出登录
+    LOGIN_OUT(state){
+        state.login= false;
+    },
+    //登录成功
+    LOGIN_IN(state){
+        state.login= true;
     }
-}
+};
 
 // 创建 store 实例
 export default new Vuex.Store({

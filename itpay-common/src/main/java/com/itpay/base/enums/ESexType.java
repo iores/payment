@@ -1,5 +1,6 @@
 package com.itpay.base.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.itpay.core.base.BaseEnum;
 
@@ -51,7 +52,10 @@ public enum ESexType  implements BaseEnum<String>{
             enumMap.put(en.getValue(), en);
         }
     }
-
+    /**
+     * 反序列化时的 初始化函数，入参为 对应该枚举的 json值
+     */
+    @JsonCreator
     public static ESexType getEnum(String value) {
         return enumMap.get(value);
     }

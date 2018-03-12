@@ -1,5 +1,6 @@
 package com.itpay.base.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.itpay.core.base.BaseEnum;
 
@@ -25,12 +26,12 @@ public enum EUserStatus implements BaseEnum<String>{
      * 注销
      */
     WRITTEN_OFF("03","注销"),
-    
+
     ;
-    
-    
+
+
     private String value;
-    
+
     private String displayName;
 
     EUserStatus(String value, String displayName){
@@ -56,8 +57,12 @@ public enum EUserStatus implements BaseEnum<String>{
         }
     }
 
+    /**
+     * 反序列化时的 初始化函数，入参为 对应该枚举的 json值
+     */
+    @JsonCreator
     public static EUserStatus getEnum(String value) {
         return enumMap.get(value);
     }
-    
+
 }

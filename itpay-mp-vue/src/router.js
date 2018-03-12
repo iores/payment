@@ -1,3 +1,7 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+
 const Login = resolve => require(['./views/Login.vue'], resolve);
 const NotFound = resolve => require(['./views/404.vue'], resolve);
 const Home = resolve => require(['./views/Home.vue'], resolve);
@@ -10,6 +14,9 @@ const Page5 = resolve => require(['./views/nav2/Page5.vue'], resolve);
 const Page6 = resolve => require(['./views/nav3/Page6.vue'], resolve);
 const echarts = resolve => require(['./views/charts/echarts.vue'], resolve);
 const UserList = resolve => require(['./views/user/UserList.vue'], resolve);
+
+Vue.use(VueRouter);
+
 
 let routes = [
     {
@@ -89,4 +96,24 @@ let routes = [
     }
 ];
 
-export default routes;
+const router = new VueRouter({
+    mode: 'history',
+    routes: routes
+});
+
+
+router.beforeEach((to, from, next) => {
+    //NProgress.start();
+    if (to.path == '/login' ) {
+        sessionStorage.removeItem('user');
+    }
+    let user = sessionStorage.getItem('user');
+    if (!user && to.path != '/login') {
+        next({path: '/login'})
+    } else {
+        next()
+    }
+});
+
+
+export default router;
