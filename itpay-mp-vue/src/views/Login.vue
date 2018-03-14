@@ -70,7 +70,7 @@
                                 });
                             } else {
                                 sessionStorage.setItem('user', this.ruleForm2.account);
-                                this.$router.push({path: '/userList'});
+                                this.$router.push({path: '/user/list'});
                             }
                         });
                     } else {

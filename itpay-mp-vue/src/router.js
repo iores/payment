@@ -14,6 +14,7 @@ const Page5 = resolve => require(['./views/nav2/Page5.vue'], resolve);
 const Page6 = resolve => require(['./views/nav3/Page6.vue'], resolve);
 const echarts = resolve => require(['./views/charts/echarts.vue'], resolve);
 const UserList = resolve => require(['./views/user/UserList.vue'], resolve);
+const UserDetail = resolve => require(['./views/user/UserDetail.vue'], resolve);
 
 Vue.use(VueRouter);
 
@@ -62,7 +63,8 @@ let routes = [
         name: '用户管理',
         iconCls: 'fa fa-id-card-o',
         children: [
-            { path: '/userList', component: UserList, name: '用户列表' },
+            { path: '/user/list', component: UserList, name: '用户列表' },
+            { path: '/user/detail', component: UserDetail, name: '用户详情',hidden: true },
             { path: '/user2', component: Page5, name: '角色列表' },
         ]
     },

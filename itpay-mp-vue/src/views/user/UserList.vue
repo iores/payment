@@ -1,29 +1,35 @@
 <template>
 	<section>
 		<!--工具条-->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" :model="queryParam">
-				<el-form-item>
+		<el-col :span="24" class="toolbar"  style="padding-bottom: 0px;">
+			<el-form :inline="true" :model="queryParam"  size="small" label-width="100px"  ref="queryParam">
+				<el-form-item  label="姓名" prop="name" >
 					<el-input v-model="queryParam.name" placeholder="姓名"></el-input>
 				</el-form-item>
-                <el-form-item>
+                <el-form-item  label="手机号" prop="phone">
                     <el-input v-model="queryParam.phone" placeholder="手机号"></el-input>
                 </el-form-item>
-                <el-form-item>
+                <el-form-item label="邮箱" prop="email">
                     <el-input v-model="queryParam.email" placeholder="邮箱"></el-input>
                 </el-form-item>
-                <el-form-item>
-                    <el-input v-model="queryParam.sex" placeholder="性别"></el-input>
+                <el-form-item  label="性别" prop="sex"   >
+                    <el-select v-model="queryParam.sex"   placeholder="请选择">
+                        <el-option v-for="item in sexs" :key="item.value"  :label="item.label" :value="item.value">
+                        </el-option>
+                    </el-select>
                 </el-form-item>
-                <el-form-item>
-                    <el-input v-model="queryParam.status" placeholder="状态"></el-input>
+                <el-form-item label="状态" prop="status">
+					<el-select v-model="queryParam.status"   placeholder="请选择">
+						<el-option v-for="item in status" :key="item.value"  :label="item.label" :value="item.value">
+						</el-option>
+					</el-select>
                 </el-form-item>
-				<el-form-item>
+				<el-form-item label="  " >
 					<el-button type="primary" v-on:click="getUsers">查询</el-button>
+                    <el-button  @click="restFrom('queryParam')">重置</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-
 		<!--列表-->
 		<el-table :data="users" highlight-current-row   v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
 			<el-table-column type="index" label="序号" width="70">
@@ -42,8 +48,8 @@
 			</el-table-column>
 			<el-table-column label="操作" min-width="150">
 				<template scope="scope">
-					<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-					<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
+					<el-button type="info" size="small" @click="handleDetail(scope.row.id)">查看详情</el-button>
+					<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">冻结</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -84,6 +90,23 @@
 				},
 				listLoading: false,
 				sels: [],//列表选中列
+                sexs:[{
+                    value: '1',
+                    label: '男'
+                },{
+                    value: '2',
+                    label: '女'
+                }],
+                status:[{
+                    value: '01',
+                    label: '正常'
+                },{
+                    value: '02',
+                    label: '冻结'
+                },{
+                    value: '03',
+                    label: '注销'
+                }],
 			}
 		},
 		methods: {
@@ -97,6 +120,7 @@
             formatDate: function (row, column) {
 				return util.formatDate.format(new Date(row.createTime),'yyyy-MM-dd hh:mm:ss');
             },
+            //修改每页条数
             handleSizeChange(val){
 				console.info(val);
 			},
@@ -104,6 +128,14 @@
 				this.listPage.pageNum = val;
 				this.getUsers();
 			},
+            //重置表单
+            restFrom(queryFrom){
+                this.$refs[queryFrom].resetFields();
+            },
+            //查看详情
+            handleDetail(detailId){
+                this.$router.push({path: '/user/detail',params:{id:detailId}});
+            },
 			//获取用户列表
 			getUsers() {
 				let para = {
@@ -149,94 +181,8 @@
 
 				});
 			},
-			//显示编辑界面
-			handleEdit: function (index, row) {
-				this.editFormVisible = true;
-				this.editForm = Object.assign({}, row);
-			},
-			//显示新增界面
-			handleAdd: function () {
-				this.addFormVisible = true;
-				this.addForm = {
-					name: '',
-					sex: -1,
-					age: 0,
-					birth: '',
-					addr: ''
-				};
-			},
-			//编辑
-			editSubmit: function () {
-				this.$refs.editForm.validate((valid) => {
-					if (valid) {
-						this.$confirm('确认提交吗？', '提示', {}).then(() => {
-							this.editLoading = true;
-							//NProgress.start();
-							let para = Object.assign({}, this.editForm);
-							para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-							editUser(para).then((res) => {
-								this.editLoading = false;
-								//NProgress.done();
-								this.$message({
-									message: '提交成功',
-									type: 'success'
-								});
-								this.$refs['editForm'].resetFields();
-								this.editFormVisible = false;
-								this.getUsers();
-							});
-						});
-					}
-				});
-			},
-			//新增
-			addSubmit: function () {
-				this.$refs.addForm.validate((valid) => {
-					if (valid) {
-						this.$confirm('确认提交吗？', '提示', {}).then(() => {
-							this.addLoading = true;
-							//NProgress.start();
-							let para = Object.assign({}, this.addForm);
-							para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-							addUser(para).then((res) => {
-								this.addLoading = false;
-								//NProgress.done();
-								this.$message({
-									message: '提交成功',
-									type: 'success'
-								});
-								this.$refs['addForm'].resetFields();
-								this.addFormVisible = false;
-								this.getUsers();
-							});
-						});
-					}
-				});
-			},
 			selsChange: function (sels) {
 				this.sels = sels;
-			},
-			//批量删除
-			batchRemove: function () {
-				var ids = this.sels.map(item => item.id).toString();
-				this.$confirm('确认删除选中记录吗？', '提示', {
-					type: 'warning'
-				}).then(() => {
-					this.listLoading = true;
-					//NProgress.start();
-					let para = { ids: ids };
-					batchRemoveUser(para).then((res) => {
-						this.listLoading = false;
-						//NProgress.done();
-						this.$message({
-							message: '删除成功',
-							type: 'success'
-						});
-						this.getUsers();
-					});
-				}).catch(() => {
-
-				});
 			}
 		},
 		mounted() {
