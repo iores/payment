@@ -1,71 +1,98 @@
 <template>
     <section>
-        <el-form :model="queryParam"   ref="queryParam" label-width="100px">
-            <el-form-item label="姓名" prop="name">
-               11111111111111
+        <el-form label-position="right" :inline="true" class="demo-table-expand">
+            <el-form-item label="商品名称">
+                <span>{{ user.name }}</span>
             </el-form-item>
-            <el-form-item label="手机号" prop="phone">
-                11111111111111
+            <el-form-item label="所属店铺">
+                <span>{{ user.name }}</span>
             </el-form-item>
-            <el-form-item label="邮箱" prop="email">
-                <el-input v-model="queryParam.email" placeholder="邮箱"></el-input>
+            <el-form-item label="商品 ID">
+                <span>{{ user.name }}</span>
             </el-form-item>
-            <el-form-item label="性别" prop="sex">
-                <el-select v-model="queryParam.sex" placeholder="请选择">
-                    <el-option v-for="item in sexs" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                </el-select>
+            <el-form-item label="店铺 ID">
+                <span>{{ user.name }}</span>
             </el-form-item>
-            <el-form-item label="状态" prop="status">
-                <el-select v-model="queryParam.status" placeholder="请选择">
-                    <el-option v-for="item in status" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                </el-select>
+            <el-form-item label="商品分类">
+                <span>{{ user.name }}</span>
             </el-form-item>
-            <el-form-item label="  ">
-                <el-button type="primary" v-on:click="getUsers">查询</el-button>
-                <el-button @click="restFrom('queryParam')">重置</el-button>
+            <el-form-item label="店铺地址">
+                <span>{{ user.name}}</span>
+            </el-form-item>
+            <el-form-item label="商品描述">
+                <span>{{ user.name }}</span>
             </el-form-item>
         </el-form>
     </section>
 </template>
+
+<style>
+    .demo-table-expand {
+        font-size: 0;
+    }
+
+    .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+
+    .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 50%;
+    }
+</style>
 <script>
+    import util from '../../common/js/util'
+    import {userDetail} from '../../api/api';
+
     export default {
         data() {
             return {
-                queryParam: {
-                    name: '',
-                    phone: '',
+                user: {
+                    id: '',
                     email: '',
-                    sex: '',
                     status: '',
-                },
-                users: [],
-                listPage: {
-                    pageNum: 1,
-                    pageSize: 10,
-                    total: 0,
+                    sex: '',
+                    name: '',
+                    createTime: '',
+                    phone: '',
                 },
                 listLoading: false,
-                sels: [],//列表选中列
-                sexs: [{
-                    value: '1',
-                    label: '男'
-                }, {
-                    value: '2',
-                    label: '女'
-                }],
-                status: [{
-                    value: '01',
-                    label: '正常'
-                }, {
-                    value: '02',
-                    label: '冻结'
-                }, {
-                    value: '03',
-                    label: '注销'
-                }],
             }
         },
+        methods: {
+            //性别显示转换
+            formatSex: function (sex) {
+                return sex == '1' ? '男' : sex == '2' ? '女' : '未知';
+            },
+            formatStatus: function (status) {
+                return status == '01' ? '正常' : status == '02' ? '冻结' : status == '03' ? '注销' : '';
+            },
+            formatDate: function (createTime) {
+                return util.formatDate.format(new Date(createTime), 'yyyy-MM-dd hh:mm:ss');
+            },
+            getUserById() {
+                this.listLoading = true;
+                //使用$route 获取当前路由对象
+                userDetail(this.$route.params.detailId).then((res) => {
+                    let {meta, data} = res;
+                    if (meta.code != 200) {
+                        this.$message({
+                            message: meta.message,
+                            type: 'error'
+                        });
+                    } else {
+                        this.user = data;
+                    }
+                    this.listLoading = false;
+                }).catch((err) => {
+                    console.log(err);
+                });
+            }
+        },
+        mounted() {
+            this.getUserById();
+        }
     }
 </script>

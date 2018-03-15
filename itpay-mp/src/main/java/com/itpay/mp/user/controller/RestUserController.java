@@ -8,10 +8,7 @@ import com.itpay.mp.user.query.UserQueryParam;
 import com.itpay.restfull.ResultCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -54,5 +51,18 @@ public class RestUserController {
         return new ResultCode(ResultCode.OK, ResultCode.OK, userDtoMap);
     }
 
+    /**
+     * 获取用户详情
+     * @param queryParam
+     * @return
+     */
+    @RequestMapping(value = "/detail/{detail}", method = RequestMethod.GET , produces = { "application/json;charset=UTF-8" })
+    public ResultCode detail( @PathVariable(name="detail") String detailId) {
+        UserDto userDto =  userAppService.selectByPrimaryKey(detailId);
+        if(userDto!=null){
+            return new ResultCode(ResultCode.OK, ResultCode.OK, userDto);
+        }
+        return new ResultCode(ResultCode.OK, ResultCode.OK);
+    }
 
 }

@@ -1,7 +1,7 @@
 <template>
 	<section>
 		<!--工具条-->
-		<el-col :span="24" class="toolbar"  style="padding-bottom: 0px;">
+		<el-col :span="24"  >
 			<el-form :inline="true" :model="queryParam"  size="small" label-width="100px"  ref="queryParam">
 				<el-form-item  label="姓名" prop="name" >
 					<el-input v-model="queryParam.name" placeholder="姓名"></el-input>
@@ -24,29 +24,29 @@
 						</el-option>
 					</el-select>
                 </el-form-item>
-				<el-form-item label="  " >
+				<el-form-item label=" " >
 					<el-button type="primary" v-on:click="getUsers">查询</el-button>
                     <el-button  @click="restFrom('queryParam')">重置</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
 		<!--列表-->
-		<el-table :data="users" highlight-current-row   v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
-			<el-table-column type="index" label="序号" width="70">
+		<el-table :data="users"  highlight-current-row   v-loading="listLoading" @selection-change="selsChange" style="width: 100%;border: 1px solid #eaeaea">
+			<el-table-column  align="center" type="index" label="序号" width="70">
 			</el-table-column>
-			<el-table-column prop="name" label="用户名称" min-width="100"  sortable>
+			<el-table-column align="center" prop="name" label="用户名称" min-width="100"  sortable>
 			</el-table-column>
-			<el-table-column prop="phone" label="手机号" min-width="100" >
+			<el-table-column align="center" prop="phone" label="手机号" min-width="100" >
 			</el-table-column>
-			<el-table-column prop="email" label="邮箱" min-width="100" >
+			<el-table-column align="center" prop="email" label="邮箱" min-width="100" >
 			</el-table-column>
-			<el-table-column prop="sex" label="性别" min-width="60" :formatter="formatSex" >
+			<el-table-column align="center" prop="sex" label="性别" min-width="60" :formatter="formatSex" >
 			</el-table-column>
-			<el-table-column prop="status" label="状态" min-width="60" :formatter="formatStatus" >
+			<el-table-column align="center" prop="status" label="状态" min-width="60" :formatter="formatStatus" >
 			</el-table-column>
-			<el-table-column prop="createTime" label="创建时间" min-width="120" :formatter="formatDate" >
+			<el-table-column align="center" prop="createTime" label="创建时间" min-width="120" :formatter="formatDate" >
 			</el-table-column>
-			<el-table-column label="操作" min-width="150">
+			<el-table-column align="center" label="操作" min-width="150">
 				<template scope="scope">
 					<el-button type="info" size="small" @click="handleDetail(scope.row.id)">查看详情</el-button>
 					<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">冻结</el-button>
@@ -134,7 +134,7 @@
             },
             //查看详情
             handleDetail(detailId){
-                this.$router.push({path: '/user/detail',params:{id:detailId}});
+                this.$router.push({path: `/user/detail/${detailId}`});
             },
 			//获取用户列表
 			getUsers() {

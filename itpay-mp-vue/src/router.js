@@ -64,7 +64,7 @@ let routes = [
         iconCls: 'fa fa-id-card-o',
         children: [
             { path: '/user/list', component: UserList, name: '用户列表' },
-            { path: '/user/detail', component: UserDetail, name: '用户详情',hidden: true },
+            { path: '/user/detail/:detailId', component: UserDetail, name: '用户详情',hidden: true },
             { path: '/user2', component: Page5, name: '角色列表' },
         ]
     },
