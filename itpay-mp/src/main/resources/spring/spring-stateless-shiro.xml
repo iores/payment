@@ -21,6 +21,7 @@
         <property name="filterChainDefinitions">
             <value>
                 /service/** = authc
+                /service/image/captcha.html*=anon
                 # 权限配置示例
                 /security/account/view.do=authc,perms[SECURITY_ACCOUNT_VIEW]
                 /** = authc

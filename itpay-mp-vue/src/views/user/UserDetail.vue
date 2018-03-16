@@ -1,26 +1,14 @@
 <template>
     <section>
-        <el-form label-position="right" :inline="true" class="demo-table-expand">
-            <el-form-item label="商品名称">
+        <el-form label-position="right" label-suffix=":" :inline="true" style="width: 100%;border: 1px solid #eaeaea" class="demo-table-expand">
+            <el-form-item label="用户编号">
+                <span>{{ user.id }}</span>
+            </el-form-item>
+            <el-form-item label="用户名称">
                 <span>{{ user.name }}</span>
             </el-form-item>
-            <el-form-item label="所属店铺">
-                <span>{{ user.name }}</span>
-            </el-form-item>
-            <el-form-item label="商品 ID">
-                <span>{{ user.name }}</span>
-            </el-form-item>
-            <el-form-item label="店铺 ID">
-                <span>{{ user.name }}</span>
-            </el-form-item>
-            <el-form-item label="商品分类">
-                <span>{{ user.name }}</span>
-            </el-form-item>
-            <el-form-item label="店铺地址">
-                <span>{{ user.name}}</span>
-            </el-form-item>
-            <el-form-item label="商品描述">
-                <span>{{ user.name }}</span>
+            <el-form-item label="用户手机号">
+                <span>{{ user.phone }}</span>
             </el-form-item>
         </el-form>
     </section>

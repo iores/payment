@@ -10,6 +10,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -113,5 +115,27 @@ public class LoginController {
         }
         return null;
     }
-    
+
+
+    /**
+     * 生成验证码
+     */
+    @RequestMapping("/image/captcha")
+    @ResponseBody
+    public ResultCode restKaptchaImage() throws Exception {
+        String capText = captchaProducer.createText();
+        BufferedImage bi = captchaProducer.createImage(capText);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ImageIO.write(bi, "jpg", out);
+        Map<String,Object> reslut = new HashMap<>(2);
+        try {
+            byte[] base64B = Base64Utils.encode(out.toByteArray());
+            reslut.put("key",capText);
+            reslut.put("value",base64B);
+
+            return new ResultCode(ResultCode.OK,"获取成功",reslut);
+        } finally {
+            out.close();
+        }
+    }
 }

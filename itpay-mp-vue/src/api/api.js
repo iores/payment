@@ -39,6 +39,10 @@ export const requestLogin = params => {
     return axios.post(`/api/login`, params).then(res => res.data);
 };
 
+export const getCaptcha = params => {
+    return axios.post(`/api/image/captcha`, params).then(res => res.data);
+};
+
 export const getUserList = params => {
     return axios.get(`${base}/user/list`, {params: params});
 };
