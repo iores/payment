@@ -6,19 +6,19 @@
                      class=" login-container">
                 <h3 class="title">系统登录</h3>
                 <el-form-item prop="account">
-                    <el-input prefix-icon="el-icon-message"  maxlength="20" type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
+                    <el-input prefix-icon="el-icon-message"  :maxlength="20" type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
                 </el-form-item>
                 <el-form-item prop="checkPass">
-                    <el-input prefix-icon="el-icon-tickets" maxlength="20" type="password" v-model="ruleForm2.checkPass" auto-complete="off"
+                    <el-input prefix-icon="el-icon-tickets" :maxlength="20" type="password" v-model="ruleForm2.checkPass" auto-complete="off"
                               placeholder="密码"></el-input>
                 </el-form-item>
                 <el-form-item prop="captcha">
                         <el-col :span="12">
-                            <el-input type="captcha" maxlength="5" v-model="ruleForm2.captcha"
+                            <el-input type="captcha" :maxlength="5" v-model="ruleForm2.captcha"
                                       placeholder="验证码"></el-input>
                         </el-col>
-                        <el-col :span="10" :offset="2">
-                            <img :src="image" id="captcha" onclick="changeCaptcha(this)" alt="验证码"/>
+                        <el-col :span="5" :offset="2">
+                            <img :src="image" id="captcha" width="100px" height="40px" v-on:click="changeCaptcha()" alt="验证码"/>
                         </el-col>
 
                 </el-form-item>
@@ -103,7 +103,9 @@
                         //NProgress.start();
                         let passWord = md5.getMd5(this.ruleForm2.checkPass);
                         passWord = md5.getMd5(passWord + this.ruleForm2.account);
-                        let loginParams = {userName: this.ruleForm2.account, passWord: passWord};
+                        let loginParams = {userName: this.ruleForm2.account,
+                            passWord: passWord,clientDigest:sessionStorage.getItem("captcha_key"),
+                            captcha: this.ruleForm2.captcha};
                         requestLogin(loginParams).then(resp => {
                             this.logining = false;
                             //NProgress.done();
@@ -119,23 +121,25 @@
                             }
                         });
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });
             },
             //获取验证码
             getCaptcha: function () {
-                getCaptcha().then(resp => {
+                getCaptcha({'captchaKey':sessionStorage.getItem("captcha_key")}).then(resp => {
                     let {meta, data} = resp;
-                    console.info(resp);
                     if (meta.code == 200) {
                         this.image = data.value;
-                        sessionStorage.setItem('captcha', data.key);
+                        sessionStorage.setItem('captcha_key', data.key);
                     } else {
 
                     }
                 });
+            },
+            //重新获取验证码
+            changeCaptcha: function () {
+                this.getCaptcha();
             }
         },
         mounted() {

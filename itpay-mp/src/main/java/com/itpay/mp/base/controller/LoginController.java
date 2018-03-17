@@ -4,15 +4,17 @@ import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.itpay.mp.base.shiro.exception.IncorrectCaptchaException;
 import com.itpay.mp.user.dto.UserLoginDto;
+import com.itpay.redis.RedisCacheUtils;
 import com.itpay.restfull.ResultCode;
 import com.itpay.restfull.vo.RestResultUser;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.springframework.data.redis.cache.RedisCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Base64Utils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -25,6 +27,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  *
@@ -37,6 +40,11 @@ public class LoginController {
 
     @Resource(name="captchaProducer")
     private Producer captchaProducer;
+
+    @Resource(name="sessionRedisCache")
+    private RedisCache  sessionRedisCache;
+
+    private static final  String CAPTCHA_KEY = "captchaKey";
     
 
     /**
@@ -120,19 +128,26 @@ public class LoginController {
     /**
      * 生成验证码
      */
-    @RequestMapping("/image/captcha")
+    @RequestMapping(value = "/captcha", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
     @ResponseBody
-    public ResultCode restKaptchaImage() throws Exception {
+    public ResultCode restKaptchaImage(@RequestBody Map<String ,String > captcha) throws Exception {
+        String captchaKey = captcha.get(CAPTCHA_KEY);
+
         String capText = captchaProducer.createText();
         BufferedImage bi = captchaProducer.createImage(capText);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ImageIO.write(bi, "jpg", out);
         Map<String,Object> reslut = new HashMap<>(2);
         try {
+            if(StringUtils.isBlank(captchaKey)){
+                //生成与图片关联的uuid
+                captchaKey =  UUID.randomUUID().toString();
+            }
             byte[] base64B = Base64Utils.encode(out.toByteArray());
-            reslut.put("key",capText);
-            reslut.put("value",base64B);
-
+            reslut.put("key",captchaKey);
+            reslut.put("value","data:image/jpeg;base64,"+ new String(base64B));
+            //将生成的验证码存入redis 中
+            sessionRedisCache.put(captchaKey,capText);
             return new ResultCode(ResultCode.OK,"获取成功",reslut);
         } finally {
             out.close();

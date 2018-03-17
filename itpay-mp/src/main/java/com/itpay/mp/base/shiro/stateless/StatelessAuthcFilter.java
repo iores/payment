@@ -12,7 +12,9 @@ import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.cache.RedisCache;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 /**
  * 无状态认证
@@ -30,6 +33,9 @@ import java.io.InputStreamReader;
  */
 public class StatelessAuthcFilter extends AccessControlFilter {
 
+
+    @Resource(name="sessionRedisCache")
+    private RedisCache sessionRedisCache;
 
     public static final String HTTP_HEADER_NAME = "x-access-token";
 
@@ -83,28 +89,54 @@ public class StatelessAuthcFilter extends AccessControlFilter {
             log.warn("当前请求不是http 请求,请求信息:[{}]", request);
             return false;
         }
-        //获取表单内容
-        StatelessToken token = new StatelessToken();
-        //获取请求头部的token
-        String clientDigest = ((HttpServletRequest) request).getHeader(getHttpHeaderName());
-        if (StringUtils.isNotBlank(clientDigest)) {
-            token.setClientDigest(clientDigest);
-        }
-        //判断是否是登录请求
-        String loginUrl = getLoginUrl();
-        String url = ((HttpServletRequest) request).getRequestURI();
-        //包含登录url,那么就是登录
-        if(url.contains(loginUrl)){
-            token.setClientDigest(null);
-            token = getUserLoginInfo(request);
-        }
-        token.setHost(request.getRemoteHost());
         try {
+            //获取表单内容
+            StatelessToken token = new StatelessToken();
+            //获取请求头部的token
+            String clientDigest = ((HttpServletRequest) request).getHeader(getHttpHeaderName());
+            if (StringUtils.isNotBlank(clientDigest)) {
+                token.setClientDigest(clientDigest);
+            }
+            //判断是否是登录请求
+            String loginUrl = getLoginUrl();
+            String url = ((HttpServletRequest) request).getRequestURI();
+            //包含登录url,那么就是登录
+            if(url.contains(loginUrl)){
+                token = getUserLoginInfo(request);
+                //检查验证码
+                cheackCaptcha(token);
+                token.setClientDigest(null);
+            }
+            token.setHost(request.getRemoteHost());
+
             Subject subject = getSubject(request, response);
             subject.login(token);
             return onLoginSuccess((HttpServletResponse) response,subject);
         } catch (Exception e) {
             return onLoginFail(response,e);
+        }
+
+    }
+
+    /**
+     * 检查传入的验证码是否正确
+     * @param token token
+     */
+    private void cheackCaptcha( StatelessToken token){
+        if(StringUtils.isBlank(token.getClientDigest())||StringUtils.isBlank(token.getCaptcha())){
+            throw new IncorrectCaptchaException("验证码传入错误");
+        }
+        String captcha;
+        try{
+            //获取redis 中保存的验证码
+            captcha = sessionRedisCache.get(token.getClientDigest(),String.class);
+            sessionRedisCache.evict(token.getClientDigest());
+        }catch(Exception e){
+            log.warn("验证码获取异常!",e);
+            throw new IncorrectCaptchaException("验证码获取异常");
+        }
+        if(!Objects.equals(captcha,token.getCaptcha())){
+            throw new IncorrectCaptchaException("验证码传入错误");
         }
 
     }

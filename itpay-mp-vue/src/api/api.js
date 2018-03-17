@@ -25,7 +25,7 @@ axios.interceptors.response.use(resp => {
     let {meta} = resp.data;
     if(meta.code == 401){
         router.push({path: '/login'});
-        return Promise.reject(meta.message)
+      //  return Promise.reject(meta.message)
     }
     return resp
 }, error => {
@@ -40,7 +40,7 @@ export const requestLogin = params => {
 };
 
 export const getCaptcha = params => {
-    return axios.post(`/api/image/captcha`, params).then(res => res.data);
+    return axios.post(`/api/captcha`,params).then(res => res.data);
 };
 
 export const getUserList = params => {

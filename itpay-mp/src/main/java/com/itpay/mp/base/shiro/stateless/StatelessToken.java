@@ -17,11 +17,12 @@ public class StatelessToken implements AuthenticationToken {
     public StatelessToken() {
     }
 
-    public StatelessToken(String userName, char[] passWord, String clientDigest,String host) {
+    public StatelessToken(String userName, char[] passWord, String clientDigest,String host,String captcha) {
         this.userName = userName;
         this.passWord = passWord;
         this.clientDigest = clientDigest;
         this.host = host;
+        this.captcha = captcha;
     }
 
     /**
@@ -36,7 +37,7 @@ public class StatelessToken implements AuthenticationToken {
 
 
     /**
-     * 请求的消息摘要
+     * 请求的消息摘要  登陆时为验证码的 id
      */
     private String clientDigest;
 
@@ -44,6 +45,13 @@ public class StatelessToken implements AuthenticationToken {
      * 请求地址
      */
     private String host;
+
+    /**
+     * 登陆验证码
+     */
+    private String captcha;
+
+
 
     public String getUserName() {
         return userName;
@@ -75,6 +83,14 @@ public class StatelessToken implements AuthenticationToken {
 
     public void setHost(String host) {
         this.host = host;
+    }
+
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
     }
 
     @Override

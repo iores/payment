@@ -51,7 +51,7 @@
 
     <bean id="sessionRedisCacheConfiguration" class="com.itpay.redis.MyRedisCacheConfiguration"
           factory-method="createConfiguration">
-        <constructor-arg name="ttl" value="1800"/>
+        <constructor-arg name="ttl" value="300"/>
         <constructor-arg name="keyPrefix" value="session:"/>
     </bean>
 

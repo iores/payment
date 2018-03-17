@@ -53,7 +53,6 @@ public class RestUserController {
 
     /**
      * 获取用户详情
-     * @param queryParam
      * @return
      */
     @RequestMapping(value = "/detail/{detail}", method = RequestMethod.GET , produces = { "application/json;charset=UTF-8" })
