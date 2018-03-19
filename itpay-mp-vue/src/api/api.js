@@ -74,3 +74,7 @@ export const postUserListPage = params => {
 export const userDetail = params => {
     return axios.get(`/api/rest/user/detail/${params}`).then(res => res.data);
 };
+
+export const postLoginListPage = params => {
+    return axios.post(`/api/rest/user/UserLoginList`, params).then(res => res.data);
+};

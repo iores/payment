@@ -42,8 +42,6 @@
                     |
                     <a href="">法律声明</a>
                     |
-                    <a href="">网站地图 </a>
-                    |
                     <a href="">ICP备XXX-XXX</a>
                     <br/>
                     &copy;2017-{{year}} COMPANY
@@ -91,10 +89,10 @@
             };
         },
         methods: {
-            handleReset2() {
+            handleReset2: function () {
                 this.$refs.ruleForm2.resetFields();
             },
-            handleSubmit2(ev) {
+            handleSubmit2: function(ev) {
                 var _this = this;
                 this.$refs.ruleForm2.validate((valid) => {
                     if (valid) {
@@ -157,7 +155,7 @@
         background-clip: padding-box;
         width: 320px;
         padding: 35px 35px 15px 35px;
-        background: rgba(0, 0, 0, 0.23);
+        background: rgba(1, 1, 1, 0.23);
         border: 1px solid #eaeaea;
         box-shadow: 0 0 25px #cac6c6;
         position: absolute;

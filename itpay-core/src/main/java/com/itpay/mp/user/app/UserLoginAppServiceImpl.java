@@ -1,5 +1,6 @@
 package com.itpay.mp.user.app;
 
+import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.dto.UserLoginDto;
 import com.itpay.mp.user.service.UserLoginManager;
 import com.itpay.mp.user.vo.UserLoginVo;
@@ -52,5 +53,17 @@ public class UserLoginAppServiceImpl implements UserLoginAppService {
     @Override
     public void addLoginInfo(List<UserLoginVo> loginVos) {
          userLoginManager.addLoginInfo(loginVos);
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param listPage
+     * @param queryParam
+     * @return
+     */
+    @Override
+    public ListPage<UserLoginDto> listPage(ListPage<UserLoginDto> listPage, UserLoginDto queryParam) {
+        return userLoginManager.listPage(listPage,queryParam);
     }
 }

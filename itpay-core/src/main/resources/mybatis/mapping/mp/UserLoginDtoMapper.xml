@@ -168,4 +168,24 @@
         from t_user_login
         where user_id = #{userId,jdbcType=VARCHAR}
     </select>
+
+    <select id="findBySearch" resultMap="BaseResultMap" parameterType="com.itpay.mp.user.dto.UserLoginDto">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user_login
+        <where>
+            <if test="loginName != null and loginName !='' ">
+                login_name = #{loginName,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and  status != '' ">
+                status = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="lastLoginIp != null and  lastLoginIp != ''">
+                last_login_ip = #{lastLoginIp,jdbcType=VARCHAR}
+            </if>
+            <if test="userId != null and  userId != ''">
+                user_id = #{userId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 </mapper>

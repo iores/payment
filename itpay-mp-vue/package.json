@@ -12,7 +12,7 @@
     "axios": "^0.15.3",
     "compression-webpack-plugin": "^1.1.11",
     "echarts": "^3.3.2",
-    "element-ui": "^2.2.1",
+    "element-ui": "^2.2.2",
     "font-awesome": "^4.7.0",
     "nprogress": "^0.2.0",
     "vue": "^2.5.16",

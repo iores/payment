@@ -43,6 +43,13 @@
                 <el-button type="primary" @click="onSubmit">立即创建</el-button>
                 <el-button>取消</el-button>
             </el-form-item>
+
+            <el-tooltip content="Top center" placement="top">
+                <el-button>Dark</el-button>
+            </el-tooltip>
+            <el-tooltip content="Bottom center" placement="bottom" effect="light">
+                <el-button>Light</el-button>
+            </el-tooltip>
         </el-form>
 	</section>
 </template>

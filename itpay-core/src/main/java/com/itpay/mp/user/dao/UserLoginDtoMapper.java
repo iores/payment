@@ -76,4 +76,11 @@ public interface UserLoginDtoMapper {
      */
     List<UserLoginDto> findByUserId(@Param("userId")String userId);
 
+    /**
+     * 根据参数进行查询
+     * @param queryParam 查询参数
+     * @return
+     */
+    List<UserLoginDto> findBySearch(UserLoginDto queryParam);
+
 }

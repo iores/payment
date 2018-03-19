@@ -5,36 +5,9 @@
             <el-form :model="queryParam" size="small" label-width="100px" ref="queryParam">
                 <el-row>
                     <el-col :span="8">
-                        <el-form-item label="姓名" prop="name">
+                        <el-form-item label="登录名称" prop="name">
                             <el-col :span="16">
-                                <el-input v-model="queryParam.name" :maxlength="20"  placeholder="姓名"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-form-item label="手机号" prop="phone">
-                            <el-col :span="16">
-                                <el-input v-model="queryParam.phone" :maxlength="20" placeholder="手机号"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-form-item label="邮箱" prop="email">
-                            <el-col :span="16">
-                                <el-input v-model="queryParam.email" :maxlength="100" placeholder="邮箱"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="8">
-                        <el-form-item label="性别" prop="sex">
-                            <el-col :span="16">
-                                <el-select :clearable="true" v-model="queryParam.sex" style="width: 100%" placeholder="请选择">
-                                    <el-option v-for="item in sexs" :key="item.value" :label="item.label"
-                                               :value="item.value">
-                                    </el-option>
-                                </el-select>
+                                <el-input v-model="queryParam.loginName" :maxlength="20"  placeholder="请选择"></el-input>
                             </el-col>
                         </el-form-item>
                     </el-col>
@@ -51,7 +24,7 @@
                     </el-col>
                     <el-col :span="8">
                         <el-form-item label=" ">
-                            <el-button type="primary" v-on:click="getUsers">查询</el-button>
+                            <el-button type="primary" v-on:click="getData">查询</el-button>
                             <el-button @click="restFrom('queryParam')">重置</el-button>
                         </el-form-item>
                     </el-col>
@@ -60,17 +33,13 @@
             </el-form>
         </el-col>
         <!--列表-->
-        <el-table :data="users" :highlight-current-row="true" v-loading="listLoading" @selection-change="selsChange"
+        <el-table :data="users" :highlight-current-row="true" v-loading="listLoading"
                   :stripe="true"    style="width: 100%;border: 1px solid #eaeaea;">
             <el-table-column align="center" type="index"  label="序号" width="70">
             </el-table-column>
-            <el-table-column align="center" prop="name" label="用户名称" min-width="100" >
+            <el-table-column align="center" prop="loginName" label="登录名称" min-width="100" >
             </el-table-column>
-            <el-table-column align="center" prop="phone" label="手机号" min-width="100">
-            </el-table-column>
-            <el-table-column align="center" prop="email" show-overflow-tooltip label="邮箱" min-width="100">
-            </el-table-column>
-            <el-table-column align="center" prop="sex" label="性别" min-width="60" :formatter="formatSex">
+            <el-table-column align="center" prop="registerTime" label="注册时间" :formatter="formatDate" min-width="100">
             </el-table-column>
             <el-table-column align="center" prop="status" label="状态" min-width="60" >
                 <template slot-scope="scope">
@@ -78,8 +47,6 @@
                         {{formatStatus(scope.row)}}
                     </el-tag>
                 </template>
-            </el-table-column>
-            <el-table-column align="center" prop="createTime" label="创建时间" min-width="120" :formatter="formatDate">
             </el-table-column>
             <el-table-column align="center" label="操作" min-width="150">
                 <template scope="scope">
@@ -89,23 +56,15 @@
             </el-table-column>
         </el-table>
 
-        <!--工具条-->
-        <!--<el-col :span="24" class="toolbar">-->
-            <!--<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"-->
-                           <!--:page-sizes="[10, 50, 100]"-->
-                           <!--:page-size="listPage.pageSize"-->
-                           <!--layout="total, sizes, prev, pager, next, jumper"-->
-                           <!--:total="listPage.total" style="float:right;">-->
-            <!--</el-pagination>-->
-        <!--</el-col>-->
-        <pagination :listPage="listPage" @getDate="getUsers" ></pagination>
+
+        <pagination :listPage="listPage" @getDate="getData" ></pagination>
     </section>
 </template>
 
 <script>
     import util from '../../common/js/util'
     //import NProgress from 'nprogress'
-    import {postUserListPage, getUserListPage, removeUser, batchRemoveUser, editUser, addUser} from '../../api/api';
+    import {postLoginListPage} from '../../api/api';
     import pagination from '../../components/my-pagination.vue'
 
     export default {
@@ -116,10 +75,7 @@
         data() {
             return {
                 queryParam: {
-                    name: '',
-                    phone: '',
-                    email: '',
-                    sex: '',
+                    loginName: '',
                     status: '',
                 },
                 users: [],
@@ -129,14 +85,6 @@
                     total: 0,
                 },
                 listLoading: false,
-                sels: [],//列表选中列
-                sexs: [{
-                    value: '1',
-                    label: '男'
-                }, {
-                    value: '2',
-                    label: '女'
-                }],
                 status: [{
                     value: '01',
                     label: '正常'
@@ -150,10 +98,6 @@
             }
         },
         methods: {
-            //性别显示转换
-            formatSex: function (row, column) {
-                return row.sex == '1' ? '男' : row.sex == '2' ? '女' : '未知';
-            },
             formatStatus: function (row, column) {
                 return row.status == '01' ? '正常' : row.status == '02' ? '冻结' : row.status == '03' ? '注销' : '';
             },
@@ -170,13 +114,13 @@
                 this.$router.push({path: `/user/detail/${detailId}`});
             },
             //获取用户列表
-            getUsers() {
+            getData() {
                 let para = {
                     listPage: this.listPage,
                     queryParam: this.queryParam
                 };
                 this.listLoading = true;
-                postUserListPage(para).then((res) => {
+                postLoginListPage(para).then((res) => {
                     let {meta, data} = res;
                     if (meta.code != 200) {
                         this.$message({
@@ -192,34 +136,10 @@
                 }).catch((err) => {
                     console.log(err);
                 });
-            },
-            //删除
-            handleDel: function (index, row) {
-                this.$confirm('确认删除该记录吗?', '提示', {
-                    type: 'warning'
-                }).then(() => {
-                    this.listLoading = true;
-                    //NProgress.start();
-                    let para = {id: row.id};
-                    removeUser(para).then((res) => {
-                        this.listLoading = false;
-                        //NProgress.done();
-                        this.$message({
-                            message: '删除成功',
-                            type: 'success'
-                        });
-                        this.getUsers();
-                    });
-                }).catch(() => {
-
-                });
-            },
-            selsChange: function (sels) {
-                this.sels = sels;
             }
         },
         mounted() {
-            this.getUsers();
+            this.getData();
         }
     }
 

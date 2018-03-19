@@ -1,5 +1,7 @@
 package com.itpay.mp.user.service;
 
+import com.itpay.core.model.page.ListPage;
+import com.itpay.mp.user.dto.UserDto;
 import com.itpay.mp.user.dto.UserLoginDto;
 import com.itpay.mp.user.vo.UserLoginVo;
 
@@ -63,5 +65,14 @@ public interface UserLoginManager {
      * @param loginVos 新增登录用户请求信息
      */
     void addLoginInfo(List<UserLoginVo> loginVos);
+
+    /**
+     * 分页查询
+     * @param listPage
+     * @param queryParam
+     * @return
+     */
+    ListPage<UserLoginDto> listPage(ListPage<UserLoginDto> listPage, UserLoginDto queryParam);
+
 
 }
