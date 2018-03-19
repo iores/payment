@@ -5,7 +5,7 @@
             <el-form :model="queryParam" size="small" label-width="100px" ref="queryParam">
                 <el-row>
                     <el-col :span="8">
-                        <el-form-item label="登录名称" prop="name">
+                        <el-form-item label="登录名称" prop="loginName">
                             <el-col :span="16">
                                 <el-input v-model="queryParam.loginName" :maxlength="20"  placeholder="请选择"></el-input>
                             </el-col>
