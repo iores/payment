@@ -6,6 +6,7 @@ import com.itpay.mp.user.app.UserLoginAppService;
 import com.itpay.mp.user.dto.UserDto;
 import com.itpay.mp.user.dto.UserLoginDto;
 import com.itpay.mp.user.query.QueryParam;
+import com.itpay.mp.user.vo.UserFrozenVo;
 import com.itpay.restfull.ResultCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,6 +63,27 @@ public class RestUserController {
             return new ResultCode(ResultCode.OK, ResultCode.OK, userDto);
         }
         return new ResultCode(ResultCode.OK, ResultCode.OK);
+    }
+
+
+    /**
+     * 冻结 解冻用户
+     * @param queryParam
+     * @return
+     */
+    @RequestMapping(value = "/frozen", method = RequestMethod.POST , produces = { "application/json;charset=UTF-8" })
+    public ResultCode frozen(@RequestBody UserFrozenVo userFrozen) {
+        if(userFrozen == null){
+            logger.info("用户冻结/解冻处理失败!传入参数为空");
+            return new ResultCode(ResultCode.ERROR, "传入参数为空");
+        }
+        try{
+            userAppService.frozenAndNofrozen(userFrozen.getId(),userFrozen.getUserStatus());
+            return new ResultCode(ResultCode.OK, ResultCode.OK);
+        }catch (Exception e){
+            logger.info("用户冻结/解冻处理失败!",e.getMessage());
+            return new ResultCode(ResultCode.ERROR, e.getMessage());
+        }
     }
 
 

@@ -51,14 +51,18 @@ public class UserServiceTest  extends BaseTest{
     @Test
     public void addlogin(){
         String password = PassWordUtil.createMd5("zlf123");
+        List<UserLoginVo> loginVos =new ArrayList<>(10);
 
-        List<UserLoginVo> loginVos =new ArrayList<>(2);
-        UserLoginVo vo =  new UserLoginVo();
-        vo.setLoginName("zlf");
-        vo.setUserId("b7dfe0c5-5163-4292-a16d-1de3c280a455");
-        vo.setPassWord(PassWordUtil.createMd5(password+vo.getLoginName()));
-        loginVos.add(vo);
+        for(int i=0;i<10000;i++){
+            UserLoginVo vo =  new UserLoginVo();
+            vo.setLoginName("1zlf"+i);
+            vo.setUserId("b7dfe0c5-5163-4292-a16d-1de3c280a455");
+            vo.setPassWord(PassWordUtil.createMd5(password+vo.getLoginName()));
+            loginVos.add(vo);
+        }
+
         userLoginManager.addLoginInfo(loginVos);
+
     }
     
     @Test

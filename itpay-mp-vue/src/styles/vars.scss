@@ -1,1 +1,5 @@
 $color-primary: #20a0ff;//#18c79c
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+@import '~element-ui/lib/theme-chalk/index.css';

@@ -1,5 +1,6 @@
 package com.itpay.mp.user.app;
 
+import com.itpay.base.enums.EUserStatus;
 import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.dto.UserDto;
 
@@ -45,6 +46,14 @@ public interface UserAppService {
      * @return
      */
     ListPage<UserDto> listPage(ListPage<UserDto> page, UserDto search);
-    
+
+
+    /**
+     * 冻结解冻用户处理
+     * @param userId 用户id
+     * @param userStatus 处理状态
+     */
+    void frozenAndNofrozen(String userId, EUserStatus userStatus);
+
 
 }

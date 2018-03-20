@@ -1,8 +1,12 @@
 package com.itpay.mp.user.app;
 
+import com.itpay.base.enums.ECoreExceptionCodeType;
+import com.itpay.base.enums.EUserStatus;
+import com.itpay.core.exception.CoreBusiRunTimeException;
 import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.dto.UserDto;
 import com.itpay.mp.user.service.UserManager;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -77,6 +81,20 @@ public class UserAppServiceImpl  implements UserAppService{
     @Override
     public ListPage<UserDto> listPage(ListPage<UserDto> page, UserDto search) {
         return userManager.listPage(page,search);
+    }
+
+    /**
+     * 冻结解冻用户处理
+     *
+     * @param userId     用户id
+     * @param userStatus 处理状态
+     */
+    @Override
+    public void frozenAndNofrozen(String userId, EUserStatus userStatus) {
+        if(StringUtils.isBlank(userId) || userStatus==null){
+            throw new CoreBusiRunTimeException(ECoreExceptionCodeType.FIELD_CHEACK_ERROR.getValue(),ECoreExceptionCodeType.FIELD_CHEACK_ERROR.getDisplayName());
+        }
+        userManager.frozenAndNofrozen(userId,userStatus);
     }
 
 

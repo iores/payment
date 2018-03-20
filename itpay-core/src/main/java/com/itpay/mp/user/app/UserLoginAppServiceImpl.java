@@ -52,7 +52,7 @@ public class UserLoginAppServiceImpl implements UserLoginAppService {
      */
     @Override
     public void addLoginInfo(List<UserLoginVo> loginVos) {
-         userLoginManager.addLoginInfo(loginVos);
+        userLoginManager.addLoginInfo(loginVos);
     }
 
     /**

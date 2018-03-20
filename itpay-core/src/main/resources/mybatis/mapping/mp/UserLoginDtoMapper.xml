@@ -175,17 +175,32 @@
         from t_user_login
         <where>
             <if test="loginName != null and loginName !='' ">
-                login_name = #{loginName,jdbcType=VARCHAR}
+               and  login_name = #{loginName,jdbcType=VARCHAR}
             </if>
-            <if test="status != null and  status != '' ">
-                status = #{status,jdbcType=VARCHAR}
+            <if test="status != null ">
+                and status = #{status,jdbcType=VARCHAR}
             </if>
             <if test="lastLoginIp != null and  lastLoginIp != ''">
-                last_login_ip = #{lastLoginIp,jdbcType=VARCHAR}
+                and last_login_ip = #{lastLoginIp,jdbcType=VARCHAR}
             </if>
             <if test="userId != null and  userId != ''">
-                user_id = #{userId,jdbcType=VARCHAR}
+                and user_id = #{userId,jdbcType=VARCHAR}
             </if>
         </where>
     </select>
+
+    <insert id="insertBatch" >
+        insert into t_user_login (id, login_name, login_pwd,
+        pwd_error_num, register_time, last_login_time,
+        status, last_login_ip, user_id,
+        create_time)
+        values
+            <foreach collection="records" item="record" separator=","   >
+                (#{record.id,jdbcType=VARCHAR}, #{record.loginName,jdbcType=VARCHAR}, #{record.loginPwd,jdbcType=VARCHAR},
+                #{record.pwdErrorNum,jdbcType=INTEGER}, #{record.registerTime,jdbcType=TIMESTAMP}, #{record.lastLoginTime,jdbcType=TIMESTAMP},
+                #{record.status,jdbcType=VARCHAR}, #{record.lastLoginIp,jdbcType=VARCHAR}, #{record.userId,jdbcType=VARCHAR},
+                #{record.createTime,jdbcType=TIMESTAMP})
+            </foreach>
+
+    </insert>
 </mapper>

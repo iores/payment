@@ -61,10 +61,9 @@ public interface UserLoginManager {
 
     /**
      * 增加登录用户
-     *
-     * @param loginVos 新增登录用户请求信息
+     * @param loginVos
      */
-    void addLoginInfo(List<UserLoginVo> loginVos);
+    void addLoginInfo(List<UserLoginVo> loginVos) ;
 
     /**
      * 分页查询

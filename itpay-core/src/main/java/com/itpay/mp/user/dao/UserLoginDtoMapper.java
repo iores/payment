@@ -83,4 +83,13 @@ public interface UserLoginDtoMapper {
      */
     List<UserLoginDto> findBySearch(UserLoginDto queryParam);
 
+
+    /**
+     * 批量插入
+     * @param records
+     * @return
+     */
+    int insertBatch(@Param("records") List<UserLoginDto> records);
+
+
 }

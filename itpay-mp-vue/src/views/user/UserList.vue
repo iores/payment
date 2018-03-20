@@ -2,26 +2,26 @@
     <section>
         <!--工具条-->
         <el-col :span="24" class="searchbar">
-            <el-form :model="queryParam" size="small" label-width="100px" ref="queryParam">
+            <el-form :model="queryParam" :rules="rules" size="small" label-width="100px" ref="queryParam">
                 <el-row>
                     <el-col :span="8">
                         <el-form-item label="姓名" prop="name">
                             <el-col :span="16">
-                                <el-input v-model="queryParam.name" :maxlength="20"  placeholder="姓名"></el-input>
+                                <el-input v-model.trim="queryParam.name" :maxlength="20"  placeholder="姓名"></el-input>
                             </el-col>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <el-form-item label="手机号" prop="phone">
                             <el-col :span="16">
-                                <el-input v-model="queryParam.phone" :maxlength="20" placeholder="手机号"></el-input>
+                                <el-input v-model.trim="queryParam.phone" :maxlength="20" placeholder="手机号"></el-input>
                             </el-col>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <el-form-item label="邮箱" prop="email">
                             <el-col :span="16">
-                                <el-input v-model="queryParam.email" :maxlength="100" placeholder="邮箱"></el-input>
+                                <el-input v-model.trim="queryParam.email" :maxlength="100"  placeholder="邮箱"></el-input>
                             </el-col>
                         </el-form-item>
                     </el-col>
@@ -51,7 +51,7 @@
                     </el-col>
                     <el-col :span="8">
                         <el-form-item label=" ">
-                            <el-button type="primary" v-on:click="getUsers">查询</el-button>
+                            <el-button type="primary" v-on:click="search('queryParam')">查询</el-button>
                             <el-button @click="restFrom('queryParam')">重置</el-button>
                         </el-form-item>
                     </el-col>
@@ -84,33 +84,24 @@
             <el-table-column align="center" label="操作" min-width="150">
                 <template scope="scope">
                     <el-button type="info" size="small" @click="handleDetail(scope.row.id)">详情</el-button>
-                    <el-button type="warning" size="small" @click="handleDel(scope.$index, scope.row)">冻结</el-button>
+                    <el-button type="warning" v-if="scope.row.status === '01'" size="small" @click="handleFrozen('02', scope.row,'冻结')">冻结</el-button>
+                    <el-button type="primary"  v-if="scope.row.status === '02'" size="small" @click="handleFrozen('01', scope.row,'解冻')">解冻</el-button>
                 </template>
             </el-table-column>
         </el-table>
 
-        <!--工具条-->
-        <!--<el-col :span="24" class="toolbar">-->
-            <!--<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"-->
-                           <!--:page-sizes="[10, 50, 100]"-->
-                           <!--:page-size="listPage.pageSize"-->
-                           <!--layout="total, sizes, prev, pager, next, jumper"-->
-                           <!--:total="listPage.total" style="float:right;">-->
-            <!--</el-pagination>-->
-        <!--</el-col>-->
         <pagination :listPage="listPage" @getDate="getUsers" ></pagination>
     </section>
 </template>
 
 <script>
     import util from '../../common/js/util'
-    //import NProgress from 'nprogress'
-    import {postUserListPage, getUserListPage, removeUser, batchRemoveUser, editUser, addUser} from '../../api/api';
+    import {postUserListPage,postHandleFrozen} from '../../api/api';
     import pagination from '../../components/my-pagination.vue'
+
 
     export default {
         components: {
-            props:['listPage'],
             pagination,
         },
         data() {
@@ -121,6 +112,11 @@
                     email: '',
                     sex: '',
                     status: '',
+                },
+                rules:{
+                    email: [
+                        { type: 'email', message: '请输入正确的邮箱地址'},
+                    ],
                 },
                 users: [],
                 listPage: {
@@ -165,6 +161,15 @@
             restFrom(queryFrom) {
                 this.$refs[queryFrom].resetFields();
             },
+            search:function (queryFrom) {
+                this.$refs[queryFrom].validate((valid) => {
+                    if (valid) {
+                        this.getUsers();
+                    } else {
+                        return false;
+                    }
+                });
+            },
             //查看详情
             handleDetail(detailId) {
                 this.$router.push({path: `/user/detail/${detailId}`});
@@ -194,20 +199,24 @@
                 });
             },
             //删除
-            handleDel: function (index, row) {
-                this.$confirm('确认删除该记录吗?', '提示', {
-                    type: 'warning'
-                }).then(() => {
+            handleFrozen: function (status, row,msg) {
+                this.$confirm('确认'+msg+'该记录吗?', '提示', {type: 'warning'}).then(() => {
                     this.listLoading = true;
-                    //NProgress.start();
-                    let para = {id: row.id};
-                    removeUser(para).then((res) => {
+                    let para = {id: row.id,userStatus: status};
+                    postHandleFrozen(para).then((res) => {
+                        let {meta, data} = res;
                         this.listLoading = false;
-                        //NProgress.done();
-                        this.$message({
-                            message: '删除成功',
-                            type: 'success'
-                        });
+                        if (meta.code != 200) {
+                            this.$message({
+                                message: meta.message,
+                                type: 'error'
+                            });
+                        }else {
+                            this.$message({
+                                message: '处理成功',
+                                type: 'success'
+                            });
+                        }
                         this.getUsers();
                     });
                 }).catch(() => {

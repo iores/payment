@@ -9,16 +9,17 @@ import com.itpay.core.model.page.ListPage;
 import com.itpay.core.util.PassWordUtil;
 import com.itpay.core.util.ValidateUtils;
 import com.itpay.mp.user.dao.UserLoginDtoMapper;
-import com.itpay.mp.user.dto.UserDto;
 import com.itpay.mp.user.dto.UserLoginDto;
 import com.itpay.mp.user.vo.UserLoginVo;
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author feng
@@ -107,7 +108,8 @@ public class UserLoginManagerImpl implements UserLoginManager {
      * @param loginVos 新增登录用户请求信息
      */
     @Override
-    public void addLoginInfo(List<UserLoginVo> loginVos) {
+    public void addLoginInfo(List<UserLoginVo> loginVos)  {
+        List<UserLoginDto> records=new ArrayList<>(100);
         for (UserLoginVo loginVo : loginVos) {
             try {
                 ValidateUtils.valid(loginVo);
@@ -117,9 +119,10 @@ public class UserLoginManagerImpl implements UserLoginManager {
             }
             //将密码加密
             String password = PassWordUtil.bcryptHashpw(loginVo.getPassWord());
-            //保存登录用户信息
-            userLoginDtoMapper.insertSelective(assemblyUserLogin(loginVo.getLoginName(),password,loginVo.getUserId()));
+            records.add(assemblyUserLogin(loginVo.getLoginName(),password,loginVo.getUserId()));
         }
+        userLoginDtoMapper.insertBatch(records);
+
     }
 
     /**

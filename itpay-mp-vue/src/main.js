@@ -2,17 +2,14 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 //import { Button, Select ,Main,Container,Header,Form,FormItem,Input,Footer,Col} from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css'
+
 import App from './App'
 
 import store from './vuex/store'
 import Vuex from 'vuex'
 import router from './router'
-//import NProgress from 'nprogress'
-//import 'nprogress/nprogress.css'
-//import Mock from './mock'
-//Mock.bootstrap();
 import 'font-awesome/css/font-awesome.min.css'
+import './styles/vars.scss'
 
 Vue.use(ElementUI);
 // Vue.use(Button);

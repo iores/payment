@@ -67,6 +67,8 @@ export const addUser = params => {
     return axios.get(`${base}/user/add`, {params: params});
 };
 
+
+/*用户接口api*/
 export const postUserListPage = params => {
     return axios.post(`/api/rest/user/list`, params).then(res => res.data);
 };
@@ -75,6 +77,11 @@ export const userDetail = params => {
     return axios.get(`/api/rest/user/detail/${params}`).then(res => res.data);
 };
 
+export const postHandleFrozen = params => {
+    return axios.post(`/api/rest/user/frozen`, params).then(res => res.data);
+};
+
+/*登录用户接口api*/
 export const postLoginListPage = params => {
     return axios.post(`/api/rest/user/UserLoginList`, params).then(res => res.data);
 };

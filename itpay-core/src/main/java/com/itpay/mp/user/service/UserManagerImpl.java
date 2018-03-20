@@ -2,6 +2,9 @@ package com.itpay.mp.user.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.itpay.base.enums.ECoreExceptionCodeType;
+import com.itpay.base.enums.EUserStatus;
+import com.itpay.core.exception.CoreBusiRunTimeException;
 import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.dao.UserMapper;
 import com.itpay.mp.user.dto.UserDto;
@@ -61,5 +64,25 @@ public class UserManagerImpl implements UserManager {
         listPage.setPages(page.getPages());
         listPage.setList(list);
         return listPage;
+    }
+
+    /**
+     * 冻结解冻用户处理
+     *
+     * @param userId     用户id
+     * @param userStatus 处理状态
+     */
+    @Override
+    public void frozenAndNofrozen(String userId, EUserStatus userStatus) {
+        UserDto userDto = userMapper.selectByPrimaryKey(userId);
+        if(userDto == null){
+            throw  new CoreBusiRunTimeException(ECoreExceptionCodeType.PARAMETER_ERROR.getValue(),"根据用户id没有查询到用户信息");
+        }
+        //如果用户当前的状态与传入的状态一致，则直接返回
+        if(userStatus.equals(userDto.getStatus())){
+            return ;
+        }
+        userDto.setStatus(userStatus);
+        userMapper.updateByPrimaryKey(userDto);
     }
 }

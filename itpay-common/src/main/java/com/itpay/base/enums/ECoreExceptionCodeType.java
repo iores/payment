@@ -12,6 +12,10 @@ public enum ECoreExceptionCodeType implements BaseEnum<String> {
      * 核心系统字段检查错误编码
      */
     FIELD_CHEACK_ERROR("10001","字段检查错误"),
+    /**
+     * 参数错误
+     */
+    PARAMETER_ERROR("10002","参数错误"),
 
 
     ;

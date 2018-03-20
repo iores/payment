@@ -1,12 +1,19 @@
 <template>
     <section>
-        <el-form label-position="right" label-suffix=":" :inline="true" style="width: 100%;border: 1px solid #eaeaea" class="demo-table-expand">
-            <el-form-item label="用户编号">
-                <span>{{ user.id }}</span>
-            </el-form-item>
-            <el-form-item label="用户名称">
-                <span>{{ user.name }}</span>
-            </el-form-item>
+        <el-form label-position="right" label-suffix=":" style="width: 100%;border: 1px solid #eaeaea">
+            <el-row>
+                <el-col :span="12" :push="1">
+                    <el-form-item label="用户编号">
+                        <span>{{ user.id }}</span>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12" :push="1" >
+                    <el-form-item label="用户名称">
+                        <span>{{ user.name }}</span>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
             <el-form-item label="用户手机号">
                 <span>{{ user.phone }}</span>
             </el-form-item>
@@ -15,20 +22,7 @@
 </template>
 
 <style>
-    .demo-table-expand {
-        font-size: 0;
-    }
 
-    .demo-table-expand label {
-        width: 90px;
-        color: #99a9bf;
-    }
-
-    .demo-table-expand .el-form-item {
-        margin-right: 0;
-        margin-bottom: 0;
-        width: 50%;
-    }
 </style>
 <script>
     import util from '../../common/js/util'
