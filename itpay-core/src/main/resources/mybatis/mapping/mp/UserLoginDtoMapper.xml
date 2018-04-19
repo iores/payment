@@ -12,11 +12,12 @@
         <result column="status" jdbcType="VARCHAR" property="status"/>
         <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
         <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="handler_batch_no" jdbcType="VARCHAR" property="handlerBatchNo"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     </resultMap>
     <sql id="Base_Column_List">
     id, login_name, login_pwd, pwd_error_num, register_time, last_login_time, status, 
-    last_login_ip, user_id, create_time
+    last_login_ip, user_id, create_time,handler_batch_no
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -186,6 +187,9 @@
             <if test="userId != null and  userId != ''">
                 and user_id = #{userId,jdbcType=VARCHAR}
             </if>
+            <if test="handlerBatchNo != null and  handlerBatchNo != ''">
+                and handler_batch_no = #{handlerBatchNo,jdbcType=VARCHAR}
+            </if>
         </where>
     </select>
 
@@ -203,4 +207,32 @@
             </foreach>
 
     </insert>
+
+    <update id="updateHandlerBatchNo">
+        update t_user_login
+        set handler_batch_no = #{handlerBatchNo,jdbcType=VARCHAR}
+        where  status = #{status,jdbcType=VARCHAR}
+        and handler_batch_no is null
+    </update>
+
+    <update id="updateHandlerBatchNoNull">
+        update t_user_login
+        set handler_batch_no = null
+        where  handler_batch_no = #{handlerBatchNo,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateBatch">
+        update t_user_login t
+        set t.pwd_error_num = case t.id
+                <foreach collection="list" item="record">
+                    when #{record.id,jdbcType=VARCHAR} then #{record.pwdErrorNum,jdbcType=INTEGER}
+                </foreach>
+              end
+
+        where  t.id in
+        <foreach collection="list" item="record" open="(" close=")" separator=",">
+          #{record.id,jdbcType=VARCHAR}
+         </foreach>
+    </update>
+
 </mapper>

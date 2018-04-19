@@ -118,7 +118,7 @@ public class UserLoginManagerImpl implements UserLoginManager {
                 throw new CoreBusiRunTimeException(ECoreExceptionCodeType.FIELD_CHEACK_ERROR.getValue(),e.getMessage());
             }
             //将密码加密
-            String password = PassWordUtil.bcryptHashpw(loginVo.getPassWord());
+            String password =loginVo.getPassWord();// PassWordUtil.bcryptHashpw(loginVo.getPassWord());
             records.add(assemblyUserLogin(loginVo.getLoginName(),password,loginVo.getUserId()));
         }
         userLoginDtoMapper.insertBatch(records);
@@ -142,6 +142,37 @@ public class UserLoginManagerImpl implements UserLoginManager {
         listPage.setPages(page.getPages());
         listPage.setList(list);
         return listPage;
+    }
+
+    /**
+     * 根据状态修改批次处理号
+     *
+     * @param batchNo
+     * @param status
+     */
+    @Override
+    public void updateHandlerBatchNo(String batchNo, EUserStatus status) {
+        userLoginDtoMapper.updateHandlerBatchNo(batchNo,status);
+    }
+
+    /**
+     * 将批次号设置为空
+     *
+     * @param batchNo
+     */
+    @Override
+    public void updateHandlerBatchNoNull(String batchNo) {
+        userLoginDtoMapper.updateHandlerBatchNoNull(batchNo);
+    }
+
+    /**
+     * 批量更新错误次数
+     *
+     * @param list
+     */
+    @Override
+    public void updateBatch(List<UserLoginDto> list) {
+        userLoginDtoMapper.updateBatch(list);
     }
 
 

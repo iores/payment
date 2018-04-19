@@ -1,6 +1,7 @@
 package com.itpay.mp.user.dao;
 
 
+import com.itpay.base.enums.EUserStatus;
 import com.itpay.mp.user.dto.UserLoginDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -91,5 +92,25 @@ public interface UserLoginDtoMapper {
      */
     int insertBatch(@Param("records") List<UserLoginDto> records);
 
+
+    /**
+     * 根据状态修改批次处理号
+     * @param batchNo
+     * @param status
+     */
+    void updateHandlerBatchNo(@Param("handlerBatchNo") String batchNo,@Param("status") EUserStatus status);
+
+
+    /**
+     * 将批次号设置为空
+     * @param batchNo
+     */
+    void updateHandlerBatchNoNull(@Param("handlerBatchNo") String batchNo);
+
+    /**
+     * 批量更新
+     * @param list
+     */
+    void updateBatch(@Param("list") List<UserLoginDto> list);
 
 }

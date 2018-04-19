@@ -1,9 +1,11 @@
 package com.itpay.mp.user.service;
 
+import com.itpay.base.enums.EUserStatus;
 import com.itpay.core.model.page.ListPage;
 import com.itpay.mp.user.dto.UserDto;
 import com.itpay.mp.user.dto.UserLoginDto;
 import com.itpay.mp.user.vo.UserLoginVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -73,5 +75,25 @@ public interface UserLoginManager {
      */
     ListPage<UserLoginDto> listPage(ListPage<UserLoginDto> listPage, UserLoginDto queryParam);
 
+
+    /**
+     * 根据状态修改批次处理号
+     * @param batchNo
+     * @param status
+     */
+    void updateHandlerBatchNo(String batchNo, EUserStatus status);
+
+
+    /**
+     * 将批次号设置为空
+     * @param batchNo
+     */
+    void updateHandlerBatchNoNull(String batchNo);
+
+    /**
+     * 批量更新错误次数
+     * @param list
+     */
+    void updateBatch(List<UserLoginDto> list);
 
 }

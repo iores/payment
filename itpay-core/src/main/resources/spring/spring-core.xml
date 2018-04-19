@@ -35,13 +35,16 @@
         </property>
     </bean>
 
-
+    <bean id="nioEventLoopGroup" class="io.netty.channel.nio.NioEventLoopGroup">
+        <constructor-arg name="nThreads"  value="30"/>
+        <constructor-arg name="threadFactory" ref="taskExecutor"  />
+    </bean>
 
     <!-- thread pool -->
     <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
         <property name="corePoolSize" value="10"/>
-        <property name="maxPoolSize" value="30"/>
-        <property name="queueCapacity" value="70"/>
+        <property name="maxPoolSize" value="40"/>
+        <property name="queueCapacity" value="120"/>
     </bean>
 
 
